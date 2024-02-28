@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <title>mealddang</title>
+    <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=3volbh1cte"></script>
+    <link rel="stylesheet" href="navermap.css">
+</head>
+<body>
+    <nav>
+        <div class="inner">
+            <div class="nav-container">
+                <h1 class="nav-title">mealddang</h1>
+                <body>
+                    <form class="search-box" action="" method="get" >
+                        <input class="search-txt" type="text" name="" placeholder="검색어를 입력하세요">
+                        <button class="serch-btn" type="sumit">검색</button>
+                    </form>
+                    
+                </body>
+            </div>
+        </div>
+    </nav>
+
+
+    <main>
+        <!-- 카테고리 -->
+        <section id="category">
+            
+                <div class="category-container">
+                    <h2 class="category-title">mealddang 카테고리를 선택해보세요</h2>
+                    <div class="category-list">
+                        <button class="category-item">분위기좋은</button
+                        ><br><button class="category-item">회식하기좋은</button
+                        ><br><button class="category-item">깨끗한</button
+                        ><br><button class="category-item">친절한</button
+                        ><br><button class="category-item">룸이있는</button
+                        ><br><button class="category-item">갬성</button
+                        ><br><button class="category-item">주차공간</button
+                        ><br><button class="category-item">놀이방</button
+                        ><br><button class="category-item">콜키지</button>
+                    
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+<body>
+    
+    <div id="map" style="width:70%; height:500px; right: -250px;" > </div>
+    
+    <script>
+        
+        var map = new naver.maps.Map('map', {
+            center: new naver.maps.LatLng(37.498095, 127.027610), // 강남역 중심으로 하는 지도
+            zoom: 13
+        });
+
+        var marker = new naver.maps.Marker({
+            position: new naver.maps.LatLng(37.5112, 127.0981), //잠실 롯데월드 마커
+            map: map
+        });
+
+        var marker1 = new naver.maps.Marker({
+            position: new naver.maps.LatLng(37.5666805, 126.9784147), //시청 마커
+            map: map
+        });
+
+        var marker2 = new naver.maps.Marker({
+            position: new naver.maps.LatLng(37.498095, 127.027610), //강남역 마커
+            map: map
+        });
+
+        //실시간 위치 업데이트
+        setInterval(function() {
+    navigator.geolocation.getCurrentPosition(function(position) {
+    var latitude = position.coords.latitude;
+    var longitude = position.coords.longitude;
+
+    var markerOptions = {
+        position: new naver.maps.LatLng(latitude, longitude),
+        map: map
+    }
+
+
+    var marker = new naver.maps.Marker(markerOptions);
+    map.setCenter(markerOptions.position);
+    });
+  }, 5000); // 5초마다 위치 업데이트
+
+
+
+        var contentString2 = [
+        '<div class="iw_inner">',
+        '   <h3>강남역</h3>',
+        '   <p>서울 강남역이당<br />',
+        '       <img src="/static/images/123.png" width="55" height="55" alt="강남역" class="thumb" /><br />',
+        '       02-120 | 강남역 2호선 br />\n',
+        '       <a href="http://www.seoul.go.kr" target="_blank">www.seoul.go.kr/</a>',
+        '   </p>',
+        '</div>'
+        ].join('');
+
+        var infowindow2 = new naver.maps.InfoWindow({
+        content: contentString2
+});
+
+
+// 마커 클릭 이벤트
+
+naver.maps.Event.addListener(marker2, "click", function(e) {
+    if (infowindow2.getMap()) {
+        infowindow2.close();
+    } else {
+        infowindow2.open(map, marker2);
+    }
+});
+// 정보 창 띄우기
+
+infowindow2.open(map, marker2);
+
+
+var polyline = new naver.maps.Polyline({
+    map: map,
+    path: [],
+    strokeColor: '#5347AA',
+    strokeWeight: 2
+});
+
+naver.maps.Event.addListener(map, 'click', function(e) {
+
+    var point = e.coord;
+
+    var path = polyline.getPath();
+    path.push(point);
+
+    new naver.maps.Marker({
+        map: map,
+        position: point
+    });
+});
+
+
+</script>
+</body>
+        <body onload="initMap()"></body>
+</html>
