@@ -1,4 +1,4 @@
-package com.example.test.controller;
+package com.example.mealddang.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
