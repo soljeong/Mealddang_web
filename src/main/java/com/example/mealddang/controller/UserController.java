@@ -21,11 +21,17 @@ public class UserController {
     @Autowired
     UserService userService;
 
+    // 테스트
+    @GetMapping("/")
+    public String getIndex(Model model) {
+        return "index";
+    }
+
     // 회원가입 페이지 접속
     @GetMapping("/joinform")
     public String getJoinPage(Model model) {
         model.addAttribute("userEntity", new UserEntity());
-        return "joinForm";
+        return "user/joinForm";
     }
 
     // 회원가입 처리
@@ -40,7 +46,7 @@ public class UserController {
                 model.addAttribute(key, validatorResult.get(key));
             }
             // 회원가입 페이지로 리턴
-            return "joinForm";
+            return "user/joinForm";
         }
         // 아이디 중복 검사
         userService.checkUsernameDuplication(userEntity);
@@ -54,7 +60,18 @@ public class UserController {
     // 로그인 페이지
     @GetMapping("/loginform")
     public String getLoginPage(Model model) {
-        return "loginForm";
+        return "user/loginForm";
     }
 
+    // 메인페이지
+    @GetMapping("/user/main")
+    public String getMain(Model model) {
+        return "user/mainPage";
+    }
+
+    // 마이페이지 접속
+    @GetMapping("/user/mypage")
+    public String getMyPage(Model model) {
+        return "user/myPage";
+    }
 }

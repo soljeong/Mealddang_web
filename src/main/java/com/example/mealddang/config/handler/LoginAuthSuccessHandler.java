@@ -16,7 +16,7 @@ public class LoginAuthSuccessHandler extends SimpleUrlAuthenticationSuccessHandl
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
     Authentication authentication) throws IOException, ServletException {
-        response.sendRedirect("/user/map"); // controller mapping
+        response.sendRedirect("/user/main"); // controller mapping
         super.onAuthenticationSuccess(request, response, authentication);
     }
     
