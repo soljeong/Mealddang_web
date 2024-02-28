@@ -1,0 +1,111 @@
+spring:
+    jackson:
+            serialization:
+                fail-on-empty-beans: false    # json 반환 오류 처리
+    output:
+        ansi:
+            enabled: always    # 콘솔
+
+    # 회원가입시 이메일 인증 설정
+    mail:
+        host: smtp.gmail.com    # SMTP 서버 호스트
+        port: 587               # SMTP 서버 포트 (보통 587)
+        username: mealddang77   # SMTP 서버 로그인 아이디, 이메일 발신자
+        password: amfbwpajzsrszogh  # SMTP 서버 로그인 패스워드
+        properties:
+            mail:
+                smtp:
+                    auth: true  # SMTP 사용자 인증 여부(SMTP 서버는 인증을 요구하므로, 'true' 설정)
+                    starttls:
+                        enable: true  # SMTP 서버의 TLS(데이터암호화로 안전한 전송 보장하는 프로토콜) 사용 여부
+                        required: true
+                    connectiontimeout: 5000 # 클라이언트와 SMTP서버 사이 연결 설정까지 대기 시간(ms)
+                    timeout: 5000           # Socket read Timeout 시간, 서버에서 응답이 오지 않을 경우 시간 제한(ms)
+                    writetimeout: 5000      # 클라이언트 작업 완료까지 대기 시간, 이메일을 SMTP 서버로 전송하는데 걸리는 시간 제한(ms)
+            auth-code-expiration-millis: 60000  # 이메일로 전송한 인증코드 만료 시간, [1]분 * 60초/분 * 1000밀리초/초
+    
+    # 소셜계정 회원가입 및 로그인 설정
+    security:
+        oauth2:
+            client:
+                registration:
+                    google:
+                        client-id: 891897790497-82cdu8plm89hngeep9hjjqrpnji5ar0o.apps.googleusercontent.com
+                        client-secret: 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
+                        scope:
+                            - profile
+                            - email
+                    naver:
+                        client-id: IY8W4qORIMStSyRyKLs3
+                        client-secret: ujSBysczYo
+                        client-name: Naver
+                        redirect-uri: "http://localhost:8080/login/oauth2/code/naver"
+                        authorization-grant-type: authorization_code
+                        scope:
+                            - name
+                            - email
+                    kakao:
+                        client-id: 777da15003dce3abf5512f6059c5f7b1
+                        client-secret: XVIkuFQtQBXS2ap1VUNbECpPp5p4Fl9t
+                        client-name: Kakao
+                        client-authentication-method: POST
+                        redirect-uri: "http://localhost:8080/login/oauth2/code/kakao"
+                        authorization-grant-type: authorization_code
+                        scope:
+                            - profile_nickname
+                            #- account_email
+                provider:
+                    naver:
+                        authorization-uri: https://nid.naver.com/oauth2.0/authorize
+                        token-uri: https://nid.naver.com/oauth2.0/token
+                        user-info-uri: https://openapi.naver.com/vi/nid/me
+                        user-name-attribute: response
+                    kakao:
+                        authorizationUri: https://kauth.kakao.com/oauth/authorize
+                        tokenUri: https://kauth.kakao.naver.com/oauth/token
+                        userInfoUri: https://kapi.kakao.com/v2/user/me
+                        userNameAttribute: id
+    
+    # 데이터베이스 (MySQL mealddang.db)
+    datasource:
+        url: jdbc:mysql://15.164.171.183:3306/mealddang
+        username: mealddang
+        password: test1234
+        driver-class-name: com.mysql.cj.jdbc.Driver
+    # DB connection 객체 만드는 애
+    jpa:
+        hibernate:
+            ddl-auto: update
+        properties:
+            hibernate:
+                '[show_sql]': true
+                '[format_sql]': true
+    
+    # View: Thymeleaf (1. 루트폴더 변경 2. 타임리프 캐시 설정 변경)
+    thymeleaf:
+        prefix: classpath:templates/
+        check-template-location: true
+        suffix: .html
+        mode: HTML
+        cache: false
+    # mustache:
+    #     prefix: classpath:templates/
+    #     check-template-location: true 
+    #     suffix: .html   # .html을 mustache 파일로 인식하겠다 (html 확장자가 사용 편리하니까~)
+    #     cache: false
+    mvc:
+        static-path-pattern: /static/**
+
+logging:
+    level:
+        '[org.springframework.security]': DEBUG
+
+# 한글깨짐처리
+server:
+    servlet:
+        encoding:
+            charset: UTF-8
+            enabled: true
+            force: true
+
+
