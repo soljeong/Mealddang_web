@@ -9,19 +9,19 @@ import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.mealddang.model.entity.MdUser;
 import com.example.mealddang.service.MdUserService;
 
 import jakarta.validation.Valid;
-import org.springframework.web.bind.annotation.RequestMethod;
-
 
 // 회원 관련 서비스 컨트롤러
 @Controller
 public class MdUserController {
     @Autowired
     MdUserService mdUserService;
+
     // 테스트 페이지
     @GetMapping("/")
     public String getIndex(Model model) {
@@ -74,13 +74,51 @@ public class MdUserController {
         model.addAttribute("mdUser", mdUser);
         return "user/myPage";
     }
-    // [인증 후] 마이 페이지 수정
-    @PostMapping("/user/mypage")
-    public String postMyPage(Model model, Authentication authentication) {
+    // [인증 후] 회원정보 수정
+    // 1. 닉네임
+    @PostMapping("/user/mypage/update_nickname")
+    public String postNickname(@RequestParam String nickname, Model model, Authentication authentication) {
         String username = authentication.getName();
         MdUser mdUser = mdUserService.findByUsername(username);
-        mdUserService.modifyMdUser(mdUser);
-        return "user/myPage";
+        mdUserService.modifyNickname(mdUser, nickname);
+        model.addAttribute("mdUser", mdUser);
+        return "redirect:/user/mypage";
+    }
+    // 2. 생일
+    @PostMapping("/user/mypage/update_birth")
+    public String postBirth(@RequestParam String birth, Model model, Authentication authentication) {
+        String username = authentication.getName();
+        MdUser mdUser = mdUserService.findByUsername(username);
+        mdUserService.modifyBirth(mdUser, birth);
+        model.addAttribute("mdUser", mdUser);
+        return "redirect:/user/mypage";
+    }
+    // 3. 성별
+    @PostMapping("/user/mypage/update_gender")
+    public String postGender(@RequestParam String gender, Model model, Authentication authentication) {
+        String username = authentication.getName();
+        MdUser mdUser = mdUserService.findByUsername(username);
+        mdUserService.modifyGender(mdUser, gender);
+        model.addAttribute("mdUser", mdUser);
+        return "redirect:/user/mypage";
+    }
+    // 4. 신장
+    @PostMapping("/user/mypage/update_cm")
+    public String postCm(@RequestParam String cm, Model model, Authentication authentication) {
+        String username = authentication.getName();
+        MdUser mdUser = mdUserService.findByUsername(username);
+        mdUserService.modifyCm(mdUser, cm);
+        model.addAttribute("mdUser", mdUser);
+        return "redirect:/user/mypage";
+    }
+    // 5. 몸무게
+    @PostMapping("/user/mypage/update_kg")
+    public String postKg(@RequestParam String kg, Model model, Authentication authentication) {
+        String username = authentication.getName();
+        MdUser mdUser = mdUserService.findByUsername(username);
+        mdUserService.modifyKg(mdUser, kg);
+        model.addAttribute("mdUser", mdUser);
+        return "redirect:/user/mypage";
     }
     // [인증 후] 마이 갤러리
     @GetMapping("user/mygallery")

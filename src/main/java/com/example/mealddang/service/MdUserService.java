@@ -17,7 +17,6 @@ import com.example.mealddang.config.constant.Role;
 import com.example.mealddang.model.entity.MdUser;
 import com.example.mealddang.model.repository.MdUserRepository;
 
-
 @Service
 public class MdUserService {
     
@@ -51,11 +50,35 @@ public class MdUserService {
         mdUserRepository.save(p_mdUser);
     }
     // 회원 정보 수정
-    public void modifyMdUser(@NonNull MdUser p_mdUser) {
-        MdUser mdUser = mdUserRepository.findByUsername(p_mdUser.getUsername())
-            .orElseThrow(() -> new NoSuchElementException("No MdUser found with username: " + p_mdUser.getUsername()));
+    // 1. 닉네임 수정
+    public void modifyNickname(MdUser mdUser, String p_nickname) {
+            mdUser.setNickname(p_nickname);
         mdUserRepository.save(mdUser);
     }
+    // 2. 생년월일 수정
+    public void modifyBirth(MdUser mdUser, String p_birth) {
+        mdUser.setBirth(p_birth);
+    mdUserRepository.save(mdUser);
+    }
+    // 3. 성별 수정
+    public void modifyGender(MdUser mdUser, String p_gender) {
+        mdUser.setGender(p_gender);
+    mdUserRepository.save(mdUser);
+    }
+    // 4. 신장 수정
+    public void modifyCm(MdUser mdUser, String p_tall) {
+        float tall = Float.parseFloat(p_tall);
+        mdUser.setUserCm(tall);
+    mdUserRepository.save(mdUser);
+    }
+    // 5. 몸무게 수정
+    public void modifyKg(MdUser mdUser, String p_weight) {
+        float weight = Float.parseFloat(p_weight);
+        mdUser.setUserKg(weight);
+    mdUserRepository.save(mdUser);
+    }
+    // 5. 관심키워드 수정...0 / 1구현해야함
+
     // 회원 삭제
     public void deleteUser(@NonNull String p_username) {
         try {

@@ -8,7 +8,7 @@
 <body>
     <header>
         <div class="loginInfo">
-            <h3 th:text="${mdUser.username} + '님의 개인정보'"></h3>
+            <h3 th:text="${mdUser.nickname != null ? mdUser.nickname : mdUser.username} + '님의 개인정보'"></h3>
             <a href="/user/rsrt/map"><button>밀땅 검색(식당 검색)</button></a>
             <a href="/user/diet/log"><button>밀땅 일지(식단 관리)</button></a>
             <a href="/user/mygallery"><button>마이 갤러리</button></a>
@@ -17,29 +17,33 @@
     </header>
     <main>
         <div class="userinfo">
-            <form action="/user/mypage" method="post" th:object="${mdUser}">
-                <div class="infobox">
-                    <div class="form-group">
-                        <label>닉네임</label>
-                        <input type="text" th:field="*{nickname}" class="form-control"/>
-                    </div>
-                    <div class="form-group">
-                        <label>생년월일(YYMMDD)</label>
-                        <input type="text" th:field="*{birth}" class="form-control"/>
-                    </div>
-                    <div class="form-group">
-                        <label>성별</label>
-                            <label><input type="radio" th:field="*{gender}" class="form-control" value="M">남성</label>
-                            <label><input type="radio" th:field="*{gender}" class="form-control" value="F">여성</label>
-                    </div>
-                    <div class="form-group">
-                        <label>신장</label>
-                        <input type="text" th:field="*{userCm}" class="form-control" placeholder="키를 입력해주세요(소수점 입력 가능)"/>
-                    </div>
-                    <div class="form-group">
-                        <label>몸무게</label>
-                        <input type="text" th:field="*{userKg}" class="form-control" placeholder="몸무게를 입력해주세요(소수점 입력 가능)"/>
-                    </div>
+            <form id="update" action="#" th:action="@{/user/mypage/update_nickname}" method="post">
+                <label for="nickname">별명: </label>
+                <input type="text" id="nickname" name="nickname" th:attr="placeholder=${mdUser.nickname != null ? mdUser.nickname : 'none'}" required/>
+                <button type="submit">별명 수정</button>
+            </form>
+            <form id="update" action="#" th:action="@{/user/mypage/update_birth}" method="post">
+                <label for="birth">생일(YYMMDD): </label>
+                <input type="text" id="birth" name="birth" th:attr="placeholder=${mdUser.birth != null ? mdUser.birth : 'none'}" required/>
+                <button type="submit">생일 수정</button>
+            </form>
+            <form id="update" action="#" th:action="@{/user/mypage/update_gender}" method="post">
+                <label for="gender">성별: </label>
+                <input type="radio" id="gender" name="gender" value="F" th:checked="${mdUser.gender == null and mdUser.gender != 'M'}" required/>여성
+                <input type="radio" id="gender" name="gender" value="M" th:checked="${mdUser.gender != null and mdUser.gender == 'M' }" required/>남성
+                <button type="submit">성별 수정</button>
+            </form>
+            <form id="update" action="#" th:action="@{/user/mypage/update_cm}" method="post">
+                <label for="cm">키(cm 소수점 가능): </label>
+                <input type="text" id="cm" name="cm" th:attr="placeholder=${mdUser.userCm != null ? mdUser.userCm : 'none'}" required/>
+                <button type="submit">신장 수정</button>
+            </form>
+            <form id="update" action="#" th:action="@{/user/mypage/update_kg}" method="post">
+                <label for="kg">몸무게(kg 소수점 가능): </label>
+                <input type="text" id="kg" name="kg" th:attr="placeholder=${mdUser.userKg != null ? mdUser.userKg : 'none'}" required/>
+                <button type="submit">몸무게 수정</button>
+            </form>
+
                     <!-- <div class="form-group">
                         <label>관심지역</label>
                         <label><input type="checkbox" th:field="*{userArea}" class="form-control" value="gangnam" />강남구</label>
@@ -47,7 +51,7 @@
                         <label><input type="checkbox" th:field="*{userArea}" class="form-control" value="jongro" />종로구</label>
                         <span th:if="${valid_userArea}" th:text="${valid_userArea}" id="valid"></span>
                     </div> -->
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                         <label>관심키워드</label>
                             <label>
                                 <input type="checkbox" th:field="*{userTag1}" class="form-control" value=1 />가격이_착한
@@ -61,7 +65,7 @@
                     </div>
                 </div>
                 <input type="submit" value="수정 완료">
-            </form>
+            </form> -->
         </div>
     </main>
     <footer>

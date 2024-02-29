@@ -11,7 +11,7 @@
             <a href="/user/main"><span class="nav-title">MealDDang</h1></a>
             <a href="/user/mypage"><button>마이페이지</button></a>
             <a href="/logout"><button type="submit" id="logout-btn">로그아웃</button></a>
-            <h1 th:text="${mdUser.nickname} + '님 안녕하세요!'"></h1>
+            <h1 th:text="${mdUser.nickname != null ? mdUser.nickname : mdUser.username} + '님 안녕하세요!'"></h1>
         </div>
     </header>
     <main>
