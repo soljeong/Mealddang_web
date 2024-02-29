@@ -12,7 +12,7 @@
     <div class="inner">
         <div class="nav-container">
             <h1 class="nav-title">mealddang</h1>
-            <form class="search-box" action="/user/map/search" method="GET">
+            <form class="search-box" action="/user/rsrt/search" method="GET">
                 <input onkeyup="enterkey()" type="search" name="searchkey"/>
                 <button type="submit">
                     <i class="fa-solid fa-magnifying-glass"></i>
@@ -52,9 +52,9 @@
     <div class="searchResult" th:unless="${searchResults == null || searchResults.isEmpty()}">
         <table>
             <tbody class="searchResultTable">
-                <tr th:id="${store.storeName}" th:each="store : ${searchResults}" class="table-row">
-                    <td class="table-data" th:text="${store.storeName != null ? store.storeName : 'N/A'}"></td>
-                    <td class="table-data" th:text="${store.roadAddr != null ? store.roadAddr : 'N/A'}"></td>
+                <tr th:id="${mdStore.storeName}" th:each="mdStore : ${searchResults}" class="table-row">
+                    <td class="table-data" th:text="${mdStore.storeName != null ? mdStore.storeName : 'N/A'}"></td>
+                    <td class="table-data" th:text="${mdStore.storeAddr != null ? mdStore.storeAddr : 'N/A'}"></td>
                 </tr>
             </tbody>
         </table>

@@ -3,7 +3,7 @@ package com.example.mealddang.config.oauth;
 import java.util.Map;
 
 import com.example.mealddang.config.constant.Role;
-import com.example.mealddang.model.entity.UserEntity;
+import com.example.mealddang.model.entity.MdUser;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -15,7 +15,7 @@ public class OAuthAttributes {
     private String nameAttributeKey;
     private String username;
     private String email;
-    private UserEntity userEntity;
+    private MdUser mdUser;
 
     public static OAuthAttributes of(
         String registrationId, String userNameAttributeName, Map<String, Object> attributes) {
@@ -62,10 +62,10 @@ public class OAuthAttributes {
             .build();
     }
 
-    public UserEntity toEntity() {
-        userEntity.setUsername(username);
-        userEntity.setEmail(email);
-        userEntity.setRole(Role.USER);
-        return userEntity;
+    public MdUser toEntity() {
+        mdUser.setUsername(username);
+        mdUser.setEmail(email);
+        mdUser.setRole(Role.USER);
+        return mdUser;
     }
 }

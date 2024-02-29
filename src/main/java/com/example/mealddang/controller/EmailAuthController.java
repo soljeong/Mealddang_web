@@ -9,6 +9,7 @@ import com.example.mealddang.service.EmailAuthService;
 
 import lombok.RequiredArgsConstructor;
 
+// 회원가입시 이메일 인증 관련 컨트롤러
 @RestController
 @RequiredArgsConstructor
 public class EmailAuthController {

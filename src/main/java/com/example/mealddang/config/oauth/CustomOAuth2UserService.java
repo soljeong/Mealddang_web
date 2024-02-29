@@ -12,20 +12,19 @@ import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
-import com.example.mealddang.model.entity.UserEntity;
-import com.example.mealddang.model.repository.UserRepository;
+import com.example.mealddang.model.entity.MdUser;
+import com.example.mealddang.model.repository.MdUserRepository;
 
 import jakarta.servlet.http.HttpSession;
 
 @Service
 public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequest, OAuth2User> {
-    
     @Autowired
-    private UserRepository userRepository;
+    private MdUserRepository mdUserRepository;
     private final HttpSession httpSession;
 
-    public CustomOAuth2UserService(UserRepository userRepository, HttpSession httpSession) {
-        this.userRepository = userRepository;
+    public CustomOAuth2UserService(MdUserRepository p_mdUserRepository, HttpSession httpSession) {
+        this.mdUserRepository = p_mdUserRepository;
         this.httpSession = httpSession;
     }
 
@@ -39,21 +38,21 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
 
         OAuthAttributes attributes = OAuthAttributes.of(registrationId, userNameAttributeName, oAuth2User.getAttributes());
 
-        UserEntity user = saveOrUpdate(attributes);
-        httpSession.setAttribute("user", new SessionUser(user));
+        MdUser mdUser = saveOrUpdate(attributes);
+        httpSession.setAttribute("user", new SessionUser(mdUser));
 
         return new DefaultOAuth2User(
-            Collections.singleton(new SimpleGrantedAuthority(user.getRole().getKey())),
+            Collections.singleton(new SimpleGrantedAuthority(mdUser.getRole().getKey())),
             attributes.getAttributes(),
             attributes.getNameAttributeKey()
         );
     }
 
-    private UserEntity saveOrUpdate(OAuthAttributes attributes) {
-        UserEntity user = userRepository.findByEmail(attributes.getEmail())
+    private MdUser saveOrUpdate(OAuthAttributes attributes) {
+        MdUser mdUser = mdUserRepository.findByEmail(attributes.getEmail())
         .map(entity -> entity.update(attributes.getUsername())).orElse(attributes.toEntity());
 
-        return userRepository.save(user);
+        return mdUserRepository.save(mdUser);
     }
     
 }

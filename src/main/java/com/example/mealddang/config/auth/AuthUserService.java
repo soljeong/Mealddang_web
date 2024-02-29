@@ -6,22 +6,20 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.example.mealddang.model.entity.UserEntity;
-import com.example.mealddang.model.repository.UserRepository;
+import com.example.mealddang.model.entity.MdUser;
+import com.example.mealddang.model.repository.MdUserRepository;
 
 @Service
 public class AuthUserService implements UserDetailsService {
     @Autowired
-    private UserRepository userRepository;
+    private MdUserRepository mdUserRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserEntity userEntity = userRepository.getUserEntityByUsername(username);
-
-        if(userEntity != null) {
-            return new AuthUserDetails(userEntity);
+        MdUser mdUser = mdUserRepository.findByUsername(username).get();
+        if(mdUser != null) {
+            return new AuthUserDetails(mdUser);
         }
         throw new UsernameNotFoundException(username);
     }
-    
 }

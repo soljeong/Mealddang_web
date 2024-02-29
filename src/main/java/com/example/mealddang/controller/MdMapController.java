@@ -8,18 +8,20 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.example.mealddang.service.StoreService;
+import com.example.mealddang.service.MdStoreService;
 
+// [인증 후] 맛집검색 관련 컨트롤러
 @Controller @RequestMapping("/user/rsrt")
-public class MapController {
+public class MdMapController {
     @Autowired
-    private StoreService storeService;
+    private MdStoreService storeService;
 
+    // 맛집검색 홈페이지
     @GetMapping("/map")
-    public String userMap(Model model) {
+    public String getMap(Model model) {
         return "map/navermap";
     }
-    
+    // 검색
     @GetMapping("/search")
     public String search(@RequestParam("searchkey") String searchkey, Model model) {
         if (ObjectUtils.isEmpty(searchkey)){

@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
-import com.example.mealddang.model.entity.UserEntity;
-import com.example.mealddang.model.repository.UserRepository;
+import com.example.mealddang.model.entity.MdUser;
+import com.example.mealddang.model.repository.MdUserRepository;
 
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
@@ -19,7 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class EmailAuthService {
     @Autowired
-    private UserRepository userRepository;
+    private MdUserRepository mdUserRepository;
 
     private final JavaMailSender javaMailSender;
     private static final String senderEmail= "${spring.mail.username}";
@@ -27,8 +27,8 @@ public class EmailAuthService {
 
     // 이메일 중복 체크
     private void checkEmailExist(String emailAddr) {
-        Optional<UserEntity> user = userRepository.findByEmail(emailAddr);
-        if (user.isPresent()) {
+        Optional<MdUser> mdUser = mdUserRepository.findByEmail(emailAddr);
+        if (mdUser.isPresent()) {
             log.debug("[MemberServiceImpl.checkEmailExist] Exception : {} Already Exist", emailAddr);
             throw new RuntimeException("Already Exist: " + emailAddr);
         }
