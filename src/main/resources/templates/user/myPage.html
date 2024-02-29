@@ -6,12 +6,66 @@
     <title>밀땅</title>
 </head>
 <body>
-    <div class="loginInfo">
-        <h1>밀땅 회원페이지</h1>
-        <a href="/user/rsrt/map"><button>밀땅 검색(식당 검색)</button></a>
-        <a href="/user/diet/log"><button>밀땅 일지(식단 관리)</button></a>
-        <a href="/user/diet/gallery"><button>갤러리</button></a>
-        <button><a href="/logout">로그아웃</a></button><br>
-    </div>
+    <header>
+        <div class="loginInfo">
+            <h3 th:text="${mdUser.username} + '님의 개인정보'"></h3>
+            <a href="/user/rsrt/map"><button>밀땅 검색(식당 검색)</button></a>
+            <a href="/user/diet/log"><button>밀땅 일지(식단 관리)</button></a>
+            <a href="/user/mygallery"><button>마이 갤러리</button></a>
+            <a href="/logout"><button type="submit" id="logout-btn">로그아웃</button></a>
+        </div>
+    </header>
+    <main>
+        <div class="userinfo">
+            <form action="/user/mypage" method="post" th:object="${mdUser}">
+                <div class="infobox">
+                    <div class="form-group">
+                        <label>닉네임</label>
+                        <input type="text" th:field="*{nickname}" class="form-control"/>
+                    </div>
+                    <div class="form-group">
+                        <label>생년월일(YYMMDD)</label>
+                        <input type="text" th:field="*{birth}" class="form-control"/>
+                    </div>
+                    <div class="form-group">
+                        <label>성별</label>
+                            <label><input type="radio" th:field="*{gender}" class="form-control" value="M">남성</label>
+                            <label><input type="radio" th:field="*{gender}" class="form-control" value="F">여성</label>
+                    </div>
+                    <div class="form-group">
+                        <label>신장</label>
+                        <input type="text" th:field="*{userCm}" class="form-control" placeholder="키를 입력해주세요(소수점 입력 가능)"/>
+                    </div>
+                    <div class="form-group">
+                        <label>몸무게</label>
+                        <input type="text" th:field="*{userKg}" class="form-control" placeholder="몸무게를 입력해주세요(소수점 입력 가능)"/>
+                    </div>
+                    <!-- <div class="form-group">
+                        <label>관심지역</label>
+                        <label><input type="checkbox" th:field="*{userArea}" class="form-control" value="gangnam" />강남구</label>
+                        <label><input type="checkbox" th:field="*{userArea}" class="form-control" value="seocho" />서초구</label>
+                        <label><input type="checkbox" th:field="*{userArea}" class="form-control" value="jongro" />종로구</label>
+                        <span th:if="${valid_userArea}" th:text="${valid_userArea}" id="valid"></span>
+                    </div> -->
+                    <div class="form-group">
+                        <label>관심키워드</label>
+                            <label>
+                                <input type="checkbox" th:field="*{userTag1}" class="form-control" value=1 />가격이_착한
+                            </label>
+                            <label>
+                                <input type="checkbox" th:field="*{userTag2}" class="form-control" value=1 />쾌적한
+                            </label>
+                            <label>
+                                <input type="checkbox" th:field="*{userTag3}" class="form-control" value="1"/>주차가능한
+                            </label>
+                    </div>
+                </div>
+                <input type="submit" value="수정 완료">
+            </form>
+        </div>
+    </main>
+    <footer>
+        <p>footer 여백</p>
+    </footer>
 </body>
 </html>

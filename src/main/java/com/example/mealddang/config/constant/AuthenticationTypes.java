@@ -6,6 +6,7 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum AuthenticationTypes {
+    NoSuchElementException(400, "계정없음"),
     BadCredentialsException(401, "비밀번호불일치"),
     UsernameNotFoundException(402, "계정없음"),
     AccountExpiredException(403, "계정만료"),

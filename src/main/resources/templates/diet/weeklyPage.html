@@ -1,11 +1,56 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>밀땅</title>
 </head>
 <body>
-    <h1>주간 AI 리포트</h1>
+    <header>
+        <div class="navbar">
+            <a href="/user/main"><span class="nav-title">MealDDang</h1></a>
+            <a href="/user/mypage"><button>마이페이지</button></a>
+            <a href="/logout"><button>로그아웃</button></a>
+            <a href="/user/diet/log"><h1 th:text="${mdUser.nickname} + '님의 밀땅 일지'"></h1></a>
+        </div>
+    </header>
+    <main>
+        <section class="title">
+            <h3>MealDDang Log: Weekly AI Report</h3>
+        </section>
+        <section class="weeklylog">
+            <table class="weeklylog-table">
+                <tbody>
+                    <tr id="kcal">
+                        <td>칼로리</td>
+                        <td>1000/1500 kcal</td>
+                    </tr>
+                    <tr id="carbohydrates">
+                        <td>탄수화물</td>
+                        <td>100/300 g</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        <section class="weeklylog">
+            <h5>일일 영양섭취량</h5>
+            <p>월화수목금토일 막대그래프</p>
+        </section>
+        <section class="weeklylog">
+            <h5>3대 영양소 섭취비율</h5>
+            <p>권장비율과 실제섭취비율 비교하는 원그래프</p>
+        </section>
+        <section class="weeklylog">
+            <h5>영양 신호등</h5>
+            <p>영양섭취량에 대해 부족/충분/경고/과다 색깔별로 안내</p>
+        </section>
+        <section class="weeklylog">
+            <h5>추천 레시피</h5>
+            <p>부족한 영양소 기준으로 음식 추천</p>
+            <div class="recom-recipe">추천1</div>
+            <div class="recom-recipe">추천2</div>
+            <div class="recom-recipe">추천3</div>
+        </section>
+    </main>
 </body>
 </html>

@@ -1,20 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>밀땅</title>
 </head>
 <body>
-    <h1>밀땅 로그인 페이지</h1>
+    <header>
+        <div class="navbar">
+            <h1 class="nav-title">MealDDang Login</h1>
+        </div>
+    </header>
     <form action="/loginprocess" method="post">
         <input type="text" name="username" placeholder="아이디 입력"/> <br>
         <input type="password" name="password" placeholder="비밀번호 입력"/> <br>
-        <input type="submit" id="btn"/>
+        <button type="submit" id="login-btn">로그인</button>
     </form>
-    <a href="/oauth2/authorization/google" class="btn btn-success active" role="button">Google Login</a>
-    <a href="/oauth2/authorization/naver" class="btn btn-secondary active" role="button">Naver Login</a>
-    <a href="/oauth2/authorization/kakao" class="btn btn-success active" role="button">Kakao Login</a>
-    <a href="/joinform">회원가입 페이지로</a>
+    <a href="/oauth2/authorization/google" class="btn btn-success active" role="button">구글 로그인</a>
+    <a href="/oauth2/authorization/naver" class="btn btn-secondary active" role="button">네이버 로그인</a>
+    <a href="/oauth2/authorization/kakao" class="btn btn-success active" role="button">카카오 로그인</a><br>
+    <a href="/joinform" class="join-btn"><button type="submit" id="join-btn">회원가입</button></a>
 </body>
 </html>

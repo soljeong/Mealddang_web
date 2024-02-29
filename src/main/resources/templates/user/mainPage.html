@@ -1,15 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>밀땅</title>
 </head>
 <body>
-    <h1>메인페이지</h1>
-    <p>이용할 서비스를 선택하세요</p>
-    <a href="/user/rsrt/map"><button>밀땅 검색(식당 검색)</button></a>
-    <a href="/user/diet/log"><button>밀땅 일지(식단 관리)</button></a>
-    <a href="/user/mypage"><button>마이페이지</button></a>
+    <header>
+        <div class="navbar">
+            <a href="/user/main"><span class="nav-title">MealDDang</h1></a>
+            <a href="/user/mypage"><button>마이페이지</button></a>
+            <a href="/logout"><button type="submit" id="logout-btn">로그아웃</button></a>
+            <h1 th:text="${mdUser.nickname} + '님 안녕하세요!'"></h1>
+        </div>
+    </header>
+    <main>
+        <div class="select-service">
+            <a class="select-diet" href="/user/diet/log"><button><h3>밀땅 일지</h3><p>건강한 식단관리를 향해서</p></button></a>
+            <a class="select-rsrt" href="/user/rsrt/map"><button><h3>밀땅 검색</h3><p>내가 원하는 맛집을 찾아서</p></button></a>
+        </div>
+    </main>
+    <footer>
+        <p>footer 여백</p>
+    </footer>
 </body>
 </html>

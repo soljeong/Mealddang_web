@@ -1,15 +1,79 @@
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>밀땅</title>
 </head>
 <body>
-    <h1>밀땅일지</h1>
-    <button><a href="/user/rsrt/map">밀땅검색(식당검색)으로</a></button><br>
-    <button><a href="/logout">로그아웃</a></button><br>
-    <a href="/user/diet/weekly">주간 AI리포트</a>
-    <a href="/user/diet/analysis">이미지 AI분석</a>
+    <header>
+        <div class="navbar">
+            <a href="/user/main"><span class="nav-title">MealDDang</h1></a>
+            <a href="/user/mypage"><button>마이페이지</button></a>
+            <a href="/logout"><button type="submit" id="logout-btn">로그아웃</button></a>
+            <a href="/user/diet/log"><h1 th:text="${mdUser.nickname} + '님의 밀땅 일지'"></h1></a>
+        </div>
+    </header>
+    <main>
+        <section class="title">
+            <h3>MealDDang Log: Main</h3>
+        </section>
+        <section class="weeklylog">
+            <h3>Weekly Intake</h3>
+            <p>2024.02.19-2024.02.23</p>
+            <a href="/user/diet/weekly"><button>Weekly AI Report</button></a>
+            <table class="weeklylog-table">
+                <tbody>
+                    <tr id="kcal">
+                        <td>칼로리</td>
+                        <td>1000/1500 kcal</td>
+                    </tr>
+                    <tr id="carbohydrates">
+                        <td>탄수화물</td>
+                        <td>100/300 g</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        <section class="dailylog">
+            <div class="dailylog-box">
+                <table class="dailylog-table">
+                    <tbody>
+                        <tr id="kcal">
+                            <td>칼로리</td>
+                            <td>1000/1500 kcal</td>
+                        </tr>
+                        <tr id="carbohydrates">
+                            <td>탄수화물</td>
+                            <td>100/300 g</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <img src="#"/>
+                <a href="/user/diet/analysis"><button>이미지 AI분석</button></a>
+            </div>
+            <div class="dailylog-box">
+                <table class="dailylog-table">
+                    <tbody>
+                        <tr id="kcal">
+                            <td>칼로리</td>
+                            <td>1000/1500 kcal</td>
+                        </tr>
+                        <tr id="carbohydrates">
+                            <td>탄수화물</td>
+                            <td>100/300 g</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <img src="#"/>
+                <a href="/user/diet/analysis"><button>이미지 AI분석</button></a>
+            </div>
+        </section>
+
+    </main>
+    <footer>
+        <p>footer 여백</p>
+    </footer>
 </body>
 </html>

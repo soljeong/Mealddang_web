@@ -3,6 +3,7 @@ package com.example.mealddang.controller;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -13,6 +14,8 @@ import com.example.mealddang.model.entity.MdUser;
 import com.example.mealddang.service.MdUserService;
 
 import jakarta.validation.Valid;
+import org.springframework.web.bind.annotation.RequestMethod;
+
 
 // 회원 관련 서비스 컨트롤러
 @Controller
@@ -48,7 +51,7 @@ public class MdUserController {
         mdUserService.checkUsernameDuplication(mdUser);
         // 회원 저장
         mdUserService.addMdUser(mdUser);
-        return "redirect:/loginform";
+        return "user/loginform";
     }
     // 로그인 페이지
     @GetMapping("/loginform")
@@ -57,12 +60,34 @@ public class MdUserController {
     }
     // [인증 후] 메인 페이지
     @GetMapping("/user/main")
-    public String getMain(Model model) {
+    public String getMain(Model model, Authentication authentication) {
+        String username = authentication.getName();
+        MdUser mdUser = mdUserService.findByUsername(username);
+        model.addAttribute("mdUser", mdUser);
         return "user/mainPage";
     }
     // [인증 후] 마이 페이지
     @GetMapping("/user/mypage")
-    public String getMyPage(Model model) {
+    public String getMyPage(Model model, Authentication authentication) {
+        String username = authentication.getName();
+        MdUser mdUser = mdUserService.findByUsername(username);
+        model.addAttribute("mdUser", mdUser);
         return "user/myPage";
+    }
+    // [인증 후] 마이 페이지 수정
+    @PostMapping("/user/mypage")
+    public String postMyPage(Model model, Authentication authentication) {
+        String username = authentication.getName();
+        MdUser mdUser = mdUserService.findByUsername(username);
+        mdUserService.modifyMdUser(mdUser);
+        return "user/myPage";
+    }
+    // [인증 후] 마이 갤러리
+    @GetMapping("user/mygallery")
+    public String getMyGallery(Model model, Authentication authentication) {
+        String username = authentication.getName();
+        MdUser mdUser = mdUserService.findByUsername(username);
+        model.addAttribute("mdUser", mdUser);
+        return "user/myGallery";
     }
 }

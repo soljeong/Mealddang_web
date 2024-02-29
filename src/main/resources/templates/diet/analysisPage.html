@@ -1,11 +1,48 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>밀땅</title>
 </head>
 <body>
-    <h1>이미지 AI분석</h1>
+    <header>
+        <div class="navbar">
+            <a href="/user/main"><span class="nav-title">MealDDang</h1></a>
+            <a href="/user/mypage"><button>마이페이지</button></a>
+            <a href="/logout"><button>로그아웃</button></a>
+            <a href="/user/diet/log"><h1 th:text="${mdUser.nickname} + '님의 밀땅 일지'"></h1></a>
+        </div>
+    </header>
+    <main>
+        <section class="analysis-title">
+            <h3>이미지 AI분석</h3>
+        </section>
+        <section class="img-upload">
+            <p>이미지 업로드 칸</p>
+            <a href="#" class="analysis-btn"><button type="submit" id="analysis-btn">분석</button></a>
+        </section>
+        <section class="img-analysis">
+            <table>
+                <tr>
+                    <td>분류된 이미지</td>
+                    <td>분류된 이미지</td>
+                    <td>분류된 이미지</td>
+                </tr>
+                <tr>
+                    <td>영양정보</td>
+                    <td>영양정보</td>
+                    <td>영양정보</td>
+                </tr>
+                <tr>
+                    <td> + </td>
+                </tr>
+            </table>
+            <a href="#" class="save-btn"><button type="submit" id="save-btn">저장</button></a>
+        </section>
+    </main>
+    <footer>
+        <p>footer 여백</p>
+    </footer>
 </body>
 </html>

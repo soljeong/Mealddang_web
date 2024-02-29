@@ -18,11 +18,8 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@ToString
+@Getter @Setter
+@NoArgsConstructor @AllArgsConstructor @ToString
 public class MdUser {
     @Id @Column(name = "user_id", columnDefinition = "varchar(20)")
     @NotBlank(message = "아이디 입력은 필수입니다.")
@@ -54,6 +51,13 @@ public class MdUser {
 
     @Column(name = "user_role") @Enumerated(EnumType.STRING)
     private Role role;
+
+    // @Column(columnDefinition = "varchar(5) default '강남구'")
+    // private int userArea1;
+    // @Column(columnDefinition = "varchar(5) default '종로구'")
+    // private int userArea2;
+    // @Column(columnDefinition = "varchar(5) default '서초구'")
+    // private int userArea3;
 
     @Column(columnDefinition = "int default 0")
     private int userTag1;

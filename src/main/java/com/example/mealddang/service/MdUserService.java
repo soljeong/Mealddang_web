@@ -26,11 +26,16 @@ public class MdUserService {
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    // 회원 조회
-    public MdUser findByEmail(String email){
-        Optional<MdUser> mdUser = mdUserRepository.findByEmail(email);
-        return mdUser.orElseThrow(() -> new NoSuchElementException("MdUser not found with email: " + email));
-}
+    // 이메일로 회원 조회
+    public MdUser findByEmail(String p_email){
+        Optional<MdUser> mdUser = mdUserRepository.findByEmail(p_email);
+        return mdUser.orElseThrow(() -> new NoSuchElementException("MdUser not found with email: " + p_email));
+    }
+    // 아이디로 회원 조회
+    public MdUser findByUsername(String p_username){
+        Optional<MdUser> mdUser = mdUserRepository.findByUsername(p_username);
+        return mdUser.orElseThrow(() -> new NoSuchElementException("MdUser not found with ID: " + p_username));
+    }
     // 회원 추가
     public void addMdUser(MdUser p_mdUser){
         p_mdUser.setRole(Role.USER);
