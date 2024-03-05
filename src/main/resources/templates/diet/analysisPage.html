@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>밀땅</title>
+    <!-- <link th:href="@{/css/analysis.css}" rel="stylesheet">
+    <script th:src="@{/js/analysis.js}"></script> -->
+    <link href="/static/css/analysis.css" rel="stylesheet">
+    <script src="/static/js/analysis.js"></script>
 </head>
 <body>
     <header>
@@ -16,11 +20,24 @@
     </header>
     <main>
         <section class="analysis-title">
-            <h3>이미지 AI분석</h3>
+            <h1 classe="text-primary text-center pt-20 mb-10">식단 AI 분석을 시작합니다.</h1>
         </section>
         <section class="img-upload">
-            <p>이미지 업로드 칸</p>
-            <a href="#" class="analysis-btn"><button type="submit" id="analysis-btn">분석</button></a>
+            <div id="root">
+                <div class="contents">
+                    <div class="upload-box">
+                        <div id="drop-file" class="drag-file">
+                            <img src="https://img.icons8.com/pastel-glyph/2x/image-file.png" alt="파일 아이콘" class="image" >
+                            <p class="message">Drag files to upload</p>
+                            <img src="" alt="미리보기 이미지" class="preview">
+                        </div>
+                        <label class="file-label" for="chooseFile">Choose File</label>
+                        <input class="file" id="chooseFile" type="file" onchange="dropFile.handleFiles(this.files)" accept="image/png, image/jpeg, image/gif">
+                    </div>
+                </div>
+            </div>
+            <!-- <p>이미지 업로드 칸</p>
+            <a href="#" class="analysis-btn"><button type="submit" id="analysis-btn">분석</button></a> -->
         </section>
         <section class="img-analysis">
             <table>
