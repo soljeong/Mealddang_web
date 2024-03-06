@@ -5,37 +5,63 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
     <title>mealddang</title>
     <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=3volbh1cte"></script>
-    <link rel="stylesheet" href="navermap.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="/static/css/navermap.css"/>
+    <link rel="stylesheet" href="/static/css/header.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"/>
 </head>
 <body onload="initMap()">
-<nav>
-    <div class="inner">
-        <div class="nav-container">
-            <h1 class="nav-title">mealddang</h1>
-            <!-- 이하 form : 검색창 -->
-            <form class="search-box" action="/user/rsrt/search" method="GET">
-                <input onkeyup="enterkey()" type="search" name="searchkey"/>
-                <button type="submit">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                </button>
-            </form>
-            <!-- 이하 script : 엔터키로 검색 버튼 클릭 기능 -->
-            <script>
-                function enterkey() {
-                    if (window.event.keyCode == 13) {
-                        document.getElementById("searchForm").submit();
-                    }}
-            </script>
-            <div class="realtime-box">
-                <p>실시간 조회수 TOP3</p>
+<header class="p-3 text-bg-dark">
+    <div class="px-3 py-2 text-bg-dark border-bottom">
+        <div class="container">
+            <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+                <a href="/user/main" class="d-flex align-items-center my-2 my-lg-0 me-lg-auto text-white text-decoration-none">
+                <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"></use></svg>
+                </a>
+                <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
+                    <li>
+                        <a href="/user/main" class="nav-link text-secondary">
+                        <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#home"></use></svg>
+                        MealDDang Home
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/user/diet/log" class="nav-link text-white">
+                        <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#speedometer2"></use></svg>
+                        MealDDang Log
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/logout" class="nav-link text-white">
+                        <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#speedometer2"></use></svg>
+                        Log Out
+                        </a>
+                    </li>
+                </ul>
             </div>
-            <button><a href="/user/diet/log">밀땅일지(식단관리)로</a></button><br>
-            <button><a href="/logout">로그아웃</a></button><br>
         </div>
     </div>
-</nav>
+
+
+</header>
 
 <main>
+    <div class="realtime-box">
+        <p>실시간 조회수 TOP3</p>
+    </div>
+    <!-- 이하 form : 검색창 -->
+    <form class="search-box" action="/user/rsrt/search" method="GET">
+        <input onkeyup="enterkey()" type="search" name="searchkey"/>
+        <button type="submit">
+            <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+    </form>
+    <!-- 이하 script : 엔터키로 검색 버튼 클릭 기능 -->
+    <script>
+        function enterkey() {
+            if (window.event.keyCode == 13) {
+                document.getElementById("searchForm").submit();
+            }}
+    </script>
     <!-- 이하 section : 키워드 카테고리 필터 -->
     <section id="category-filter">
         <div class="category-container">
