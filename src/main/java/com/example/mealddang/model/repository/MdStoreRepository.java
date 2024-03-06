@@ -8,9 +8,12 @@ import org.springframework.data.repository.query.Param;
 
 import com.example.mealddang.model.entity.MdStore;
 
-public interface MdStoreRepository extends JpaRepository<MdStore, Integer> {
-    // 식당 리스트 검색 쿼리
-    @Query(value = "select * from restaurants_yogiyo where name like CONCAT('%', :searchkey, '%')", nativeQuery = true)
+public interface MdStoreRepository extends JpaRepository<MdStore, String> {
+    // 식당 이름 검색 쿼리
+    @Query(value = "select shopref,shopname,dispshopphone,shopaddress,lon,lat from restaurants_catchtable where shopname like CONCAT('%', :searchkey, '%')", nativeQuery = true)
     public List<MdStore> findAllByStoreName(@Param(value="searchkey") String searchkey);
 
+    // // 리뷰에 해당하는 식당 검색 쿼리..
+    // @Query(value = "SELECT shopname, shopaddress FROM restaurants_catchtable WHERE shopname IN (SELECT shop_name FROM reviews_catchtable WHERE mask_review_content LIKE CONCAT('%', :searchkey, '%');", nativeQuery = true)
+    // public List<MdStore> findStoresByReview(@Param(value = "searchkey") String searchkey);
 }

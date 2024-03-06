@@ -28,19 +28,19 @@ public class FileHandler {
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
             String current_date = simpleDateFormat.format(new Date());
             
-            // project dir 경로: c:\Users\3149n\workspace\mealddang\
+            // project dir 경로: c:/Users/3149n/workspace/mealddang/
             String projectPath = new File("").getAbsolutePath() + "/";
             log.info("프로젝트 폴더 경로는 " + projectPath);
             
-            // resources dir 경로: src\main\resources\
+            // resources dir 경로: src/main/resources/
             String resourcesPath = "src/main/resources/";
             log.info("리소스 폴더 경로는 " + resourcesPath);
 
-            // static dir 이하 경로: static\images\[오늘날짜 20240306]
+            // static dir 이하 경로: static/images/[오늘날짜 20240306]
             String underStaticPath = "static/images/" + current_date;
             log.info("스태틱 폴더 이하 경로는 " + underStaticPath);
 
-            // images dir 이하 경로 생성 : src\main\resources\static\images\[오늘날짜 20240306]
+            // images dir 이하 경로 생성 : src/main/resources/static/images/[오늘날짜 20240306]
             String src_current_path = resourcesPath + underStaticPath;
             log.info("이미지 폴더 이하 경로는 " + src_current_path);
             File file = new File(src_current_path);
@@ -80,9 +80,9 @@ public class FileHandler {
                     .build();
             log.info("mdGallery : " + mdGallery.toString());
             
-            // 저장 경로는 c:\Users\3149n\workspace\mealddang\src\main\resources\static\images\20240306\1661196727851100.png
+            // 저장 경로는 c:/Users/3149n/workspace/mealddang/src/main/resources/static/images/20240306/1661196727851100.png
             file = new File(projectPath + resourcesPath + underStaticPath + "/" + new_file_name);
-            // file = new File(absolutePath + path + "\\" + new_file_name);
+            // file = new File(absolutePath + path + "/" + new_file_name);
             multipartFile.transferTo(file);
             log.info("multipartFile : "+multipartFile.toString());
             return mdGallery;

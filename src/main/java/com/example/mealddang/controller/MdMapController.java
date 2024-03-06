@@ -30,13 +30,23 @@ public class MdMapController {
         return "map/navermap";
     }
     // 검색
-    @GetMapping("/search")
-    public String search(@RequestParam("searchkey") String searchkey, Model model) {
+    @GetMapping("/search/name")
+    public String searchByName(@RequestParam("searchkey") String searchkey, Model model) {
         if (ObjectUtils.isEmpty(searchkey)){
             return "redirect:/user/rsrt/map";
         }
         else {
-            model.addAttribute("searchResults", mdStoreService.findAllByStoreName(searchkey));
+            model.addAttribute("nameSearchResults", mdStoreService.findAllByStoreName(searchkey));
+            return "map/navermap";
+        }
+    }
+    @GetMapping("/search/review")
+    public String searchByReview(@RequestParam("searchkey") String searchkey, Model model) {
+        if (ObjectUtils.isEmpty(searchkey)){
+            return "redirect:/user/rsrt/map";
+        }
+        else {
+            model.addAttribute("reviewSearchResults", mdStoreService.findReviewsByReview(searchkey));
             return "map/navermap";
         }
     }
