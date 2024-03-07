@@ -34,28 +34,27 @@
             </div>
         </header>
         <main>
-            <a href="/user/diet/log">
+            <section id="title"><a href="/user/diet/log">
                 <h3 th:text="${mdUser.nickname != null ? mdUser.nickname : mdUser.username} + '님의 밀땅일지'"></h3>
-            </a>
-            <section class="analysis-title">
+            </a></section>
+            
+            <section id="subtitle">
                 <h1 classe="text-primary text-center pt-20 mb-10">식단 AI 분석을 시작합니다.</h1>
             </section>
-            <section class="img-upload">
-                <form name="form" method="post" action="/user/diet/analysis/img" enctype="multipart/form-data">
+
+            <section id="uploader">
+                <div id="upload-form"><form name="form" method="post" action="/user/diet/analysis/img" enctype="multipart/form-data">
                     <input type="file" name="imgfile"/>
                     <input type="submit" id="submit" value="업로드"/>
-                </form>
-                <!-- 파일시스템 경로 -->
-                <img src="/static/icons/fried-egg.png" alt="constant">
-                <img src="/static/imgs/1678222277783900.jpg" alt="constant">
-                <img th:if="${mdGallery != null}" th:src="@{'/'+${mdGallery.storedFileName}}" alt="Uploaded image">
-                <img th:unless="${mdGallery != null}" src="#" alt="Default image">
-
-                <!-- 웹 URL 경로 -->
-                <!-- <img th:if="${mdGallery != null}" th:src="@{${mdGallery.storedFileName}}" alt="Uploaded image">
-                <img th:unless="${mdGallery != null}" src="#" alt="Default image"> -->
+                </form></div>
+                
+                <div id="upload-result">
+                    <img th:if="${mdGallery != null}" th:src="@{'/'+${mdGallery.storedFileName}}" alt="uploaded">
+                    <img th:unless="${mdGallery != null}" src="/static/icons/plate.png" alt="default">
+                </div>
             </section>
-            <section class="img-analysis">
+
+            <section id="analysis">
                 <table>
                     <tr>
                         <td>분류된 이미지</td>

@@ -15,7 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j @Component
 public class FileHandler {
 
-    public MdGallery parseFileInfo(Long galleryID, MultipartFile multipartFile) throws Exception {
+    public MdGallery parseFileInfo(Long fileID, MultipartFile multipartFile) throws Exception {
 
         MdGallery mdGallery = new MdGallery();
 
@@ -73,7 +73,7 @@ public class FileHandler {
             String new_file_name = System.nanoTime() + originalFileExtension;
 
             mdGallery = MdGallery.builder()
-                    .galleryIdx(galleryID)
+                    .galleryId(fileID)
                     .originalFileName(multipartFile.getOriginalFilename())
                     .storedFileName(underStaticPath + "/" + new_file_name)
                     .fileSize(multipartFile.getSize())

@@ -24,7 +24,7 @@ public class MdGalleryService {
     public MdGallery addMdGallery(MdGallery gallery, MultipartFile imgFile) throws Exception {
 
         // 파일을 저장하고 그 gallery 객체를 가지고 있는다
-        MdGallery mdGallery = fileHandler.parseFileInfo(gallery.getId(), imgFile);
+        MdGallery mdGallery = fileHandler.parseFileInfo(gallery.getGalleryId(), imgFile);
         mdGalleryRepository.save(mdGallery);
         return mdGallery;
     }
