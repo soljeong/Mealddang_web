@@ -54,6 +54,11 @@
             <div id="upload-result">
                 <img th:if="${mdGallery != null}" th:src="@{'/'+${mdGallery.storedFileName}}" alt="uploaded">
                 <img th:unless="${mdGallery != null}" src="/static/icons/plate.png" alt="default">
+
+                <!-- <img th:if="${mdGallery != null}" src="/static/images/20240307/1736532852879100.jpg" alt="uploaded">
+                <img th:unless="${mdGallery != null}" src="/static/icons/plate.png" alt="default"> -->
+
+                <!-- <p th:text="${mdGallery != null ? mdGallery.storedFileName : 'none'}"></p> -->
             </div>
         </section>
 
