@@ -17,8 +17,9 @@
             color: inherit;
         }
     </style>
+
 </head>
-<body onload="initMap()">
+<body>
 <div class="container py-4">
     <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
         <div class="col-md-3 mb-2 mb-md-0">
@@ -54,13 +55,8 @@
                 <i class="fa-solid fa-magnifying-glass"></i>
             </button>
         </form>
-        <!-- 이하 script : 엔터키로 검색 버튼 클릭 기능 -->
-        <script>
-            function enterkey() {
-                if (window.event.keyCode == 13) {
-                    document.getElementById("searchForm").submit();
-                }}
-        </script>
+
+        
             <section class="searchresult">
                 <h2 class="searchresult-title">식당 이름 검색 결과</h2>
                 <div class="searchResult" th:if="${nameSearchResults == null || nameSearchResults.isEmpty()}"> 0건 </div>
@@ -106,73 +102,9 @@
 
         <section id="map">
             <div class="map-container">
-                <div class="map" style="width:70%; height:500px; right: -250px;"><script>
-                    var map = new naver.maps.Map('map', {
-                        center: new naver.maps.LatLng(37.498095, 127.027610), // 강남역 중심으로 하는 지도
-                        zoom: 13
-                    });
-                    var marker = new naver.maps.Marker({
-                        position: new naver.maps.LatLng(37.5112, 127.0981), //잠실 롯데월드 마커
-                        map: map
-                    });
-                    var marker1 = new naver.maps.Marker({
-                        position: new naver.maps.LatLng(37.5666805, 126.9784147), //시청 마커
-                        map: map
-                    });
-                    var marker2 = new naver.maps.Marker({
-                        position: new naver.maps.LatLng(37.498095, 127.027610), //강남역 마커
-                        map: map
-                    });
-                    //실시간 위치 업데이트
-                    setInterval(function() {
-                        navigator.geolocation.getCurrentPosition(function(position) {
-                            var latitude = position.coords.latitude;
-                            var longitude = position.coords.longitude;
-                            var markerOptions = {
-                                position: new naver.maps.LatLng(latitude, longitude),
-                                map: map
-                            }
-                            var marker = new naver.maps.Marker(markerOptions);
-                            map.setCenter(markerOptions.position);
-                        });}, 5000); // 5초마다 위치 업데이트
-                    var contentString2 = [
-                    '<div class="iw_inner">',
-                    '   <h3>강남역</h3>',
-                    '   <p>서울 강남역이당<br />',
-                    '       <img src="/static/images/123.png" width="55" height="55" alt="강남역" class="thumb" /><br />',
-                    '       02-120 | 강남역 2호선 br />\n',
-                    '       <a href="http://www.seoul.go.kr" target="_blank">www.seoul.go.kr/</a>',
-                    '   </p>',
-                    '</div>'
-                    ].join('');
-                    var infowindow2 = new naver.maps.InfoWindow({
-                        content: contentString2});
-                    // 마커 클릭 이벤트
-                    naver.maps.Event.addListener(marker2, "click", function(e) {
-                        if (infowindow2.getMap()) {
-                            infowindow2.close();
-                        } else {
-                            infowindow2.open(map, marker2);
-                        }
-                    });
-                    // 정보 창 띄우기
-                    infowindow2.open(map, marker2);
-                    var polyline = new naver.maps.Polyline({
-                        map: map,
-                        path: [],
-                        strokeColor: '#5347AA',
-                        strokeWeight: 2
-                    });
-                    naver.maps.Event.addListener(map, 'click', function(e) {
-                        var point = e.coord;
-                        var path = polyline.getPath();
-                        path.push(point);
-                        new naver.maps.Marker({
-                            map: map,
-                            position: point
-                        });
-                    });
-                </script></div>
+                <div class="map" style="width:70%; height:500px; right: -250px;">
+
+                </div>
                 <div class="img-search"><h5>이미지 검색</h5></div>
                 <div class="chatbot"><h5>챗봇</h5></div>
             </div>
@@ -182,4 +114,114 @@
     <footer class="pt-3 mt-4 text-body-secondary border-top">© PORT8090</footer>
 </div>
 </body>
+    <!-- 이하 script : 엔터키로 검색 버튼 클릭 기능 -->
+    <script th:inline="javascript">
+        
+    var nameSearchResults = /*[[${nameSearchResults}]]*/ {}; 
+    console.log(nameSearchResults);
+
+    var map = new naver.maps.Map('map', {
+        center: new naver.maps.LatLng(37.498095, 127.027610), // 강남역 중심으로 하는 지도
+        zoom: 13
+    });
+
+    nameSearchResults.forEach(function(store) {
+        var marker = new naver.maps.Marker({
+            position: new naver.maps.LatLng(store.storeY, store.storeX),
+            map: map
+        });
+
+        var contentString = [
+            '<div class="iw_inner">',
+            '   <h3>' + store.storeName + '</h3>',
+            '   <p>' + store.storeAddr + '<br />',
+            '       <img src="/static/images/123.png" width="55" height="55" alt="' + store.storeName + '" class="thumb" /><br />',
+            '       ' + store.storeTel + ' | <a href="http://www.seoul.go.kr" target="_blank">www.seoul.go.kr/</a>',
+            '   </p>',
+            '</div>'
+        ].join('');
+
+        var infowindow = new naver.maps.InfoWindow({
+            content: contentString
+        });
+
+        naver.maps.Event.addListener(marker, 'click', function(e) {
+            if (infowindow.getMap()) {
+                infowindow.close();
+            } else {
+                infowindow.open(map, marker);
+            }
+        });
+    });
+
+        function enterkey() {
+            if (window.event.keyCode == 13) {
+                document.getElementById("searchForm").submit();
+            }
+        }
+
+
+        var marker = new naver.maps.Marker({
+            position: new naver.maps.LatLng(37.5112, 127.0981), //잠실 롯데월드 마커
+            map: map
+        });
+        var marker1 = new naver.maps.Marker({
+            position: new naver.maps.LatLng(37.5666805, 126.9784147), //시청 마커
+            map: map
+        });
+        var marker2 = new naver.maps.Marker({
+            position: new naver.maps.LatLng(37.498095, 127.027610), //강남역 마커
+            map: map
+        });
+
+        //실시간 위치 업데이트
+        setInterval(function() {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                var latitude = position.coords.latitude;
+                var longitude = position.coords.longitude;
+                var markerOptions = {
+                    position: new naver.maps.LatLng(latitude, longitude),
+                    map: map
+                }
+                var marker = new naver.maps.Marker(markerOptions);
+                map.setCenter(markerOptions.position);
+            });}, 5000); // 5초마다 위치 업데이트
+            var contentString2 = [
+            '<div class="iw_inner">',
+            '   <h3>강남역</h3>',
+            '   <p>서울 강남역이당<br />',
+            '       <img src="/static/images/123.png" width="55" height="55" alt="강남역" class="thumb" /><br />',
+            '       02-120 | 강남역 2호선 br />\n',
+            '       <a href="http://www.seoul.go.kr" target="_blank">www.seoul.go.kr/</a>',
+            '   </p>',
+            '</div>'
+            ].join('');
+        var infowindow2 = new naver.maps.InfoWindow({
+            content: contentString2});
+        // 마커 클릭 이벤트
+        naver.maps.Event.addListener(marker2, "click", function(e) {
+            if (infowindow2.getMap()) {
+                infowindow2.close();
+            } else {
+                infowindow2.open(map, marker2);
+            }
+        });
+        // 정보 창 띄우기
+        infowindow2.open(map, marker2);
+        var polyline = new naver.maps.Polyline({
+            map: map,
+            path: [],
+            strokeColor: '#5347AA',
+            strokeWeight: 2
+        });
+        naver.maps.Event.addListener(map, 'click', function(e) {
+            var point = e.coord;
+            var path = polyline.getPath();
+            path.push(point);
+            new naver.maps.Marker({
+                map: map,
+                position: point
+            });
+        });
+    </script>
 </html>
