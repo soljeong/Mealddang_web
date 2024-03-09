@@ -15,6 +15,42 @@
             text-decoration-line: none;
             color: inherit;
         }
+        .box-row {
+display: grid;
+grid-template-columns: repeat(4, 1fr); /* 4개의 열을 동일한 크기로 설정 */
+gap: 10px; /* 박스 사이의 간격 */
+padding: 10px; /* 행의 내부 여백 */
+border: 2px dashed red; /* 행의 테두리 스타일 */
+}
+.box {
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+padding: 20px;
+border: 1px solid #ccc; /* 박스의 테두리 스타일 */
+border-radius: 10px; /* 박스의 모서리 둥글게 */
+}
+.box-title {
+font-size: 1.2em;
+margin-bottom: 10px; /* 제목과 내용 사이의 간격 */
+}
+.box-content {
+font-size: 0.9em;
+}
+.box.green {
+background-color: #90ee90; /* 박스 배경색 */
+}
+.box.orange {
+background-color: #fdaa69;
+}
+.box.red {
+background-color: #f08080;
+}
+.box.yellow {
+background-color: #fdfd96;
+}
+
     </style>
 </head>
 <body>
@@ -85,7 +121,24 @@
         <section id="logs">
             <div class="text-primary text-center pt-20 mb-10">
                 <h3>영양 신호등</h3>
-                <div id="main3" style="width: 800px;height:600px;"></div>
+                <div class="box-row">
+                    <div class="box green">
+                        <div class="box-title">칼로리</div>
+                        <div class="box-content">123/15234kcal</div>
+                    </div>
+                    <div class="box orange">
+                        <div class="box-title">탄수화물</div>
+                        <div class="box-content">123/152g</div>
+                    </div>
+                    <div class="box red">
+                        <div class="box-title">단백질</div>
+                        <div class="box-content">123/152g</div>
+                    </div>
+                    <div class="box yellow">
+                        <div class="box-title">지방</div>
+                        <div class="box-content">123/152g</div>
+                    </div>
+                    </div>
                 <p>2024.02.19-2024.02.23</p>
             </div>
             <p>영양섭취량에 대해 부족/충분/경고/과다 색깔별로 안내</p>
