@@ -5,17 +5,11 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import lombok.Getter;
 
-@Getter @Entity(name = "reviews_catchtable")
+@Getter @Entity(name = "md_review")
 public class MdReview {
-    @Id @Column(name = "review_id")
-    private long reviewId;
-
-    @Column(name = "restaurant_id")
-    private String storeId;
-
-    @Column(name = "shop_name")
+    @Id @Column(name = "store_id_o")
     private String storeName;
 
-    @Column(name = "review_content")
+    @Column(name = "review")
     private String review;
 }

@@ -77,7 +77,7 @@
                     <table>
                         <tbody class="searchResultTable">
                             <tr th:id="${mdReview.storeName}" th:each="mdReview : ${reviewSearchResults}" class="table-row">
-                                <td class="table-data" th:text="${mdReview.storeName != null ? mdReview.storeName : 'N/A'}"></td>
+                                <!-- <td class="table-data" th:text="${mdReview.storeName != null ? mdReview.storeName : 'N/A'}"></td> -->
                                 <td class="table-data" th:text="${mdReview.review != null ? mdReview.review : 'N/A'}"></td>
                             </tr>
                         </tbody>
@@ -85,20 +85,20 @@
                 </div>
             </section>
 
-        <!-- 이하 section : 키워드 카테고리 필터 -->
-        <!-- <section id="category-filter"><div class="category-container">
+        <!-- 이하 section : 키워드 카테고리 필터  -->
+        <section id="category-filter"><div class="category-container">
             <h2 class="category-title">mealddang 카테고리를 선택해보세요</h2>
             <div class="category-list">
-                <button class="category-item">분위기좋은</button><br>
-                <button class="category-item">회식하기좋은</button><br>
-                <button class="category-item">깨끗한</button><br>
-                <button class="category-item">친절한</button><br>
-                <button class="category-item">룸이있는</button><br>
-                <button class="category-item">갬성</button><br>
-                <button class="category-item">주차공간</button><br>
-                <button class="category-item">놀이방</button><br>
+                <button class="category-item">분위기좋은</button>
+                <button class="category-item">회식하기좋은</button>
+                <button class="category-item">깨끗한</button>
+                <button class="category-item">친절한</button>
+                <button class="category-item">룸이있는</button>
+                <button class="category-item">갬성</button>
+                <button class="category-item">주차공간</button>
+                <button class="category-item">놀이방</button>
                 <button class="category-item">콜키지</button>
-        </div></section> -->
+        </div></section>
 
         <section id="map">
             <div class="map-container">
