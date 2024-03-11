@@ -15,10 +15,10 @@ import lombok.Setter;
 
 @Entity
 @Builder @Getter @Setter @AllArgsConstructor @NoArgsConstructor
-public class MdImgIsolated {
+public class MdYoloResult {
     
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long isoId;
+    private long resultId;
 
     @ManyToOne @JoinColumn(name = "user_id", referencedColumnName = "user_id")
     private MdUser username;
@@ -27,6 +27,6 @@ public class MdImgIsolated {
     private MdImgUpload uploadId;
 
     @Column(columnDefinition = "varchar(20)")
-    private String isoResult;
-    private String isoStored;
+    private String resultName;
+    private String resultStored;
 }

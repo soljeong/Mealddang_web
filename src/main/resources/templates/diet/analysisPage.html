@@ -48,7 +48,7 @@
         <section id="uploader">
             <div id="upload-form"><form name="form" method="post" action="/user/diet/analysis/upload" enctype="multipart/form-data">
                 <input type="file" name="imgfile"/>
-                <input type="submit" id="submit" value="사진 불러오기"/>
+                <input type="submit" id="submit" value="업로드"/>
             </form></div>
             
             <div id="upload-result">
@@ -60,11 +60,10 @@
 
                 <!-- <p th:text="${mdGallery != null ? mdGallery.storedFileName : 'none'}"></p> -->
             </div>
-
-            <a href="/user/diet/analysis/yolo-start"><button>사진 분석하기</button></a>
         </section>
 
         <section id="analysis">
+            <a href="/user/diet/analysis/result"><button>분석 결과 확인</button></a>
             <table>
                 <tr>
                     <td>분류된 이미지</td>
