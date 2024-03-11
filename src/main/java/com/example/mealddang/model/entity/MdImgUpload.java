@@ -15,6 +15,7 @@ import lombok.NoArgsConstructor;
 public class MdImgUpload extends BaseTimeEntity {
     
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "upload_id")
     private long uploadId;
 
     private String originalName;

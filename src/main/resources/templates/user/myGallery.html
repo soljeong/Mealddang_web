@@ -29,8 +29,8 @@
             </a>
         </div>
         <div class="col-md-3 text-center">
-            <a href="/user/rsrt/map"><button type="button" class="btn btn-outline-warning">밀땅 일지</button></a>
-            <a href="/user/diet/log"><button type="button" class="btn btn-outline-warning">밀땅 검색</button></a>
+            <a href="/user/rsrt/log"><button type="button" class="btn btn-outline-warning">밀땅 일지</button></a>
+            <a href="/user/diet/map"><button type="button" class="btn btn-outline-warning">밀땅 검색</button></a>
         </div>
         <div class="col-md-3 text-end">
             <a href="/user/mypage"><button type="button" class="btn btn-outline-warning me-2">마이페이지</button></a>
@@ -47,10 +47,7 @@
             </div>
             <div id="my-img" th:unless="${mdImgUploads == null || mdImgUploads.isEmpty()}">
                 <ul th:id="my-img" th:each="mdImgUpload : ${mdImgUploads}">
-                    <li th:src="@{'/'+${mdImgUpload.storedName}}"></li>
-                    <li th:text="${mdImgUpload.createdDate}"></li>
-                    <li th:text="${mdImgUpload.imgX}"></li>
-                    <li th:text="${mdImgUpload.imgY}"></li>
+                    <li><img th:src="@{'/'+${mdImgUpload.storedName}}"></li>
                 </ul>
             </div>
         </section>

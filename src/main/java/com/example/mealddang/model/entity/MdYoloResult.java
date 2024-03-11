@@ -23,7 +23,7 @@ public class MdYoloResult {
     @ManyToOne @JoinColumn(name = "user_id", referencedColumnName = "user_id")
     private MdUser username;
 
-    @ManyToOne @JoinColumn(name = "upload_id", referencedColumnName = "uploadId")
+    @ManyToOne @JoinColumn(name = "upload_id", referencedColumnName = "upload_id")
     private MdImgUpload uploadId;
 
     @Column(columnDefinition = "varchar(20)")

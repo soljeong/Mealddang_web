@@ -18,9 +18,10 @@ import com.example.mealddang.service.MdImgService;
 import com.example.mealddang.service.MdUserService;
 
 import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 
 // 회원 관련 서비스 컨트롤러
-@Controller
+@Controller @Slf4j
 public class MdUserController {
 
     @Autowired
@@ -133,7 +134,7 @@ public class MdUserController {
         MdUser mdUser = mdUserService.findByUsername(username);
         model.addAttribute("mdUser", mdUser);
 
-        List<MdImgUpload> mdImgUploads = mdImgService.findImgsByUserID(username);
+        List<MdImgUpload> mdImgUploads = mdImgService.findAllImgbyUsername(username);
         model.addAttribute("mdImgUploads", mdImgUploads);
         
         return "user/myGallery";

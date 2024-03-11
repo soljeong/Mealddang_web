@@ -11,9 +11,12 @@ import com.example.mealddang.model.entity.MdYoloResult;
 import com.example.mealddang.model.entity.MdImgUpload;
 import com.example.mealddang.model.entity.MdUser;
 import com.example.mealddang.model.repository.MdYoloResultRepository;
+
+import lombok.extern.slf4j.Slf4j;
+
 import com.example.mealddang.model.repository.MdImgUploadRepository;
 
-@Service
+@Service @Slf4j
 public class MdImgService {
 
     @Autowired
@@ -51,9 +54,11 @@ public class MdImgService {
     }
 
     // 회원ID로 해당 회원이 업로드한 모든 이미지 찾기
-    public List<MdImgUpload> findImgsByUserID(String username) {
-        List<Long> mdUpIDs = mdYoloResultRepository.findUpIDsByUserID(username);
-        return mdImgUploadRepository.findImgsByUpIDs(mdUpIDs);
+    public List<MdImgUpload> findAllImgbyUsername(String username) {
+        log.info(username + " 회원님의 갤러리를 찾고 있습니다.");
+        List<Long> imgIDs = mdYoloResultRepository.findAllImgIDbyUserId(username);
+        log.info(imgIDs.size() + "개의 이미지를 찾았습니다.");
+        return mdImgUploadRepository.findAllImgsbyImgID(imgIDs);
     }
     
     // // 올린 이미지 모두 찾기
