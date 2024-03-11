@@ -132,14 +132,14 @@
         });
 
         var contentString = [
-            '<div class="iw_inner">',
-            '   <h3>' + store.storeName + '</h3>',
-            '   <p>' + store.storeAddr + '<br />',
-            '       <img src="/static/images/123.png" width="55" height="55" alt="' + store.storeName + '" class="thumb" /><br />',
-            '       ' + store.storeTel + ' | <a href="http://www.seoul.go.kr" target="_blank">www.seoul.go.kr/</a>',
-            '   </p>',
-            '</div>'
-        ].join('');
+    '<div class="iw_inner">',
+    '   <h3>' + store.storeName + '</h3>',
+    '   <p>' + store.storeAddr + '<br />',
+    '       <img src="/static/images/123.png" width="55" height="55" alt="' + store.storeName + '" class="thumb" /><br />',
+    '       ' + store.storeTel + ' | <a href="' + store.storeUrl + '" target="_blank">' + store.storeUrl + '</a>',
+    '   </p>',
+    '</div>'
+    ].join('');
 
         var infowindow = new naver.maps.InfoWindow({
             content: contentString
