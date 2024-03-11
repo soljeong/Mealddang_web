@@ -10,24 +10,24 @@ public class MdStore {
     @Id @Column(name = "store_id_n")
     private String storeId;
 
-    @Column(name = "상호명")
+    @Column(name = "store_name")
     private String storeName;
 
-    @Column(name = "phone")
+    @Column(name = "store_phone")
     private String storeTel;
 
-    @Column(name = "roadaddress")
+    @Column(name = "store_roadaddress_naver")
     private String storeAddr;
-    @Column(name = "경도")
+    @Column(name = "store_x")
     private String storeX;
-    @Column(name = "위도")
+    @Column(name = "store_y")
     private String storeY;
 
-    //@Column(name = "review_avg") //대표이미지 URl 에정
-    //private String storeScore;
+    @Column(name = "store_imageurl") //대표이미지 URl 에정
+    private String storeScore;
 
-    //@Column(name = "thumbnail_url") // 대표 홈페이지 URL 예정
-    //private String storeImg;
+    @Column(name = "store_menu_url_naver") // 대표 홈페이지 URL 예정
+    private String storeImg;
 
     // @Column(name = "categories")
     // private String storeCategory;
