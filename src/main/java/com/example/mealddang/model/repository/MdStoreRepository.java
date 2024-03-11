@@ -10,7 +10,7 @@ import com.example.mealddang.model.entity.MdStore;
 
 public interface MdStoreRepository extends JpaRepository<MdStore, String> {
     // 식당 이름 검색 쿼리
-    @Query(value = "select shopref,shopname,dispshopphone,shopaddress,lon,lat from restaurants_catchtable where shopname like CONCAT('%', :searchkey, '%')", nativeQuery = true)
+    @Query(value = "select store_id_n,상호명,phone,roadaddress,경도,위도 from md_store_master where 상호명 like CONCAT('%', :searchkey, '%')", nativeQuery = true)
     public List<MdStore> findAllByStoreName(@Param(value="searchkey") String searchkey);
 
     // // 리뷰에 해당하는 식당 검색 쿼리..

@@ -5,29 +5,29 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import lombok.Getter;
 
-@Getter @Entity(name = "restaurants_catchtable")
+@Getter @Entity(name = "md_store_master")
 public class MdStore {
-    @Id @Column(name = "shopref")
+    @Id @Column(name = "store_id_n")
     private String storeId;
 
-    @Column(name = "shopname")
+    @Column(name = "상호명")
     private String storeName;
 
-    @Column(name = "dispshopphone")
+    @Column(name = "phone")
     private String storeTel;
 
-    @Column(name = "shopaddress")
+    @Column(name = "roadaddress")
     private String storeAddr;
-    @Column(name = "lon")
+    @Column(name = "경도")
     private String storeX;
-    @Column(name = "lat")
+    @Column(name = "위도")
     private String storeY;
 
-    // @Column(name = "review_avg")
-    // private String storeScore;
+    //@Column(name = "review_avg") //대표이미지 URl 에정
+    //private String storeScore;
 
-    // @Column(name = "thumbnail_url")
-    // private String storeImg;
+    //@Column(name = "thumbnail_url") // 대표 홈페이지 URL 예정
+    //private String storeImg;
 
     // @Column(name = "categories")
     // private String storeCategory;
