@@ -1,5 +1,6 @@
 package com.example.mealddang.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.example.mealddang.model.entity.MdImgUpload;
 import com.example.mealddang.model.entity.MdUser;
+import com.example.mealddang.service.MdImgService;
 import com.example.mealddang.service.MdUserService;
 
 import jakarta.validation.Valid;
@@ -19,8 +22,11 @@ import jakarta.validation.Valid;
 // 회원 관련 서비스 컨트롤러
 @Controller
 public class MdUserController {
+
     @Autowired
-    MdUserService mdUserService;
+    private MdUserService mdUserService;
+    @Autowired
+    private MdImgService mdImgService;
 
     // 테스트 페이지
     @GetMapping("/")
@@ -126,6 +132,10 @@ public class MdUserController {
         String username = authentication.getName();
         MdUser mdUser = mdUserService.findByUsername(username);
         model.addAttribute("mdUser", mdUser);
+
+        List<MdImgUpload> mdImgUploads = mdImgService.findImgsByUserID(username);
+        model.addAttribute("mdImgUploads", mdImgUploads);
+        
         return "user/myGallery";
     }
 }

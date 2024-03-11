@@ -46,20 +46,22 @@
         </section>
 
         <section id="uploader">
-            <div id="upload-form"><form name="form" method="post" action="/user/diet/analysis/img" enctype="multipart/form-data">
+            <div id="upload-form"><form name="form" method="post" action="/user/diet/analysis/upload" enctype="multipart/form-data">
                 <input type="file" name="imgfile"/>
-                <input type="submit" id="submit" value="업로드"/>
+                <input type="submit" id="submit" value="사진 불러오기"/>
             </form></div>
             
             <div id="upload-result">
-                <img th:if="${mdGallery != null}" th:src="@{'/'+${mdGallery.storedFileName}}" alt="uploaded">
-                <img th:unless="${mdGallery != null}" src="/static/icons/plate.png" alt="default">
+                <img th:if="${mdImgUpload != null}" th:src="@{'/'+${mdImgUpload.storedName}}" alt="uploaded">
+                <img th:unless="${mdImgUpload != null}" src="/static/icons/plate.png" alt="default">
 
                 <!-- <img th:if="${mdGallery != null}" src="/static/images/20240307/1736532852879100.jpg" alt="uploaded">
                 <img th:unless="${mdGallery != null}" src="/static/icons/plate.png" alt="default"> -->
 
                 <!-- <p th:text="${mdGallery != null ? mdGallery.storedFileName : 'none'}"></p> -->
             </div>
+
+            <a href="/user/diet/analysis/yolo-start"><button>사진 분석하기</button></a>
         </section>
 
         <section id="analysis">
@@ -78,7 +80,9 @@
                     <td> + </td>
                 </tr>
             </table>
-            <a href="#" class="save-btn"><button type="submit" id="save-btn">저장</button></a>
+            <a href="#" class="delete-btn"><button type="submit" id="delete-btn">삭제</button></a>
+            <p>분석한 이미지는 자동으로 갤러리에 저장됩니다. 저장을 원하지 않으시면 삭제 버튼을 눌러주세요.</p>
+            <p>하지만 아직 삭제 기능은 구현 안됐습니다 ^^</p>
         </section>
     </main>
     <footer class="pt-3 mt-4 text-body-secondary border-top">© PORT8090</footer>

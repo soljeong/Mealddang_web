@@ -40,6 +40,20 @@
     <main>
         <h3 th:text="${mdUser.nickname != null ? mdUser.nickname : mdUser.username} + '님의 갤러리'"></h3>
         <hr class="my-4">
+        <section id="gallery">
+            <div id="my-img" th:if="${mdImgUploads == null || mdImgUploads.isEmpty()}">
+                <p>아직 사진이 없네요...</p>
+                <p>음식사진 올리고 분석 결과 확인해보기~ (링크 연결 해야함)</p>
+            </div>
+            <div id="my-img" th:unless="${mdImgUploads == null || mdImgUploads.isEmpty()}">
+                <ul th:id="my-img" th:each="mdImgUpload : ${mdImgUploads}">
+                    <li th:src="@{'/'+${mdImgUpload.storedName}}"></li>
+                    <li th:text="${mdImgUpload.createdDate}"></li>
+                    <li th:text="${mdImgUpload.imgX}"></li>
+                    <li th:text="${mdImgUpload.imgY}"></li>
+                </ul>
+            </div>
+        </section>
     </main>
     
     <footer class="pt-3 mt-4 text-body-secondary border-top">© PORT8090</footer>
