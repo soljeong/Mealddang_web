@@ -46,7 +46,7 @@
                 <form action="#" th:action="@{/user/mypage/update_nickname}" method="post" class="input-group">
                     <label for="nickname">별명</label>
                     <input type="text" name="nickname" th:attr="placeholder=${mdUser.nickname != null ? mdUser.nickname : 'none'}" required/>
-                    <button type="submit">수정</button>
+                    <button type="submit">별명 수정</button>
                 </form>
             </div>
             
@@ -61,8 +61,8 @@
             <div class="col-sm-6 my-4">
                 <form action="#" th:action="@{/user/mypage/update_gender}" method="post" class="input-group">
                     <label for="gender">성별</label>
-                    <input type="radio" id="gender" name="gender" value="F" th:checked="${mdUser.gender == null and mdUser.gender != 'M'}" required/>여성
-                    <input type="radio" id="gender" name="gender" value="M" th:checked="${mdUser.gender != null and mdUser.gender == 'M' }" required/>남성
+                    <input type="radio" id="gender" name="gender" value="F" th:checked="${mdUser.gender == 'F' || mdUser.gender == null}" required/>여성
+                    <input type="radio" id="gender" name="gender" value="M" th:checked="${mdUser.gender == 'M'}" required/>남성                    
                     <button type="submit">성별 수정</button>
                 </form>
             </div>
