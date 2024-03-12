@@ -49,12 +49,12 @@
                 <i class="fa-solid fa-magnifying-glass"></i>
             </button>
         </form>
-        <form class="search-box" action="/user/rsrt/search/review" method="GET">
+        <!-- <form class="search-box" action="/user/rsrt/search/review" method="GET">
             <input onkeyup="enterkey()" type="search" name="searchkey" placeholder="리뷰 기준 검색"/>
             <button type="submit" class="btn btn-outline-warning">
                 <i class="fa-solid fa-magnifying-glass"></i>
             </button>
-        </form>
+        </form> -->
 
         
             <section class="searchresult">
@@ -71,18 +71,18 @@
                     </table>
                 </div>
         
-                <h2 class="searchresult-title">리뷰 검색 결과</h2>
+                <!-- <h2 class="searchresult-title">리뷰 검색 결과</h2>
                 <div class="searchResult" th:if="${reviewSearchResults == null || reviewSearchResults.isEmpty()}"> 0건 </div>
                 <div class="searchResult" th:unless="${reviewSearchResults == null || reviewSearchResults.isEmpty()}">
                     <table>
                         <tbody class="searchResultTable">
                             <tr th:id="${mdReview.storeName}" th:each="mdReview : ${reviewSearchResults}" class="table-row">
-                                <!-- <td class="table-data" th:text="${mdReview.storeName != null ? mdReview.storeName : 'N/A'}"></td> -->
-                                <td class="table-data" th:text="${mdReview.review != null ? mdReview.review : 'N/A'}"></td>
+                                <td class="table-data" th:text="${mdReview.storeName != null ? mdReview.storeName : 'N/A'}"></td> -->
+                                <!-- <td class="table-data" th:text="${mdReview.review != null ? mdReview.review : 'N/A'}"></td>
                             </tr>
                         </tbody>
                     </table>
-                </div>
+                </div> --> 
             </section>
 
         <!-- 이하 section : 키워드 카테고리 필터  -->
