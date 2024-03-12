@@ -8,8 +8,11 @@ import com.example.mealddang.model.entity.MdKey;
 
 public interface MdKeyRepository extends JpaRepository<MdKey,Long>{
 
-    @Query(value = "SELECT COUNT(DISTINCT restaurant_id) FROM md_restaurant_keyword WHERE keyword = :searchkey", nativeQuery = true)
-    int countByKeyword(@Param("searchkey") String searchkey);
+    // @Query(value = "SELECT COUNT(DISTINCT restaurant_id) FROM md_restaurant_keyword WHERE keyword = :searchkey", nativeQuery = true)
+    // int countByKeyword(@Param("searchkey") String searchkey);
+
+    @Query(value = "SELECT COUNT(DISTINCT restaurant_id) FROM md_restaurant_keyword WHERE keyword = :keyword", nativeQuery = true)
+    int countByAtmosphere();
 }
 // 분위기
 // SELECT count(distinct(restaurant_id))

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.mealddang.model.entity.MdUser;
+import com.example.mealddang.model.repository.MdKeyRepository;
 import com.example.mealddang.service.MdStoreService;
 import com.example.mealddang.service.MdUserService;
 
@@ -20,6 +21,9 @@ public class MdMapController {
     private MdStoreService mdStoreService;
     @Autowired
     private MdUserService mdUserService;
+
+    @Autowired
+    private MdKeyRepository MdKeyRepository;
 
     // 맛집검색 홈페이지
     @GetMapping("/map")
@@ -50,4 +54,11 @@ public class MdMapController {
             return "map/navermap";
         }
     }
+
+    // @GetMapping("/count/atmosphere")
+    // public String countRestaurantsByAtmosphere(@RequestParam("keyword") String keyword, Model model) {
+    //     int count = MdKeyRepository.countByAtmosphere(keyword);
+    //     model.addAttribute("count", count);
+    //     return "redirect:/user/rsrt/map"; 
+    // }
 }

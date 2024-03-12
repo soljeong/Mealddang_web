@@ -89,15 +89,34 @@
         <section id="category-filter"><div class="category-container">
             <h2 class="category-title">mealddang 카테고리를 선택해보세요</h2>
             <div class="category-list">
-                <button class="btn btn-outline-warning">분위기좋은</button>
-                <button class="btn btn-outline-warning">회식하기좋은</button>
-                <button class="btn btn-outline-warning">깨끗한</button>
-                <button class="btn btn-outline-warning">친절한</button>
-                <button class="btn btn-outline-warning">룸이있는</button>
-                <button class="btn btn-outline-warning">갬성</button>
-                <button class="btn btn-outline-warning">주차공간</button>
-                <button class="btn btn-outline-warning">놀이방</button>
-                <button class="btn btn-outline-warning">콜키지</button>
+                
+                <button class="btn btn-outline-warning" id="keyword">분위기좋은</button>
+                <script>
+                    document.getElementById("countButton").addEventListener("click", function() {
+                        window.location.href = `/count/atmosphere?keyword=분위기좋은`;
+                    });
+                </script>
+                <button class="btn btn-outline-warning">분위기</button>
+                <button class="btn btn-outline-warning">맛있는</button>
+                <button class="btn btn-outline-warning">깔끔한</button>
+                <button class="btn btn-outline-warning">청결</button>
+                <button class="btn btn-outline-warning">예약가능</button>
+                <button class="btn btn-outline-warning">대형매장</button>
+                <button class="btn btn-outline-warning">회식</button>
+                <button class="btn btn-outline-warning">혼밥</button>
+                <button class="btn btn-outline-warning">가족모임</button>
+                <button class="btn btn-outline-warning">단체석</button>
+                <button class="btn btn-outline-warning">룸</button>
+                <button class="btn btn-outline-warning">프라이빗</button>
+                <button class="btn btn-outline-warning">주차</button>
+                <button class="btn btn-outline-warning">콜키지프리</button>
+                <button class="btn btn-outline-warning">전통</button>
+                <button class="btn btn-outline-warning">배달</button>
+                <button class="btn btn-outline-warning">포장</button>
+                <button class="btn btn-outline-warning">24시</button>
+                <button class="btn btn-outline-warning">연중무휴</button>
+                <button class="btn btn-outline-warning">반려동물</button>
+                <button class="btn btn-outline-warning">새로오픈</button>
         </div></section>
 
         <section id="map">
