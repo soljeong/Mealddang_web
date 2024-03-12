@@ -16,17 +16,17 @@ public class MdStore {
     @Column(name = "store_phone")
     private String storeTel;
 
-    @Column(name = "store_roadaddress_naver")
+    @Column(name = "store_road_address_n")
     private String storeAddr;
     @Column(name = "store_x")
     private String storeX;
     @Column(name = "store_y")
     private String storeY;
 
-    @Column(name = "store_imageurl") //대표이미지 URl 에정
+    @Column(name = "store_image_url") //대표이미지 URl 에정
     private String storeScore;
 
-    @Column(name = "store_menu_url_naver") // 대표 홈페이지 URL 예정
+    @Column(name = "store_menu_url_n") // 대표 홈페이지 URL 예정
     private String storeImg;
 
     // @Column(name = "categories")
