@@ -7,9 +7,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.example.mealddang.model.entity.MdDiet;
 import com.example.mealddang.model.entity.MdUser;
+import com.example.mealddang.service.MdDietService;
 import com.example.mealddang.service.MdUserService;
-
 
 // [인증 후] 식단관리(밀땅일지) 컨트롤러
 @Controller @RequestMapping("/user/diet")
@@ -17,6 +18,8 @@ public class MdDietController {
 
     @Autowired
     private MdUserService mdUserService;
+    @Autowired
+    private MdDietService mdDietService;
     
     // 메인
     @GetMapping("/log")
@@ -24,6 +27,11 @@ public class MdDietController {
         String username = authentication.getName();
         MdUser mdUser = mdUserService.findByUsername(username);
         model.addAttribute("mdUser", mdUser);
+
+        // 유저 나이와 성별에 맞는 섭취기준(MdDiet엔티티) 불러오기
+        MdDiet md_diet = mdDietService.getDiet(mdUser);
+        model.addAttribute("md_diet", md_diet);
+        
         return "diet/logPage";
     }
 
@@ -48,6 +56,11 @@ public class MdDietController {
         String username = authentication.getName();
         MdUser mdUser = mdUserService.findByUsername(username);
         model.addAttribute("mdUser", mdUser);
+
+        // 유저 나이와 성별에 맞는 섭취기준(MdDiet엔티티) 불러오기
+        MdDiet md_diet = mdDietService.getDiet(mdUser);
+        model.addAttribute("md_diet", md_diet);
+
         return "diet/weeklyPage";
     }
 }
