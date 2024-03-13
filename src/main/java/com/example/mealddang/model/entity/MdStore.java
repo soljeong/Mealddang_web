@@ -15,14 +15,16 @@ public class MdStore {
     // private String storeIdK;
     // private String storeIdN;    
     // private String storeIdY;
-
+    @Column(name = "store_name")
     private String storeName;
 
     // 경도(lon,x) 위도(lat,y)
+    @Column(name = "store_x")
     private String storeX;
+    @Column(name = "store_y")
     private String storeY;
 
-    private String storeCategory;
+    // private String storeCategory;
 
     @Column(name = "store_road_address_n")
     private String storeAddr;
@@ -34,7 +36,7 @@ public class MdStore {
     private String storeImgUrl;
     @Column(name = "store_menu_url_n") // 메뉴페이지
     private String storeMenuUrlN;
-    @Column(name = "store_homepage")
-    private String storeUrl;    // 식당홈페이지
+    // @Column(name = "store_homepage")
+    // private String storeUrl;    // 식당홈페이지
 
 }
