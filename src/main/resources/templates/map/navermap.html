@@ -237,13 +237,37 @@
                     });
                 </script>
 
+                <button class="btn btn-outline-warning" id="dawnButton">새벽</button>
+                <script>
+                    document.getElementById("dawnButton").addEventListener("click", function() {
+                        var keyword = encodeURIComponent("새벽"); // URL에 사용될 수 있도록 키워드를 인코딩합니다.
+                        window.location.href = '/user/rsrt/filter/atmosphere?keyword=' + keyword;
+                    });
+                </script>
 
+                <button class="btn btn-outline-warning" id="noholidayButton">연중무휴</button>
+                <script>
+                    document.getElementById("noholidayButton").addEventListener("click", function() {
+                        var keyword = encodeURIComponent("연중무휴"); // URL에 사용될 수 있도록 키워드를 인코딩합니다.
+                        window.location.href = '/user/rsrt/filter/atmosphere?keyword=' + keyword;
+                    });
+                </script>
 
+                <button class="btn btn-outline-warning" id="petButton">반려동물</button>
+                <script>
+                    document.getElementById("petButton").addEventListener("click", function() {
+                        var keyword = encodeURIComponent("반려동물"); // URL에 사용될 수 있도록 키워드를 인코딩합니다.
+                        window.location.href = '/user/rsrt/filter/atmosphere?keyword=' + keyword;
+                    });
+                </script>
 
-                <button class="btn btn-outline-warning" id="cleanlinessButton">24시</button>
-                <button class="btn btn-outline-warning" id="cleanlinessButton">연중무휴</button>
-                <button class="btn btn-outline-warning" id="cleanlinessButton">반려동물</button>
-                <button class="btn btn-outline-warning" id="cleanlinessButton">새로오픈</button>
+                <button class="btn btn-outline-warning" id="newButton">새로오픈</button>
+                <script>
+                    document.getElementById("newButton").addEventListener("click", function() {
+                        var keyword = encodeURIComponent("새로"); // URL에 사용될 수 있도록 키워드를 인코딩합니다.
+                        window.location.href = '/user/rsrt/filter/atmosphere?keyword=' + keyword;
+                    });
+                </script>
         </div></section>
 
         <section id="map">
