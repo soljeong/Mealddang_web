@@ -54,9 +54,9 @@ public class MdImgService {
     }
 
     // MdYoloResult 저장
-    public MdYoloResult saveYoloResult(MdImgUpload upload, String label) {
+    public MdYoloResult saveYoloResult(String imgPath, String label) {
         MdYoloResult mdYoloResult = new MdYoloResult();
-        mdYoloResult.setImgPath(upload);
+        mdYoloResult.setImgPath(imgPath);
         mdYoloResult.setResultLabel(label);
         mdYoloResultRepository.save(mdYoloResult);
         return mdYoloResult;

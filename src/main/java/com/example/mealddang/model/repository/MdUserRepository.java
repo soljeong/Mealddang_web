@@ -14,4 +14,5 @@ public interface MdUserRepository extends JpaRepository<MdUser, String> {
     public Optional<MdUser> findByUsername(String username);
     // 아이디 존재 유무 파악
     public boolean existsByUsername(String username);
+
 }

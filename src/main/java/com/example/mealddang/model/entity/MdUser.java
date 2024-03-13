@@ -40,7 +40,7 @@ public class MdUser {
     @Column(name = "user_gender", columnDefinition = "char(1) default 'M'")
     private String gender;
 
-    @Column(name = "user_birth", columnDefinition = "char(6) default '991212'")
+    @Column(name = "user_birth", columnDefinition = "char(6) default '1999'")
     private String birth;
 
     @Column(columnDefinition = "float default 175.0")

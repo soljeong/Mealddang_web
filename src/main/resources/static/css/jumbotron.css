@@ -183,7 +183,11 @@ py-5 {
     --bs-btn-font-size: 1.25rem;
     --bs-btn-border-radius: var(--bs-border-radius-lg);
 }
-
+.size-max-100 {
+    max-width : 100px;
+    max-height: 100px;
+}
 .no-wrap {
     white-space: nowrap;
 }
+
