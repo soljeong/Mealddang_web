@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -133,9 +134,12 @@ public class MdUserController {
         MdUser mdUser = mdUserService.findByUsername(username);
         model.addAttribute("mdUser", mdUser);
 
-        List<MdImgUpload> mdImgUploads = mdImgService.findAllImgbyUsername(username);
-        model.addAttribute("mdImgUploads", mdImgUploads);
+        // List<MdImgUpload> mdImgUploads = mdImgService.findAllImgbyUsername(username);
+        // model.addAttribute("mdImgUploads", mdImgUploads);
         
+        // 
+        List<String> imgPaths = mdImgService.findAllNutResultbyUsername(username);
+
         return "user/myGallery";
     }
 }

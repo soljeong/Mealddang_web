@@ -9,7 +9,7 @@ import org.springframework.data.repository.query.Param;
 import com.example.mealddang.model.entity.MdNutResult;
 
 public interface MdNutResultRepository extends JpaRepository<MdNutResult, Long> {
-    // 회원ID로 해당 회원이 업로드한 img_path 모두 찾기
-    @Query(value = "select distinct(img_path) from md_nut_result where user_id = :username", nativeQuery = true)
-    public List<String> findAllPathbyUserId(@Param(value="username") String username);
+    // 회원ID로 해당 회원의 모든 이미지분석 히스토리 찾기
+    @Query(value = "SELECT * FROM md_nut_result WHERE img_path in(SELECT DISTINCT(img_path) FROM md_nut_result WHERE user_id = :username)", nativeQuery = true)
+    public List<MdNutResult> findAllNutResultbyUsername(@Param(value="username") String username);
 }
