@@ -159,168 +159,89 @@
 </div>
 </body>
 
-    <!-- keykey? -->
-    <!-- <script th:inline="javascript">
-    var infowindow = new naver.maps.InfoWindow();
-
-    var nameSearchResults = /*[[${nameSearchResults}]]*/ {}; 
-    console.log(nameSearchResults);
-    
-    var filteredStores = /*[[${filteredStores}]]*/ {}; 
-    console.log(filteredStores);
-    
-    
-    var map = new naver.maps.Map('map', {
-        center: new naver.maps.LatLng(37.498095, 127.027610), // 강남역 중심으로 하는 지도
-        zoom: 13
-    });
-    nameSearchResults.forEach(function(store) {
-        var marker = new naver.maps.Marker({
-            position: new naver.maps.LatLng(store.storeY, store.storeX),
-            map: map
-        });
-
-        var contentString = [
-            '<div class="iw_inner">',
-            '   <h3>' + store.storeName + '</h3>',
-            '   <p>' + store.storeAddr + '<br />',
-            '       <img src= '+ store.storeScore + '" width="55" height="55" alt="' + store.storeName + '" class="thumb" /><br />',
-            '       ' + store.storeTel + ' | <a href="' + store.storeImg + '" target="_blank">' + store.storeScore + '</a>',
-            '   </p>',
-            '</div>'
-        ].join('');
-
-                var infowindow = new naver.maps.InfoWindow({
-            content: contentString
-        });
-
-        naver.maps.Event.addListener(marker, 'click', function(e) {
-            if (infowindow.getMap()) {
-                infowindow.close();
-            } else {
-                infowindow.open(map, marker);
-            }
-        });
-    });
-
-    filteredStores.forEach(function(store) {
-        var marker = new naver.maps.Marker({
-            position: new naver.maps.LatLng(store.storeY, store.storeX),
-            map: map
-        });
-
-        // 마커 클릭 이벤트 설정
-        naver.maps.Event.addListener(marker, 'click', function(e) {
-            // 마커 클릭 시 정보 창 열기/닫기 처리
-            if (infowindow.getMap()) {
-                infowindow.close();
-            } else {
-                // 정보 창 내용 설정
-                var contentString = [
-                    '<div class="iw_inner">',
-                    '   <h3>' + store.storeName + '</h3>',
-                    '   <p>' + store.storeAddr + '<br />',
-                    '       <img src="' + store.storeImgUrl + '" width="55" height="55" alt="' + store.storeName + '" class="thumb" /><br />',
-                    '       ' + store.storeTel + ' | <a href="' + store.storeMenuUrlN + '" target="_blank">' + store.storeMenuUrlN + '</a>',
-                    '   </p>',
-                    '</div>'
-                ].join('');
-
-                // 정보 창 내용 설정 후 열기
-                infowindow.setContent(contentString);
-                infowindow.open(map, marker);
-            }
-        });
-    }); 
-
-    
-
-    // 엔터키 이벤트
-    function enterkey() {
-        if (window.event.keyCode == 13) {
-            document.getElementById("searchForm").submit();
-        }
-    }
-
-    </script> -->
-    
-
+    <!-- 이하 script : 엔터키로 검색 버튼 클릭 기능 -->
     <script th:inline="javascript">
         var infowindow = new naver.maps.InfoWindow();
-    
         var nameSearchResults = /*[[${nameSearchResults}]]*/ {}; 
         console.log(nameSearchResults);
-        
         var filteredStores = /*[[${filteredStores}]]*/ {}; 
         console.log(filteredStores);
-        
-        
+
+        // 지도 생성
         var map = new naver.maps.Map('map', {
             center: new naver.maps.LatLng(37.498095, 127.027610), // 강남역 중심으로 하는 지도
             zoom: 13
         });
-        nameSearchResults.forEach(function(store) {
-            var marker = new naver.maps.Marker({
-                position: new naver.maps.LatLng(store.storeY, store.storeX),
-                map: map
+
+        if (nameSearchResults){
+            // nameSearchResults에 대한 마커 생성
+            nameSearchResults.forEach(function(store) {
+                var marker = new naver.maps.Marker({
+                    position: new naver.maps.LatLng(store.storeY, store.storeX),
+                    map: map
+                });
+        
+                var contentString = [
+                    '<div class="iw_inner">',
+                    '   <h3>' + store.storeName + '</h3>',
+                    '   <p>' + store.storeAddr + '<br />',
+                    '       <img src= '+ store.storeScore + '" width="55" height="55" alt="' + store.storeName + '" class="thumb" /><br />',
+                    '       ' + store.storeTel + ' | <a href="' + store.storeImg + '" target="_blank">' + store.storeScore + '</a>',
+                    '   </p>',
+                    '</div>'
+                ].join('');
+        
+                naver.maps.Event.addListener(marker, 'click', function(e) {
+                    if (infowindow.getMap()) {
+                        infowindow.close();
+                    } else {
+                        infowindow.setContent(contentString);
+                        infowindow.open(map, marker);
+                    }
+                });
             });
-    
-            var contentString = [
-                '<div class="iw_inner">',
-                '   <h3>' + store.storeName + '</h3>',
-                '   <p>' + store.storeAddr + '<br />',
-                '       <img src= '+ store.storeScore + '" width="55" height="55" alt="' + store.storeName + '" class="thumb" /><br />',
-                '       ' + store.storeTel + ' | <a href="' + store.storeImg + '" target="_blank">' + store.storeScore + '</a>',
-                '   </p>',
-                '</div>'
-            ].join('');
-    
-            naver.maps.Event.addListener(marker, 'click', function(e) {
-                if (infowindow.getMap()) {
-                    infowindow.close();
-                } else {
-                    infowindow.setContent(contentString);
-                    infowindow.open(map, marker);
+        }
+
+        if(filteredStores){
+            // filteredStores에 대한 마커 생성
+            filteredStores.forEach(function(store) {
+                var marker = new naver.maps.Marker({
+                    position: new naver.maps.LatLng(store.storeY, store.storeX),
+                    map: map
+                });
+        
+                // 마커 클릭 이벤트 설정
+                naver.maps.Event.addListener(marker, 'click', function(e) {
+                    // 마커 클릭 시 정보 창 열기/닫기 처리
+                    if (infowindow.getMap()) {
+                        infowindow.close();
+                    } else {
+                        // 정보 창 내용 설정
+                        var contentString = [
+                            '<div class="iw_inner">',
+                            '   <h3>' + store.storeName + '</h3>',
+                            '   <p>' + store.storeAddr + '<br />',
+                            '       <img src="' + store.storeImgUrl + '" width="55" height="55" alt="' + store.storeName + '" class="thumb" /><br />',
+                            '       ' + store.storeTel + ' | <a href="' + store.storeMenuUrlN + '" target="_blank">' + store.storeMenuUrlN + '</a>',
+                            '   </p>',
+                            '</div>'
+                        ].join('');
+        
+                        // 정보 창 내용 설정 후 열기
+                        infowindow.setContent(contentString);
+                        infowindow.open(map, marker);
+                    }
+                });
+            }); 
+            
+            // 엔터키 이벤트
+            function enterkey() {
+                if (window.event.keyCode == 13) {
+                    document.getElementById("searchForm").submit();
                 }
-            });
-        });
-    
-        filteredStores.forEach(function(store) {
-            var marker = new naver.maps.Marker({
-                position: new naver.maps.LatLng(store.storeY, store.storeX),
-                map: map
-            });
-    
-            // 마커 클릭 이벤트 설정
-            naver.maps.Event.addListener(marker, 'click', function(e) {
-                // 마커 클릭 시 정보 창 열기/닫기 처리
-                if (infowindow.getMap()) {
-                    infowindow.close();
-                } else {
-                    // 정보 창 내용 설정
-                    var contentString = [
-                        '<div class="iw_inner">',
-                        '   <h3>' + store.storeName + '</h3>',
-                        '   <p>' + store.storeAddr + '<br />',
-                        '       <img src="' + store.storeImgUrl + '" width="55" height="55" alt="' + store.storeName + '" class="thumb" /><br />',
-                        '       ' + store.storeTel + ' | <a href="' + store.storeMenuUrlN + '" target="_blank">' + store.storeMenuUrlN + '</a>',
-                        '   </p>',
-                        '</div>'
-                    ].join('');
-    
-                    // 정보 창 내용 설정 후 열기
-                    infowindow.setContent(contentString);
-                    infowindow.open(map, marker);
-                }
-            });
-        }); 
-    
-        // 엔터키 이벤트
-        function enterkey() {
-            if (window.event.keyCode == 13) {
-                document.getElementById("searchForm").submit();
             }
         }
+
+        
     </script>
-    
 </html>
