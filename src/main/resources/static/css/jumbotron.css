@@ -184,3 +184,6 @@ py-5 {
     --bs-btn-border-radius: var(--bs-border-radius-lg);
 }
 
+.no-wrap {
+    white-space: nowrap;
+}
