@@ -4,6 +4,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.MapsId;
 import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,7 +16,9 @@ import lombok.ToString;
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor @ToString
 public class MdDietGroup {
     
-    @Id @OneToOne @JoinColumn(name = "user_id", referencedColumnName = "user_id")
+    @Id
+    private String id;
+    @OneToOne @MapsId
     private MdUser username;
 
     @Column(name = "user_age")

@@ -13,7 +13,7 @@ public class MdKey {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY) @Column(name = "keyword_id")
     private Long keywordId;
 
-    @Column(columnDefinition = "restaurant_id")
+    @Column(name = "restaurant_id")
     private String storeIdN;
 
     private String keyword;
