@@ -22,7 +22,7 @@ public class MdStore {
     private String storeX;
     private String storeY;
 
-    private String storeCategory;
+    // private String storeCategory;
 
     @Column(name = "store_road_address_n")
     private String storeAddr;
