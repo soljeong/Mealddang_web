@@ -90,12 +90,16 @@
             <h2 class="category-title">mealddang 카테고리를 선택해보세요</h2>
             <div class="category-list">
                 
-                <button class="btn btn-outline-warning" id="keyword">분위기좋은</button>
+                
+                <button class="btn btn-outline-warning" id="keyword">분위기</button>
                 <script>
-                    document.getElementById("countButton").addEventListener("click", function() {
-                        window.location.href = `/count/atmosphere?keyword=분위기좋은`;
+                    document.getElementById("keyword").addEventListener("click", function() {
+                        var keyword = encodeURIComponent("분위기"); // URL에 사용될 수 있도록 키워드를 인코딩합니다.
+                        window.location.href = '/user/rsrt/filter/atmosphere?keyword=' + keyword;
                     });
                 </script>
+
+
                 <button class="btn btn-outline-warning">분위기</button>
                 <button class="btn btn-outline-warning">맛있는</button>
                 <button class="btn btn-outline-warning">깔끔한</button>
@@ -242,5 +246,49 @@
                 position: point
             });
         });
+
+        // function showOnMap(keyword) {
+        //     // AJAX 요청을 이용하여 서버에서 해당 키워드로 검색한 위치 정보를 받아옵니다.
+        //     // 이 부분은 서버와의 통신으로 실제 데이터를 가져와 지도에 표시하는 방식에 맞게 수정되어야 합니다.
+        //     // 여기에서는 예시로 alert로 출력하는 코드를 작성하겠습니다.
+        //     alert('키워드: ' + keyword);
+
+        //     // 서버에서 특정 키워드에 대한 위치 정보를 가져오는 AJAX 요청
+        //     $.ajax({
+        //         type: 'GET',
+        //         url: '/user/rsrt/filter/atmosphere', // 서버의 요청 경로에 따라 수정해야 합니다.
+        //         data: { keyword: keyword },
+        //         success: function(data) {
+        //             // 서버에서 받아온 데이터를 이용하여 지도에 마커 표시 등의 작업을 수행합니다.
+        //             // 받아온 데이터는 자유롭게 활용하여 구현하시면 됩니다.
+        //             data.forEach(function(store) {
+        //                 var marker = new naver.maps.Marker({
+        //                     position: new naver.maps.LatLng(store.storeY, store.storeX),
+        //                     map: map
+        //                 });
+        //             });
+        //         },
+        //         error: function(xhr, status, error) {
+        //             // AJAX 요청이 실패했을 때의 처리를 수행합니다.
+        //             console.error(error);
+        //         }
+        //     });
+        // }
+
+        // var nameKeywordResults = /*[[${nameKeywordResults}]]*/ {}; 
+        // console.log(nameKeywordResults);
+
+        // var map = new naver.maps.Map('map', {
+        //     center: new naver.maps.LatLng(37.498095, 127.027610), // 강남역 중심으로 하는 지도
+        //     zoom: 13
+        // });
+
+        // nameKeywordResults.forEach(function(store) {
+        //     var marker = new naver.maps.Marker({
+        //         position: new naver.maps.LatLng(store.storeY, store.storeX),
+        //         map: map
+        //     });
+        // });
+        
     </script>
 </html>
