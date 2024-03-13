@@ -63,9 +63,9 @@ public class MdImgService {
     }
 
     // 회원ID로 해당 회원의 모든 업로드이미지원본 엔티티 찾기
-    public List<MdImgUpload> findAllImgbyUsername(String username) {
+    public List<MdImgUpload> findAllUploadbyUsername(String username) {
         log.info(username + " 회원님의 모든 업로드 히스토리를 찾고 있습니다.");
-        List<String> imgPaths = mdNutResultRepository.findAllPathbyUserId(username);
+        List<String> imgPaths = mdNutResultRepository.findAllPathbyUsername(username);
         log.info(imgPaths.size() + "개의 업로드 히스토리를 찾았습니다.");
         return mdImgUploadRepository.findAllImgbyPaths(imgPaths);
     }

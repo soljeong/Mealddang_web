@@ -12,4 +12,8 @@ public interface MdNutResultRepository extends JpaRepository<MdNutResult, Long> 
     // 회원ID로 해당 회원의 모든 이미지분석 히스토리 찾기
     @Query(value = "SELECT * FROM md_nut_result WHERE img_path in(SELECT DISTINCT(img_path) FROM md_nut_result WHERE user_id = :username)", nativeQuery = true)
     public List<MdNutResult> findAllNutResultbyUsername(@Param(value="username") String username);
+
+    // 회원ID로 해당 회원의 모든 업로드 이미지경로 찾기
+    @Query(value = "SELECT DISTINCT(img_path) FROM md_nut_result WHERE user_id = :username", nativeQuery = true)
+    public List<String> findAllPathbyUsername(@Param(value="username") String username);
 }
