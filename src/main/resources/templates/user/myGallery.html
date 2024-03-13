@@ -47,7 +47,7 @@
             </div>
             <div id="my-img" th:unless="${mdNutResults == null || mdNutResults.isEmpty()}">
                 <ul th:id="my-img" th:each="mdNutResult : ${mdNutResults}">
-                    <li><img th:src="@{'/'+${mdNutResult.imgPath}}"></li>
+                    <li><img th:src="@{'/images/'+${mdNutResult.imgPath.imgPath}}"></li>
                 </ul>
             </div>
         </section>

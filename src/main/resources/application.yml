@@ -97,8 +97,8 @@ spring:
     #     check-template-location: true 
     #     suffix: .html   # .html을 mustache 파일로 인식하겠다 (html 확장자가 사용 편리하니까~)
     #     cache: false
-    mvc:
-        static-path-pattern: /static/**
+    # mvc:
+    #     static-path-pattern: /static/**
 
 logging:
     level:
@@ -111,3 +111,5 @@ server:
             charset: UTF-8
             enabled: true
             force: true
+
+
