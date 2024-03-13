@@ -33,7 +33,7 @@
             <a href="/user/rsrt/map"><button type="button" class="btn btn-outline-warning">밀땅검색</button></a>
         </div>
         <div class="col-md-3 text-end">
-            <a href="/user/mygallery"><button type="button" class="btn btn-outline-warning me-2">마이갤러리</button></a>
+            
             <a href="/logout"><button type="button" class="btn btn-outline-warning me-2">로그아웃</button></a>
         </div>
     </header>
@@ -45,7 +45,7 @@
             <div class="col-12 my-4">
                 <form action="#" th:action="@{/user/mypage/update_nickname}" method="post" class="text-md-start">
                     <label for="nickname">별명</label><br>
-                    <input type="text" name="nickname" th:attr="placeholder=${mdUser.nickname != null ? mdUser.nickname : 'none'}" required/><br>
+                    <input type="text" name="nickname" th:attr="placeholder=${mdUser.nickname != null ? mdUser.nickname : 'none'}" required/>
                     <button type="submit" class="btn btn-outline-warning">수정</button>
                 </form>
             </div>
@@ -53,14 +53,14 @@
             <div class="col-sm-6 my-4">
                 <form action="#" th:action="@{/user/mypage/update_birth}" method="post" class="text-md-start">
                     <label for="birth">생일(YYMMDD)</label><br>
-                    <input type="text" id="birth" name="birth" th:attr="placeholder=${mdUser.birth != null ? mdUser.birth : 'none'}" required/><br>
+                    <input type="text" id="birth" name="birth" th:attr="placeholder=${mdUser.birth != null ? mdUser.birth : 'none'}" required/>
                     <button type="submit" class="btn btn-outline-warning">수정</button>
                 </form>
             </div>
 
             <div class="col-sm-6 my-4">
                 <form action="#" th:action="@{/user/mypage/update_gender}" method="post" class="text-md-start">
-                    <label for="gender">성별</label>
+                    <label for="gender">성별</label><br>
                     <input type="radio" id="gender" name="gender" value="F" th:checked="${mdUser.gender == 'F' || mdUser.gender == null}" required/>여성
                     <input type="radio" id="gender" name="gender" value="M" th:checked="${mdUser.gender == 'M'}" required/>남성                    
                     <button type="submit" class="btn btn-outline-warning">수정</button>
@@ -69,7 +69,7 @@
             
             <div class="col-sm-6 my-4">
                 <form action="#" th:action="@{/user/mypage/update_cm}" method="post">
-                    <label for="cm">키(cm)</label>
+                    <label for="cm">키(cm)</label><br>
                     <input type="text" id="cm" name="cm" th:attr="placeholder=${mdUser.userCm != null ? mdUser.userCm : 'none'}" required/>
                     <button type="submit" class="btn btn-outline-warning">수정</button>
                 </form>
@@ -77,12 +77,16 @@
 
             <div class="col-sm-6 my-4">
                 <form action="#" th:action="@{/user/mypage/update_kg}" method="post">
-                    <label for="kg">몸무게(kg)</label>
+                    <label for="kg">몸무게(kg)</label><br>
                     <input type="text" id="kg" name="kg" th:attr="placeholder=${mdUser.userKg != null ? mdUser.userKg : 'none'}" required/>
                     <button type="submit" class="btn btn-outline-warning">수정</button>
                 </form>
             </div>
 
+            <a href="/user/mygallery"><button type="button" class="btn btn-outline-warning me-2">마이갤러리</button></a>
+
+
+            
                 <!-- <label>관심지역</label>
                 <label><input type="checkbox" th:field="*{userArea}" class="form-control" value="gangnam" />강남구</label>
                 <label><input type="checkbox" th:field="*{userArea}" class="form-control" value="seocho" />서초구</label>
