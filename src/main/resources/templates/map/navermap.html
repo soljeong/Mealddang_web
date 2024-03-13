@@ -150,12 +150,23 @@
             map: map
         });
 
-        var contentString = [
+    //     var contentString = [
+    // '<div class="iw_inner">',
+    // '   <h3>' + store.storeName + '</h3>',
+    // '   <p>' + store.storeAddr + '<br />',
+    // '       <img src= '+ store.storeImgUrl + '" width="55" height="55" alt="' + store.storeName + '" class="thumb" /><br />',
+    // '       ' + store.storeTel + ' | <a href="' + store.storeMenuUrlN + '" target="_blank">' + store.storeMenuUrlN + '</a>',
+    // '   </p>',
+    // '</div>'
+    // ].join('');
+
+
+    var contentString = [
     '<div class="iw_inner">',
     '   <h3>' + store.storeName + '</h3>',
     '   <p>' + store.storeAddr + '<br />',
-    '       <img src= '+ store.storeImgUrl + '" width="55" height="55" alt="' + store.storeName + '" class="thumb" /><br />',
-    '       ' + store.storeTel + ' | <a href="' + store.storeMenuUrlN + '" target="_blank">' + store.storeMenuUrlN + '</a>',
+    '       <img src="' + store.storeImgUrl + '" width="55" height="55" alt="' + store.storeName + '" class="thumb" /><br />',
+    '       ' + store.storeTel + ' | <button onclick="window.open(\'' + store.storeMenuUrlN + '\', \'_blank\')">메뉴 보기</button>',
     '   </p>',
     '</div>'
     ].join('');
