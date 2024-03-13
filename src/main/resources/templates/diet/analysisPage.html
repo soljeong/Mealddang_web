@@ -15,6 +15,7 @@
             color: inherit;
         }
     </style>
+
 </head>
 <body>
 <div class="container py-4">
@@ -48,13 +49,15 @@
         <section id="uploader">
             <div id="upload-form">
                 <form id="uploadForm" name="form" enctype="multipart/form-data">
-                    <input type="file" name="imgfile"/>
+                    <input type="file" name="imgfile" onchange="setThumbnail(event);"/>
+                    <!-- 파일 등록하면 자바스크립트 함수 실행됨 -->
                     <input type="button" id="submit" value="업로드"/>
+
                 </form>
             </div>
             
             <div id="upload-result">
-                <img id="image" src="" alt="여기에 이미지가 표시됩니다.">
+                <!-- <img id="image" src="" alt="여기에 이미지가 표시됩니다."> -->
             </div>
         </section>
         
@@ -108,5 +111,19 @@
     </main>
     <footer class="pt-3 mt-4 text-body-secondary border-top">© PORT8090</footer>
 </div>
+<script>
+    // 업로드 이미지 미리보기
+    function setThumbnail(event) {
+      var reader = new FileReader();
+
+      reader.onload = function(event) {
+        var img = document.createElement("img");
+        img.setAttribute("src", event.target.result);
+        document.querySelector("#upload-result").appendChild(img);
+      };
+
+      reader.readAsDataURL(event.target.files[0]);
+    }
+  </script>
 </body>
 </html>
