@@ -44,31 +44,30 @@ public class MdDietController {
         model.addAttribute("mdUser", mdUser);
         return "diet/analysisPage";
     }
-    // 상세1 이미지분석페이지 업로드 메소드(이미지업로드 + 분석 + 저장 all in one)
-    @PostMapping("/analysis/upload")
-    public String uploadImg(
-        @Validated @RequestParam("imgfile") MultipartFile imgfile, Model model, Authentication authentication) throws Exception {
-            // UploadImg(업로드 이미지 원본) 저장
-            MdImgUpload mdImgUpload = mdImgService.uploadImg(MdImgUpload.builder().build(), imgfile);
-            model.addAttribute("mdImgUpload", mdImgUpload);
+    // // 상세1 이미지분석페이지 업로드 메소드(이미지업로드 + 분석 + 저장 all in one)
+    // @PostMapping("/analysis/upload")
+    // public String uploadImg(
+    //     @Validated @RequestParam("imgfile") MultipartFile imgfile, Model model, Authentication authentication) throws Exception {
+    //         // UploadImg(업로드 이미지 원본) 저장
+    //         MdImgUpload mdImgUpload = mdImgService.uploadImg(MdImgUpload.builder().build(), imgfile);
+    //         model.addAttribute("mdImgUpload", mdImgUpload);
 
-            // [미완]업로드 이미지 원본을 욜로모델에게 전달
+    //         // [미완]업로드 이미지 원본을 욜로모델에게 전달
 
-            // YoloResult 저장 위해 유저아이디(YoloResult 속성) 가져오기
-            String username = authentication.getName();
-            MdUser mdUser = mdUserService.findByUsername(username);
-            model.addAttribute("mdUser", mdUser);
+    //         // YoloResult 저장 위해 유저아이디(YoloResult 속성) 가져오기
+    //         String username = authentication.getName();
+    //         MdUser mdUser = mdUserService.findByUsername(username);
+    //         model.addAttribute("mdUser", mdUser);
 
-            // YoloResult(분석 결과) 저장
-            // 아래 2줄은 개발용 가짜 정보임, DB 연결 완성되면 수정할 것.
-            String resultName = "김치";
-            String resultStored = "static/isolated/20210308/kimchi.jpg";
+    //         // YoloResult(분석 결과) 저장
+    //         // 아래 2줄은 개발용 가짜 정보임, DB 연결 완성되면 수정할 것.
+    //         String resultName = "김치";
 
-            MdYoloResult mdYoloResult = mdImgService.saveYoloResult(mdUser, mdImgUpload, resultName, resultStored);
-            model.addAttribute("mdYoloResult", mdYoloResult);
+    //         MdYoloResult mdYoloResult = mdImgService.saveYoloResult(mdImgUpload, resultName);
+    //         model.addAttribute("mdYoloResult", mdYoloResult);
 
-            return "diet/analysisPage";
-    }
+    //         return "diet/analysisPage";
+    // }
 
     // [미완] 상세1 이미지분석페이지 분석결과확인 메소드
     // @GetMapping("/analysis/result")
