@@ -163,6 +163,7 @@
     <script th:inline="javascript">
     
         var infowindow = new naver.maps.InfoWindow();
+
         var nameSearchResults = /*[[${nameSearchResults}]]*/ {}; 
         console.log(nameSearchResults);
         var filteredStores = /*[[${filteredStores}]]*/ {}; 
@@ -186,8 +187,8 @@
                     '<div class="iw_inner">',
                     '   <h3>' + store.storeName + '</h3>',
                     '   <p>' + store.storeAddr + '<br />',
-                    '       <img src= '+ store.storeScore + '" width="55" height="55" alt="' + store.storeName + '" class="thumb" /><br />',
-                    '       ' + store.storeTel + ' | <a href="' + store.storeImg + '" target="_blank">' + store.storeScore + '</a>',
+                    '       <img src= '+ store.storeImgUrl + '" width="55" height="55" alt="' + store.storeName + '" class="thumb" /><br />',
+                    '       ' + store.storeTel + ' | <a href="' + store.storeMenuUrlN + '" target="_blank">' + store.storeMenuUrlN + '</a>',
                     '   </p>',
                     '</div>'
                 ].join('');
@@ -243,76 +244,50 @@
             }
         }
 
-
-    </script>
-
-    <!-- 다예니꺼 올리기 -->
-    <script th:inline="javascript">
-        
-    
-
-        var marker = new naver.maps.Marker({
-            position: new naver.maps.LatLng(37.5112, 127.0981), //잠실 롯데월드 마커
-            map: map
-        });
-        var marker1 = new naver.maps.Marker({
-            position: new naver.maps.LatLng(37.5666805, 126.9784147), //시청 마커
-            map: map
-        });
-        var marker2 = new naver.maps.Marker({
-            position: new naver.maps.LatLng(37.498095, 127.027610), //강남역 마커
-            map: map
-        });
-
         //실시간 위치 업데이트
+        var currentMarker = null; // 현재 마커를 저장할 전역 변수
+        var lastPosition = null; // 마지막 위치를 저장할 전역 변수
+        var isFirstLocation = true; // 첫 번째 위치 확인인지 여부를 저장할 변수
+
         setInterval(function() {
             navigator.geolocation.getCurrentPosition(function(position) {
                 var latitude = position.coords.latitude;
                 var longitude = position.coords.longitude;
-                var markerOptions = {
-                    position: new naver.maps.LatLng(latitude, longitude),
-                    map: map
-                }
-                var marker = new naver.maps.Marker(markerOptions);
-                map.setCenter(markerOptions.position);
-            });}, 5000); // 5초마다 위치 업데이트
-            var contentString2 = [
-            '<div class="iw_inner">',
-            '   <h3>강남역</h3>',
-            '   <p>서울 강남역이당<br />',
-            '       <img src="/static/images/123.png" width="55" height="55" alt="강남역" class="thumb" /><br />',
-            '       02-120 | 강남역 2호선 br />\n',
-            '       <a href="http://www.seoul.go.kr" target="_blank">www.seoul.go.kr/</a>',
-            '   </p>',
-            '</div>'
-            ].join('');
-        var infowindow2 = new naver.maps.InfoWindow({
-            content: contentString2});
-        // 마커 클릭 이벤트
-        naver.maps.Event.addListener(marker2, "click", function(e) {
-            if (infowindow2.getMap()) {
-                infowindow2.close();
-            } else {
-                infowindow2.open(map, marker2);
+        
+        // 새 위치와 마지막 위치를 비교
+        if (lastPosition && latitude === lastPosition.lat && longitude === lastPosition.lng) {
+            // 위치가 변경되지 않았으면 아무것도 하지 않음
+            return;
+        }
+
+        // 새 위치를 마지막 위치로 업데이트
+        lastPosition = { lat: latitude, lng: longitude };
+
+        // 이전 마커가 있으면 지도에서 제거
+        if (currentMarker) {
+            currentMarker.setMap(null);
+        }
+
+        var markerOptions = {
+            position: new naver.maps.LatLng(latitude, longitude),
+            map: map,
+            icon: {
+                content: '<img src="/static/icons/map-marker-icon_34392.png" style="width: 33px; height: 33px;">'
+            } // 빨간색 마커 이미지로 설정
+        };
+        var marker = new naver.maps.Marker(markerOptions);
+        
+        // 새로 생성된 마커를 현재 마커로 저장
+        currentMarker = marker;
+
+        // 첫 번째 위치 확인이거나 위치가 변경된 경우에만 지도의 중심을 현재 위치로 이동
+        if (isFirstLocation || (latitude !== lastPosition.lat || longitude !== lastPosition.lng)) {
+            map.setCenter(markerOptions.position);
+            isFirstLocation = false; // 첫 번째 위치 확인이 끝났으므로 false로 설정
             }
         });
-        // 정보 창 띄우기
-        infowindow2.open(map, marker2);
-        var polyline = new naver.maps.Polyline({
-            map: map,
-            path: [],
-            strokeColor: '#5347AA',
-            strokeWeight: 2
-        });
-        naver.maps.Event.addListener(map, 'click', function(e) {
-            var point = e.coord;
-            var path = polyline.getPath();
-            path.push(point);
-            new naver.maps.Marker({
-                map: map,
-                position: point
-            });
-        });
-        
+    }, 5000);
+
+
     </script>
 </html>
