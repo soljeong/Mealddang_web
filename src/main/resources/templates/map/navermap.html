@@ -17,7 +17,12 @@
             color: inherit;
         }
     </style>
-
+    <!-- <style>
+      .highlight {
+          background-color: yellow;
+          font-weight: bold;
+      }
+    </style> -->
 </head>
 <body>
 <div class="container py-4">
@@ -57,19 +62,27 @@
         </form> -->
 
         
-            <section class="searchresult">
-                <h2 class="searchresult-title">식당 이름 검색 결과</h2>
-                <div class="searchResult" th:if="${nameSearchResults == null || nameSearchResults.isEmpty()}"> 0건 </div>
-                <div class="searchResult" th:unless="${nameSearchResults == null || nameSearchResults.isEmpty()}">
-                    <table>
-                        <tbody class="searchResultTable">
-                            <tr th:id="${mdStore.storeName}" th:each="mdStore : ${nameSearchResults}" class="table-row">
-                                <td class="table-data" th:text="${mdStore.storeName != null ? mdStore.storeName : 'N/A'}"></td>
-                                <td class="table-data" th:text="${mdStore.storeAddr != null ? mdStore.storeAddr : 'N/A'}"></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+        <section class="searchresult">
+          <h2 class="searchresult-title">식당 이름 검색 결과</h2>
+          <div class="searchResult" th:if="${nameSearchResults == null || nameSearchResults.isEmpty()}"> 0건 </div>
+          <div class="searchResult" th:unless="${nameSearchResults == null || nameSearchResults.isEmpty()}">
+              <table>
+                  <tbody class="searchResultTable">
+                      <tr th:id="${mdStore.storeName}" th:each="mdStore : ${nameSearchResults}" class="table-row">
+                          <td class="table-data" th:text="${mdStore.storeName != null ? mdStore.storeName.replace(keyword, '<span class=\'highlight\'>' + keyword + '</span>') : 'N/A'}"></td>
+                          <td class="table-data" th:text="${mdStore.storeAddr != null ? mdStore.storeAddr : 'N/A'}"></td>
+                      </tr>
+                  </tbody>
+              </table>
+          </div>
+      </section>
+
+      <style>
+        .highlight {
+            background-color: yellow;
+            font-weight: bold;
+        }
+    </style>
         
                 <!-- <h2 class="searchresult-title">리뷰 검색 결과</h2>
                 <div class="searchResult" th:if="${reviewSearchResults == null || reviewSearchResults.isEmpty()}"> 0건 </div>
