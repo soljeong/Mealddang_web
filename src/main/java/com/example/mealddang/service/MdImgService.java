@@ -9,7 +9,6 @@ import org.springframework.web.multipart.MultipartFile;
 import com.example.mealddang.config.handler.FileHandler;
 import com.example.mealddang.model.entity.MdYoloResult;
 import com.example.mealddang.model.entity.MdImgUpload;
-import com.example.mealddang.model.entity.MdUser;
 import com.example.mealddang.model.repository.MdYoloResultRepository;
 
 import lombok.extern.slf4j.Slf4j;
@@ -36,18 +35,16 @@ public class MdImgService {
 
     // 이미지업로더
     public MdImgUpload uploadImg(MdImgUpload p_upload, MultipartFile imgFile) throws Exception {
-        MdImgUpload mdImgUpload = fileHandler.parseFileInfo(p_upload.getUploadId(), imgFile);
+        MdImgUpload mdImgUpload = fileHandler.parseFileInfo(p_upload.getImgPath(), imgFile);
         mdImgUploadRepository.save(mdImgUpload);
         return mdImgUpload;
     }
 
     // 이미지분석정보 저장
-    public MdYoloResult saveYoloResult(MdUser username, MdImgUpload upload, String resultName, String resultStored) {
+    public MdYoloResult saveYoloResult(MdImgUpload upload, String label) {
         MdYoloResult mdYoloResult = new MdYoloResult();
-        mdYoloResult.setUsername(username);
-        mdYoloResult.setUploadId(upload);
-        mdYoloResult.setResultName(resultName);
-        mdYoloResult.setResultStored(resultStored);
+        mdYoloResult.setImgPath(upload);
+        mdYoloResult.setResultLabel(label);
 
         mdYoloResultRepository.save(mdYoloResult);
         return mdYoloResult;
@@ -56,9 +53,9 @@ public class MdImgService {
     // 회원ID로 해당 회원이 업로드한 모든 이미지 찾기
     public List<MdImgUpload> findAllImgbyUsername(String username) {
         log.info(username + " 회원님의 갤러리를 찾고 있습니다.");
-        List<Long> imgIDs = mdYoloResultRepository.findAllImgIDbyUserId(username);
-        log.info(imgIDs.size() + "개의 이미지를 찾았습니다.");
-        return mdImgUploadRepository.findAllImgsbyImgID(imgIDs);
+        List<String> imgPaths = mdYoloResultRepository.findAllImgIDbyUserId(username);
+        log.info(imgPaths.size() + "개의 이미지를 찾았습니다.");
+        return mdImgUploadRepository.findAllImgsbyImgID(imgPaths);
     }
     
     // // 올린 이미지 모두 찾기

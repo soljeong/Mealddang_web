@@ -15,7 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j @Component
 public class FileHandler {
 
-    public MdImgUpload parseFileInfo(Long fileID, MultipartFile multipartFile) throws Exception {
+    public MdImgUpload parseFileInfo(String filePath, MultipartFile multipartFile) throws Exception {
 
         MdImgUpload mdImgUploaded = new MdImgUpload();
 
@@ -73,9 +73,8 @@ public class FileHandler {
             String new_file_name = System.nanoTime() + originalFileExtension;
 
             mdImgUploaded = MdImgUpload.builder()
-                    .uploadId(fileID)
-                    .originalName(multipartFile.getOriginalFilename())
-                    .storedName(underStaticPath + "/" + new_file_name)
+                    .imgName(multipartFile.getOriginalFilename())
+                    .imgPath(underStaticPath + "/" + new_file_name)
                     .fileSize(multipartFile.getSize())
                     .build();
             log.info("mdImgUploaded : " + mdImgUploaded.toString());

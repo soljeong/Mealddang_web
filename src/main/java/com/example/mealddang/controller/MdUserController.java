@@ -18,10 +18,9 @@ import com.example.mealddang.service.MdImgService;
 import com.example.mealddang.service.MdUserService;
 
 import jakarta.validation.Valid;
-import lombok.extern.slf4j.Slf4j;
 
 // 회원 관련 서비스 컨트롤러
-@Controller @Slf4j
+@Controller
 public class MdUserController {
 
     @Autowired

@@ -72,8 +72,8 @@ spring:
     
     # 데이터베이스 (MySQL mealddang.db)
     datasource:
-        url: jdbc:mysql://15.164.232.21:3306/mealddang
-        username: mealddang
+        url: jdbc:mysql://mealddang.iptime.org/mealddang
+        username: root
         password: test1234
         driver-class-name: com.mysql.cj.jdbc.Driver
     # DB connection 객체 만드는 애

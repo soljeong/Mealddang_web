@@ -46,21 +46,43 @@
         </section>
 
         <section id="uploader">
-            <div id="upload-form"><form name="form" method="post" action="/user/diet/analysis/upload" enctype="multipart/form-data">
-                <input type="file" name="imgfile"/>
-                <input type="submit" id="submit" value="업로드"/>
-            </form></div>
+            <div id="upload-form">
+                <form id="uploadForm" name="form" enctype="multipart/form-data">
+                    <input type="file" name="imgfile"/>
+                    <input type="button" id="submit" value="업로드"/>
+                </form>
+            </div>
             
             <div id="upload-result">
-                <img th:if="${mdImgUpload != null}" th:src="@{'/'+${mdImgUpload.storedName}}" alt="uploaded">
-                <img th:unless="${mdImgUpload != null}" src="/static/icons/plate.png" alt="default">
-
-                <!-- <img th:if="${mdGallery != null}" src="/static/images/20240307/1736532852879100.jpg" alt="uploaded">
-                <img th:unless="${mdGallery != null}" src="/static/icons/plate.png" alt="default"> -->
-
-                <!-- <p th:text="${mdGallery != null ? mdGallery.storedFileName : 'none'}"></p> -->
+                <img id="image" src="" alt="여기에 이미지가 표시됩니다.">
             </div>
         </section>
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script>
+        $(document).ready(function() {
+            $('#submit').click(function(e) {
+                e.preventDefault(); // 폼 기본 제출 방지
+                var formData = new FormData($('#uploadForm')[0]);
+                
+                $.ajax({
+                    url: '/api-upload', // '/api-upload' 엔드포인트 사용
+                    type: 'POST',
+                    data: formData,
+                    processData: false, // FormData 사용 시 필수
+                    contentType: false, // FormData 사용 시 필수
+                    success: function(response) {
+                        // 응답에서 imgUrl 속성 값을 가져와 img 요소의 src 속성에 할당합니다.
+                        $('#image').attr('src', response.imgUrl);
+                    },
+                    error: function(error) {
+                        console.log("이미지 업로드 실패:", error);
+                    }
+                });
+            });
+        });
+        </script>
+        
 
         <section id="analysis">
             <a href="/user/diet/analysis/result"><button>분석 결과 확인</button></a>
@@ -86,22 +108,5 @@
     </main>
     <footer class="pt-3 mt-4 text-body-secondary border-top">© PORT8090</footer>
 </div>
-                
-            <!-- <div id="root">
-                <div class="contents">
-                    <div class="upload-box">
-                        <div id="drop-file" class="drag-file">
-                            <img src="https://img.icons8.com/pastel-glyph/2x/image-file.png" alt="파일 아이콘" class="image" >
-                            <p class="message">Drag files to upload</p>
-                            <img src="" alt="미리보기 이미지" class="preview">
-                        </div>
-                        <label class="file-label" for="chooseFile">Choose File</label>
-                        <input class="file" id="chooseFile" type="file" onchange="dropFile.handleFiles(this.files)" accept="image/png, image/jpeg, image/gif">
-                    </div>
-                </div>
-            </div> -->
-            <!-- <p>이미지 업로드 칸</p>
-            <a href="#" class="analysis-btn"><button type="submit" id="analysis-btn">분석</button></a> -->
-
 </body>
 </html>
