@@ -1,5 +1,6 @@
 package com.example.mealddang.service;
 
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.NoSuchElementException;
@@ -14,7 +15,9 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.FieldError;
 
 import com.example.mealddang.config.constant.Role;
+import com.example.mealddang.model.entity.MdDietGroup;
 import com.example.mealddang.model.entity.MdUser;
+import com.example.mealddang.model.repository.MdDietGroupRepository;
 import com.example.mealddang.model.repository.MdUserRepository;
 
 @Service
@@ -22,6 +25,8 @@ public class MdUserService {
     
     @Autowired
     private MdUserRepository mdUserRepository;
+    @Autowired
+    private MdDietGroupRepository mdDietGroupRepository;
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
@@ -48,6 +53,9 @@ public class MdUserService {
         p_mdUser.setPassword(encPW);
         // md_user table에 회원정보 저장
         mdUserRepository.save(p_mdUser);
+        // md_diet_group에 회원정보 저장
+        MdDietGroup mdDietGroup = new MdDietGroup(p_mdUser);
+        mdDietGroupRepository.save(mdDietGroup);
     }
     // 회원 정보 수정
     // 1. 닉네임 수정
@@ -55,15 +63,23 @@ public class MdUserService {
             mdUser.setNickname(p_nickname);
         mdUserRepository.save(mdUser);
     }
-    // 2. 생년월일 수정
+    // 2. 생년 수정 -> DietGroup에 바로 반영
     public void modifyBirth(MdUser mdUser, String p_birth) {
         mdUser.setBirth(p_birth);
-    mdUserRepository.save(mdUser);
+        mdUserRepository.save(mdUser);
+        // DietGroup 엔티티에 반영
+        int nowYear = LocalDate.now().getYear();
+        int myAge = nowYear - Integer.parseInt(p_birth);
+        MdDietGroup mdDietGroup = mdDietGroupRepository.findById(mdUser).get();
+        mdDietGroup.setUserAge(myAge);
     }
-    // 3. 성별 수정
+    // 3. 성별 수정 -> DietGroup에 바로 반영
     public void modifyGender(MdUser mdUser, String p_gender) {
         mdUser.setGender(p_gender);
-    mdUserRepository.save(mdUser);
+        mdUserRepository.save(mdUser);
+        // DietGroup 엔티티에 반영
+        MdDietGroup mdDietGroup = mdDietGroupRepository.findById(mdUser).get();
+        mdDietGroup.setUserGender(p_gender);
     }
     // 4. 신장 수정
     public void modifyCm(MdUser mdUser, String p_tall) {
