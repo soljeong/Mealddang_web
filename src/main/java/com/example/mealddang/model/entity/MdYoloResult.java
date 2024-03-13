@@ -5,8 +5,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -24,8 +22,8 @@ public class MdYoloResult {
     @Column(columnDefinition = "varchar(20)")
     private String resultLabel;
 
-    @ManyToOne @JoinColumn(name = "img_path", referencedColumnName = "img_path")
-    private MdImgUpload imgPath;
+    @Column(name = "img_path")
+    private String imgPath;
 
     @Column(name = "result_conf")
     private Float resultConf;

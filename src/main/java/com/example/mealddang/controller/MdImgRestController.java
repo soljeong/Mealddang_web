@@ -36,7 +36,8 @@ public class MdImgRestController {
 
         // 모델분석 결과 저장 (MdYoloResult 엔티티 생성)
         String label = "김치";        // 개발용 가짜 정보임, DB 연결 완성되면 수정할 것.
-        mdImgService.saveYoloResult(mdImgUpload, label);
+        String imgPath = "/";         // 개발용 가짜 정보임, DB 연결 완성되면 수정할 것.
+        mdImgService.saveYoloResult(imgPath, label);
 
         // 식단분석 결과 저장 (MDNutResult 엔티티 생성)
         String username = authentication.getName();
