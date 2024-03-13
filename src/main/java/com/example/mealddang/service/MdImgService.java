@@ -49,6 +49,7 @@ public class MdImgService {
         MdNutResult mdNutResult = new MdNutResult();
         mdNutResult.setUsername(p_username);
         mdNutResult.setImgPath(p_imgpath);
+        mdNutResultRepository.save(mdNutResult);
         return mdNutResult;
     }
 
@@ -61,21 +62,20 @@ public class MdImgService {
         return mdYoloResult;
     }
 
-    // 회원ID로 해당 회원이 업로드한 모든 이미지 찾기
-    public List<MdImgUpload> findAllImgbyUsername(String username) {
-        log.info(username + " 회원님의 갤러리를 찾고 있습니다.");
-        List<String> imgPaths = mdNutResultRepository.findAllPathbyUserId(username);
-        log.info(imgPaths.size() + "개의 이미지를 찾았습니다.");
+    // 회원ID로 해당 회원의 모든 업로드이미지원본 엔티티 찾기
+    public List<MdImgUpload> findAllUploadbyUsername(String username) {
+        log.info(username + " 회원님의 모든 업로드 히스토리를 찾고 있습니다.");
+        List<String> imgPaths = mdNutResultRepository.findAllPathbyUsername(username);
+        log.info(imgPaths.size() + "개의 업로드 히스토리를 찾았습니다.");
         return mdImgUploadRepository.findAllImgbyPaths(imgPaths);
     }
-    
-    // // 올린 이미지 모두 찾기
-    // public List<MdImgUpload> findAllImgUpload() {
-    //     return mdImgUploadRepository.findAll();
-    // }
 
-    // // 올린 이미지 1개 PK로 찾기
-    // public Optional<MdImgUpload> findImgUpload(Long id) {
-    //     return mdImgUploadRepository.findById(id);
-    // }
+    // 회원ID로 해당 회원의 모든 이미지분석결과 엔티티 찾기
+    public List<MdNutResult> findAllNutResultbyUsername(String username) {
+        log.info(username + " 회원님의 모든 이미지 분석 히스토리를 찾고 있습니다.");
+        List<MdNutResult> mdNutResults = mdNutResultRepository.findAllNutResultbyUsername(username);
+        log.info(mdNutResults.size() + "개의 이미지 분석 히스토리를 찾았습니다.");
+        return mdNutResults;
+    }
+
 }

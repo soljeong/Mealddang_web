@@ -41,13 +41,13 @@
         <h3 th:text="${mdUser.nickname != null ? mdUser.nickname : mdUser.username} + '님의 갤러리'"></h3>
         <hr class="my-4">
         <section id="gallery">
-            <div id="my-img" th:if="${mdImgUploads == null || mdImgUploads.isEmpty()}">
+            <div id="my-img" th:if="${mdNutResults == null || mdNutResults.isEmpty()}">
                 <p>아직 사진이 없네요...</p>
                 <p>음식사진 올리고 분석 결과 확인해보기~ (링크 연결 해야함)</p>
             </div>
-            <div id="my-img" th:unless="${mdImgUploads == null || mdImgUploads.isEmpty()}">
-                <ul th:id="my-img" th:each="mdImgUpload : ${mdImgUploads}">
-                    <li><img th:src="@{'/'+${mdImgUpload.storedName}}"></li>
+            <div id="my-img" th:unless="${mdNutResults == null || mdNutResults.isEmpty()}">
+                <ul th:id="my-img" th:each="mdNutResult : ${mdNutResults}">
+                    <li><img th:src="@{'/images/'+${mdNutResult.imgPath.imgPath}}"></li>
                 </ul>
             </div>
         </section>

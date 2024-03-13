@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.mealddang.model.entity.MdImgUpload;
+import com.example.mealddang.model.entity.MdNutResult;
 import com.example.mealddang.model.entity.MdUser;
 import com.example.mealddang.service.MdImgService;
 import com.example.mealddang.service.MdUserService;
@@ -133,9 +135,9 @@ public class MdUserController {
         MdUser mdUser = mdUserService.findByUsername(username);
         model.addAttribute("mdUser", mdUser);
 
-        List<MdImgUpload> mdImgUploads = mdImgService.findAllImgbyUsername(username);
-        model.addAttribute("mdImgUploads", mdImgUploads);
-        
+        List<MdNutResult> mdNutResults = mdImgService.findAllNutResultbyUsername(username);
+        model.addAttribute("mdNutResults", mdNutResults);
+
         return "user/myGallery";
     }
 }

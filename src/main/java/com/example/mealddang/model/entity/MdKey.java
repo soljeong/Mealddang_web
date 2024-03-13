@@ -16,8 +16,7 @@ public class MdKey {
     @Column(name = "keyword_id")
     private Long keywordId;
 
-
-    @Column(name = "store_id_n") // 쿼리 결과에 해당하는 필드와 매핑됩니다.
+    @Column(name = "store_id_n")
     private String storeIdN;
 
     @Column(name = "store_name") // 쿼리 결과에 해당하는 필드와 매핑됩니다.
