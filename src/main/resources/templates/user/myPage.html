@@ -63,29 +63,7 @@
                                 th:value="${year}"
                                 th:text="${year}"
                                 th:selected="${year.toString() == mdUser.birth ? 'selected':null}">${year}</option>
-                        <!-- <option value="1980">1980</option>
-                        <option value="1981">1981</option>
-                        <option value="1982">1982</option>
-                        <option value="1983">1983</option>
-                        <option value="1984">1984</option>
-                        <option value="1985">1985</option>
-                        <option value="1986">1986</option>
-                        <option value="1987">1987</option>
-                        <option value="1988">1988</option>
-                        <option value="1989">1989</option>
-                        <option value="1990">1990</option>
-                        <option value="1991">1991</option>
-                        <option value="1992">1992</option>
-                        <option value="1993">1993</option>
-                        <option value="1994">1994</option>
-                        <option value="1995">1995</option>
-                        <option value="1996">1996</option>
-                        <option value="1997">1997</option>
-                        <option value="1998">1998</option>
-                        <option value="1999">1999</option>
-                        <option value="2000">2000</option> -->
                     </select>
-                    <!-- <input type="text" id="birth" name="birth" th:attr="placeholder=${mdUser.birth != null ? mdUser.birth : 'none'}" required/><br> -->
                     <button type="submit" class="btn btn-outline-warning">수정</button>
                 </form>
             </div>
@@ -102,23 +80,19 @@
             <div class="col-sm-6 my-4">
                 <form action="#" th:action="@{/user/mypage/update_cm}" method="post">
                     <label for="cm">키(cm)</label><br>
-                    <input type="text" id="cm" name="cm" th:attr="placeholder=${mdUser.userCm != null ? mdUser.userCm : 'none'}" required/>
-                    <button type="submit" class="btn btn-outline-warning">수정</button>
+                    <input type="text" id="numberInput" name="cm" th:attr="placeholder=${mdUser.userCm != null ? mdUser.userCm : 'none'}" required/>
+                    <button type="submit" onclick="checkInput()" class="btn btn-outline-warning">수정</button>
                 </form>
             </div>
 
             <div class="col-sm-6 my-4">
                 <form action="#" th:action="@{/user/mypage/update_kg}" method="post">
                     <label for="kg">몸무게(kg)</label><br>
-                    <input type="text" id="kg" name="kg" th:attr="placeholder=${mdUser.userKg != null ? mdUser.userKg : 'none'}" required/>
+                    <input type="text" id="numberInput" name="kg" th:attr="placeholder=${mdUser.userKg != null ? mdUser.userKg : 'none'}" required/>
                     <button type="submit" class="btn btn-outline-warning">수정</button>
                 </form>
             </div>
-
             
-
-
-
                 <!-- <label>관심지역</label>
                 <label><input type="checkbox" th:field="*{userArea}" class="form-control" value="gangnam" />강남구</label>
                 <label><input type="checkbox" th:field="*{userArea}" class="form-control" value="seocho" />서초구</label>
@@ -141,5 +115,17 @@
 
     <footer class="pt-3 mt-4 text-body-secondary border-top">© PORT8090</footer>
 </div>
+<!-- 입력 형식 검사 js -->
+<script>
+    function checkInput() {
+        var inputValue = document.getElementById('numberInput').value;
+
+        if(isNaN(inputValue)) {
+            alert("올바른 형식이 아닙니다. 숫자를 입력해주세요.");
+        } else {
+            alert("저-장!");
+        }
+    }
+</script>
 </body>
 </html>
