@@ -57,7 +57,7 @@ public class MdUserController {
         mdUserService.checkUsernameDuplication(mdUser);
         // 회원 저장
         mdUserService.addMdUser(mdUser);
-        return "user/loginform";
+        return "redirect:/loginform";
     }
     // 로그인 페이지
     @GetMapping("/loginform")
