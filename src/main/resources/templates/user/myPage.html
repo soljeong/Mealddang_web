@@ -68,40 +68,35 @@
                     </label>
                 <input type="submit" value="수정 완료"> -->
         </div>
-    </main>
-
-    <footer class="pt-3 mt-4 text-body-secondary border-top">© PORT8090</footer>
-</div>
-<!-- 입력 형식 검사 js -->
-<script>
-    document.getElementById("heightForm").addEventListener("submit", function(event) {
-        var inputCm = document.getElementById('cm').value;
-        if (isNaN(inputCm) || inputCm.trim() === "") {
-            alert("올바른 형식이 아닙니다. 키를 숫자로 입력해주세요.");
-            event.preventDefault(); // 폼의 제출을 막습니다.
-        } else {
-            alert("키가 저장되었습니다.");
-        }
-    });
-    document.getElementById("weightForm").addEventListener("submit", function(event) {
-        var inputKg = document.getElementById('kg').value;
-        if (isNaN(inputKg) || inputKg.trim() === "") {
-            alert("올바른 형식이 아닙니다. 몸무게를 숫자로 입력해주세요.");
-            event.preventDefault(); // 폼의 제출을 막습니다.
-        } else {
-            alert("몸무게가 저장되었습니다.");
-        }
-    });
-
-    document.addEventListener('DOMContentLoaded', function () {
-    var alertForms = document.querySelectorAll('.alertForm');
-    alertForms.forEach(function(form) {
-        form.addEventListener('submit', function(event) {
-            alert('저장되었습니다.');
+    <!-- 입력 형식 검사 js -->
+    <script>
+        document.getElementById("heightForm").addEventListener("submit", function(event) {
+            var inputCm = document.getElementById('cm').value;
+            if (isNaN(inputCm) || inputCm.trim() === "") {
+                alert("올바른 형식이 아닙니다. 키를 숫자로 입력해주세요.");
+                event.preventDefault(); // 폼의 제출을 막습니다.
+            } else {
+                alert("키가 저장되었습니다.");
+            }
+        });
+        document.getElementById("weightForm").addEventListener("submit", function(event) {
+            var inputKg = document.getElementById('kg').value;
+            if (isNaN(inputKg) || inputKg.trim() === "") {
+                alert("올바른 형식이 아닙니다. 몸무게를 숫자로 입력해주세요.");
+                event.preventDefault(); // 폼의 제출을 막습니다.
+            } else {
+                alert("몸무게가 저장되었습니다.");
+            }
+        });
+    
+        document.addEventListener('DOMContentLoaded', function () {
+        var alertForms = document.querySelectorAll('.alertForm');
+        alertForms.forEach(function(form) {
+            form.addEventListener('submit', function(event) {
+                alert('저장되었습니다.');
+            });
         });
     });
-});
-</script>
-
-</body>
+    </script>
+    </main>
 </html>
