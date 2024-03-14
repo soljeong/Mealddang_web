@@ -48,7 +48,19 @@
                 <div>
                     <h3>일일 영양섭취량</h3>
                     <p>월화수목금토일 막대그래프</p>
+                    <script th:inline="javascript">
+                        /*<![CDATA[*/
+                        var weekNutList = [[${weekNutList}]];
+                        var monCarbo = weekNutList[0][1];
+                        var monProtein = weekNutList[0][2];
+                        var monFat = weekNutList[0][3];
+                        /*]]>*/
+                    </script>
                     <div id="main" style="width: 800px;height:600px;"></div>
+                    <div>
+                        <h1>weekNutList TEST</h1>
+                        <p th:text="${weekNutList[1][0]}"></p>
+                    </div>
                 </div>
 
                 <div>

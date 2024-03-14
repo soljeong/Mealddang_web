@@ -1,63 +1,62 @@
 import * as echarts from 'https://cdn.jsdelivr.net/npm/echarts/dist/echarts.esm.js';
 
-            var chartDom = document.getElementById('main');
-            var myChart = echarts.init(chartDom);
-            var option;
-            const rawData = [
-                [100, 302, 301, 334, 390, 330, 320],
-                [320, 132, 101, 134, 90, 230, 210],
-                [220, 182, 191, 234, 290, 330, 310],
+var chartDom = document.getElementById('main');
+var myChart = echarts.init(chartDom);
+var option;
+const rawData = [
+    [monCarbo, 302, 301, 334, 390, 330, 320],
+    [monProtein, 132, 101, 134, 90, 230, 210],
+    [monFat, 182, 191, 234, 290, 330, 310]
+    ];
+const totalData = [];
+    for (let i = 0; i < rawData[0].length; ++i) {
+    let sum = 0;
+    for (let j = 0; j < rawData.length; ++j) {
+    sum += rawData[j][i];
+    }
+    totalData.push(sum);
+    }
+const grid = {
+    left: 100,
+    right: 100,
+    top: 50,
+    bottom: 50
+    };
+const series = [
+    '탄수화물',
+    '단백질',
+    '지방',
+    ].map((name, sid) => {
+    return {
+    name,
+    type: 'bar',
+    stack: 'total',
+    barWidth: '60%',
+    label: {
+        show: true,
+        formatter: (params) => Math.round(params.value * 1000) / 10 + '%'
+    },
+data: rawData[sid].map((d, did) =>
+        totalData[did] <= 0 ? 0 : d / totalData[did]
+    )
+    };
+    });
+option = {
+    legend: {
+    selectedMode: false
+    },
+    grid,
+    yAxis: {
+    type: 'value'
+    },
+    xAxis: {
+    type: 'category',
+    data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+    },
+    series
+    };
 
-                ];
-            const totalData = [];
-                for (let i = 0; i < rawData[0].length; ++i) {
-                let sum = 0;
-                for (let j = 0; j < rawData.length; ++j) {
-                sum += rawData[j][i];
-                }
-                totalData.push(sum);
-                }
-            const grid = {
-                left: 100,
-                right: 100,
-                top: 50,
-                bottom: 50
-                };
-            const series = [
-                '탄수화물',
-                '단백질',
-                '지방',
-                ].map((name, sid) => {
-                return {
-                name,
-                type: 'bar',
-                stack: 'total',
-                barWidth: '60%',
-                label: {
-                    show: true,
-                    formatter: (params) => Math.round(params.value * 1000) / 10 + '%'
-                },
-            data: rawData[sid].map((d, did) =>
-                    totalData[did] <= 0 ? 0 : d / totalData[did]
-                )
-                };
-                });
-            option = {
-                legend: {
-                selectedMode: false
-                },
-                grid,
-                yAxis: {
-                type: 'value'
-                },
-                xAxis: {
-                type: 'category',
-                data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-                },
-                series
-                };
-
-                option && myChart.setOption(option);
+    option && myChart.setOption(option);
 
 // 도넛 그래프
 var chartDom = document.getElementById('main2');
