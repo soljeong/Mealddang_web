@@ -4,9 +4,9 @@
             <a href="/user/diet/log"><h3 th:text="${mdUser.nickname != null ? mdUser.nickname : mdUser.username} + '님의 밀땅일지'"></h3></a>
             <h1 classe="text-primary text-center pt-20 mb-10">주간 AI 리포트를 한 눈에 확인하세요.</h1>
         </section>
-        <section id="content" class="row align-items-md-stretch">
-            <div id="reports" class="col-12">
-                <div id="report">
+        <section class="row align-items-md-stretch">
+            <div class="col-12">
+                <div>
                     <h3>주간 섭취량</h3>
                     <span th:text="${#temporals.format(#temporals.createNow().with(T(java.time.temporal.TemporalAdjusters).previousOrSame(T(java.time.DayOfWeek).SUNDAY)), 'yyyy.MM.dd')}">이번주 일요일</span>
                     <span> - </span>
@@ -44,38 +44,55 @@
                         </tbody>
                     </table>
                 </div>
-                <div id="report">
+
+                <div>
                     <h3>일일 영양섭취량</h3>
                     <p>월화수목금토일 막대그래프</p>
                     <div id="main" style="width: 800px;height:600px;"></div>
                 </div>
-                <div id="report">
+
+                <div>
                     <h3>3대 영양소 섭취비율</h3>
                     <p>권장비율과 실제섭취비율 비교하는 원그래프</p>
                     <div id="main2" style="width: 800px;height:600px;"></div>
                 </div>
+
+                
             </div>
 
-            <div id="reports" class="col-12">
+            <div class="col-12">
                 <div class="report">
                     <h3>영양 신호등</h3>
                     <p>영양섭취량에 대해 부족/충분/경고/과다 색깔별로 안내</p>
-                    <div class="box-row">
-                        <div class="box green">
-                            <div class="box-title">칼로리</div>
-                            <div class="box-content">123/15234kcal</div>
+
+                <div class="box-row">
+                    <!-- 칼로리 박스 -->
+                    <div class="box" th:style="${md_diet.kcal != null ? (md_diet.kcal < 1000 ? 'background-color:#ff0000' : (md_diet.kcal <= 2000 ? 'background-color:#91cc75' : (md_diet.kcal <= 3000 ? 'background-color:#fac858' : 'background-color:#0000ff'))) : 'background-color:#fac858'}">
+                        <div class="box-title">총칼로리</div>
+                        <p>충분/과다/부족/경고</p>
+                        <div class="box-content">
+                            <span th:text="${md_diet.kcal != null ? md_diet.kcal*7 : '2500'}"></span> kcal
                         </div>
-                        <div class="box orange">
-                            <div class="box-title">탄수화물</div>
-                            <div class="box-content">123/152g</div>
+                    </div>
+                    <!-- 탄수화물 박스 -->
+                    <div class="box" th:style="${md_diet.kcal != null ? (md_diet.kcal < 1000 ? 'background-color:#ff0000' : (md_diet.kcal <= 2000 ? 'background-color:#91cc75' : (md_diet.kcal <= 3000 ? 'background-color:#fac858' : 'background-color:#0000ff'))) : 'background-color:#fac858'}">
+                        <div class="box-title">탄수화물</div>
+                        <div class="box-content">
+                            <span th:text="${md_diet.kcal != null ? T(java.lang.String).format('%1$.1f', (md_diet.kcal)*0.14*7) : '300.0'}"></span> g
                         </div>
-                        <div class="box red">
-                            <div class="box-title">단백질</div>
-                            <div class="box-content">123/152g</div>
+                    </div>
+                    <!-- 단백질 박스 -->
+                    <div class="box" th:style="${md_diet.kcal != null ? (md_diet.kcal < 1000 ? 'background-color:#ff0000' : (md_diet.kcal <= 2000 ? 'background-color:#91cc75' : (md_diet.kcal <= 3000 ? 'background-color:#fac858' : 'background-color:#0000ff'))) : 'background-color:#fac858'}">
+                        <div class="box-title">단백질</div>
+                        <div class="box-content">
+                            <span th:text="${md_diet.protein != null ? md_diet.protein*7 : '40.0*7'}"></span> g
                         </div>
-                        <div class="box yellow">
-                            <div class="box-title">지방</div>
-                            <div class="box-content">123/152g</div>
+                    </div>
+                    <!-- 지방 박스 -->
+                    <div class="box" th:style="${md_diet.kcal != null ? (md_diet.kcal < 1000 ? 'background-color:#ff0000' : (md_diet.kcal <= 2000 ? 'background-color:#91cc75' : (md_diet.kcal <= 3000 ? 'background-color:#fac858' : 'background-color:#0000ff'))) : 'background-color:#fac858'}">
+                        <div class="box-title">지방</div>
+                        <div class="box-content">
+                            <span th:text="${md_diet.kcal != null ? T(java.lang.String).format('%1$.1f', (md_diet.kcal)*0.017*7) : '50.0*7'}"></span> g
                         </div>
                     </div>
                 </div>
