@@ -237,13 +237,37 @@
                     });
                 </script>
 
+                <button class="btn btn-outline-warning" id="dawnButton">새벽</button>
+                <script>
+                    document.getElementById("dawnButton").addEventListener("click", function() {
+                        var keyword = encodeURIComponent("새벽"); // URL에 사용될 수 있도록 키워드를 인코딩합니다.
+                        window.location.href = '/user/rsrt/filter/atmosphere?keyword=' + keyword;
+                    });
+                </script>
 
+                <button class="btn btn-outline-warning" id="noholidayButton">연중무휴</button>
+                <script>
+                    document.getElementById("noholidayButton").addEventListener("click", function() {
+                        var keyword = encodeURIComponent("연중무휴"); // URL에 사용될 수 있도록 키워드를 인코딩합니다.
+                        window.location.href = '/user/rsrt/filter/atmosphere?keyword=' + keyword;
+                    });
+                </script>
 
+                <button class="btn btn-outline-warning" id="petButton">반려동물</button>
+                <script>
+                    document.getElementById("petButton").addEventListener("click", function() {
+                        var keyword = encodeURIComponent("반려동물"); // URL에 사용될 수 있도록 키워드를 인코딩합니다.
+                        window.location.href = '/user/rsrt/filter/atmosphere?keyword=' + keyword;
+                    });
+                </script>
 
-                <button class="btn btn-outline-warning" id="cleanlinessButton">24시</button>
-                <button class="btn btn-outline-warning" id="cleanlinessButton">연중무휴</button>
-                <button class="btn btn-outline-warning" id="cleanlinessButton">반려동물</button>
-                <button class="btn btn-outline-warning" id="cleanlinessButton">새로오픈</button>
+                <button class="btn btn-outline-warning" id="newButton">새로오픈</button>
+                <script>
+                    document.getElementById("newButton").addEventListener("click", function() {
+                        var keyword = encodeURIComponent("새로"); // URL에 사용될 수 있도록 키워드를 인코딩합니다.
+                        window.location.href = '/user/rsrt/filter/atmosphere?keyword=' + keyword;
+                    });
+                </script>
         </div></section>
 
         <section id="map">
@@ -252,7 +276,38 @@
 
                 </div>
                 <div class="img-search"><h5>이미지 검색</h5></div>
-                <div class="chatbot"><h5>챗봇</h5></div>
+                
+                
+                <!-- 챗봇 코드 추가 -->
+                <div id="chatbot" style="position: fixed; bottom: 20px; right: 20px; width: 300px; height: 400px; border: 1px solid #ccc; background-color: #f9f9f9; overflow-y: auto;">
+                    <div id="chatbot-messages" style="padding: 10px;"></div>
+                    <input type="text" id="chatbot-input" style="width: 100%; padding: 5px; box-sizing: border-box; border: 1px solid #ccc;">
+                </div>
+                <script>
+                    // 챗봇 메시지를 추가하는 함수
+                    function addMessage(message, isUser) {
+                        var chatbotMessages = document.getElementById('chatbot-messages');
+                        var div = document.createElement('div');
+                        div.textContent = message;
+                        if (isUser) {
+                            div.style.textAlign = 'right';
+                            div.style.color = 'blue';
+                        }
+                        chatbotMessages.appendChild(div);
+                        chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+                    }
+                
+                    // 챗봇 입력 이벤트 처리
+                    document.getElementById('chatbot-input').addEventListener('keypress', function(event) {
+                        if (event.key === 'Enter') {
+                            var input = event.target.value;
+                            addMessage('사용자: ' + input, true); // 사용자 입력 추가
+                            // 여기에 입력된 메시지에 따른 챗봇 응답을 추가하는 로직을 작성
+                            // 예를 들어, 사용자 입력이 '안녕'이면 챗봇이 '안녕하세요!'와 같은 응답을 생성하여 추가
+                            event.target.value = ''; // 입력 필드 초기화
+                        }
+                    });
+                </script>
             </div>
         </section>
 
