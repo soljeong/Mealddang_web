@@ -4,7 +4,7 @@
         <hr class="my-4">
         <div class="row">
             <div class="col-12 my-4">
-                <form action="#" th:action="@{/user/mypage/update_nickname}" method="post" class="text-md-start">
+                <form action="#" id="nickForm"  th:action="@{/user/mypage/update_nickname}" method="post" class="alertForm text-md-start">
                     <label for="nickname">별명(Nickname)</label><br>
                     <input type="text" name="nickname" th:attr="placeholder=${mdUser.nickname != null ? mdUser.nickname : 'none'}" required/><br>
                     <button type="submit" class="btn btn-outline-warning">수정</button>
@@ -12,10 +12,9 @@
             </div>
             
             <div class="col-sm-6 my-4">
-                <form action="#" th:action="@{/user/mypage/update_birth}" method="post" class="text-md-start">
+                <form action="#" id="birthForm"  th:action="@{/user/mypage/update_birth}" method="post" class="alertForm text-md-start">
                 <label for="birth">출생년도(Birth Year)</label><br>
                     <select name="birth" id="birth" required>
-                        <!-- <option value="" disabled selected>선택</option> -->
                         <option value="" disabled selected>선택</option>
                         <option th:each="year : ${#numbers.sequence(1980, 2023)}"
                                 th:value="${year}"
@@ -27,7 +26,7 @@
             </div>
 
             <div class="col-sm-6 my-4">
-                <form action="#" th:action="@{/user/mypage/update_gender}" method="post" class="text-md-start">
+                <form action="#" id="genderForm"  th:action="@{/user/mypage/update_gender}" method="post" class="alertForm text-md-start">
                     <label for="gender">성별(Gender)</label>
                     <input type="radio" id="gender" name="gender" value="F" th:checked="${mdUser.gender == 'F' || mdUser.gender == null}" required/>여성
                     <input type="radio" id="gender" name="gender" value="M" th:checked="${mdUser.gender == 'M'}" required/>남성                    
@@ -36,18 +35,18 @@
             </div>
             
             <div class="col-sm-6 my-4">
-                <form action="#" th:action="@{/user/mypage/update_cm}" method="post">
+                <form action="#" id="heightForm" th:action="@{/user/mypage/update_cm}" method="post">
                     <label for="cm">키(cm)</label><br>
-                    <input type="text" id="numberInput" name="cm" th:attr="placeholder=${mdUser.userCm != null ? mdUser.userCm : 'none'}" required/>
+                    <input type="text" id="cm" name="cm" th:attr="placeholder=${mdUser.userCm != null ? mdUser.userCm : 'none'}" required/>
                     <button type="submit" onclick="checkInput()" class="btn btn-outline-warning">수정</button>
                 </form>
             </div>
 
             <div class="col-sm-6 my-4">
-                <form action="#" th:action="@{/user/mypage/update_kg}" method="post">
+                <form action="#" id="weightForm" th:action="@{/user/mypage/update_kg}" method="post">
                     <label for="kg">몸무게(kg)</label><br>
-                    <input type="text" id="numberInput" name="kg" th:attr="placeholder=${mdUser.userKg != null ? mdUser.userKg : 'none'}" required/>
-                    <button type="submit" class="btn btn-outline-warning">수정</button>
+                    <input type="text" id="kg" name="kg" th:attr="placeholder=${mdUser.userKg != null ? mdUser.userKg : 'none'}" required/>
+                    <button type="submit" onclick="checkInput()" class="btn btn-outline-warning">수정</button>
                 </form>
             </div>
             
@@ -69,17 +68,40 @@
                     </label>
                 <input type="submit" value="수정 완료"> -->
         </div>
-    <!-- 입력 형식 검사 js -->
-    <script>
-        function checkInput() {
-            var inputValue = document.getElementById('numberInput').value;
-    
-            if(isNaN(inputValue)) {
-                alert("올바른 형식이 아닙니다. 숫자를 입력해주세요.");
-            } else {
-                alert("저-장!");
-            }
+    </main>
+
+    <footer class="pt-3 mt-4 text-body-secondary border-top">© PORT8090</footer>
+</div>
+<!-- 입력 형식 검사 js -->
+<script>
+    document.getElementById("heightForm").addEventListener("submit", function(event) {
+        var inputCm = document.getElementById('cm').value;
+        if (isNaN(inputCm) || inputCm.trim() === "") {
+            alert("올바른 형식이 아닙니다. 키를 숫자로 입력해주세요.");
+            event.preventDefault(); // 폼의 제출을 막습니다.
+        } else {
+            alert("키가 저장되었습니다.");
         }
-    </script>
-</main>
+    });
+    document.getElementById("weightForm").addEventListener("submit", function(event) {
+        var inputKg = document.getElementById('kg').value;
+        if (isNaN(inputKg) || inputKg.trim() === "") {
+            alert("올바른 형식이 아닙니다. 몸무게를 숫자로 입력해주세요.");
+            event.preventDefault(); // 폼의 제출을 막습니다.
+        } else {
+            alert("몸무게가 저장되었습니다.");
+        }
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+    var alertForms = document.querySelectorAll('.alertForm');
+    alertForms.forEach(function(form) {
+        form.addEventListener('submit', function(event) {
+            alert('저장되었습니다.');
+        });
+    });
+});
+</script>
+
+</body>
 </html>
