@@ -6,7 +6,7 @@
             <div class="col-12 my-4">
                 <form action="#" id="nickForm"  th:action="@{/user/mypage/update_nickname}" method="post" class="alertForm text-md-start">
                     <label for="nickname">별명(Nickname)</label><br>
-                    <input type="text" name="nickname" th:attr="placeholder=${mdUser.nickname != null ? mdUser.nickname : 'none'}" required/><br>
+                    <input type="text" name="nickname" th:attr="placeholder=${mdUser.nickname != null ? mdUser.nickname : 'none'}" required/>
                     <button type="submit" class="btn btn-outline-warning">수정</button>
                 </form>
             </div>
@@ -27,7 +27,7 @@
 
             <div class="col-sm-6 my-4">
                 <form action="#" id="genderForm"  th:action="@{/user/mypage/update_gender}" method="post" class="alertForm text-md-start">
-                    <label for="gender">성별(Gender)</label>
+                    <label for="gender">성별(Gender)</label><br>
                     <input type="radio" id="gender" name="gender" value="F" th:checked="${mdUser.gender == 'F' || mdUser.gender == null}" required/>여성
                     <input type="radio" id="gender" name="gender" value="M" th:checked="${mdUser.gender == 'M'}" required/>남성                    
                     <button type="submit" class="btn btn-outline-warning">수정</button>
