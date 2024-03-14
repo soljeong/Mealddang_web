@@ -61,16 +61,20 @@
             <h2 class="searchresult-title">식당 이름 검색 결과</h2>
             <div class="searchResult" th:if="${nameSearchResults == null || nameSearchResults.isEmpty()}"> 0건 </div>
             <div class="searchResult" th:unless="${nameSearchResults == null || nameSearchResults.isEmpty()}">
+                <div><span th:text="${#lists.size(nameSearchResults)} + '건'" style="display: block;"></span>의 결과를 찾았습니다</div>
                 <table>
                     <tbody class="searchResultTable">
                         <tr th:id="${mdStore.storeId}" th:each="mdStore : ${nameSearchResults}" class="table-row">
-                            <td class="table-data" th:text="${mdStore.storeName != null ? mdStore.storeName : 'N/A'}"></td>
-                            <td class="table-data" th:text="${mdStore.storeAddr != null ? mdStore.storeAddr : 'N/A'}"></td>
+                            <td class="table-data" th:text="${mdStore.storeName != null ? mdStore.storeName : 'N/A'}" style="display: none;"></td>
+                            <td class="table-data" th:text="${mdStore.storeAddr != null ? mdStore.storeAddr : 'N/A'}" style="display: none;"></td>
                         </tr>
                     </tbody>
                 </table>
             </div>
-        
+            <script>
+                document.querySelector('.searchresult').style.display = 'block';
+            </script>
+        <!-- =====================================>수정 -->
                 <!-- <h2 class="searchresult-title">리뷰 검색 결과</h2>
                 <div class="searchResult" th:if="${reviewSearchResults == null || reviewSearchResults.isEmpty()}"> 0건 </div>
                 <div class="searchResult" th:unless="${reviewSearchResults == null || reviewSearchResults.isEmpty()}">
