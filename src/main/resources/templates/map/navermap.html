@@ -2,7 +2,7 @@
     <main layout:fragment="content">
         <!-- 이하 form : 검색창 -->
         <form class="search-box" action="/user/rsrt/search/name" method="GET">
-            <input onkeyup="enterkey()" type="search" name="searchkey" placeholder="식당 이름 기준 검색"/>
+            <input onkeyup="return enterkey()" type="search" name="searchkey" placeholder="식당 이름 기준 검색"/>
             <button type="submit" class="btn btn-outline-warning">
                 <i class="fa-solid fa-magnifying-glass"></i>
             </button>
@@ -13,22 +13,45 @@
                 <i class="fa-solid fa-magnifying-glass"></i>
             </button>
         </form> -->
+        <script>
+          function enterkey() {
+              // 입력 필드에서 값 가져오기
+              var input = document.querySelector('input[name="searchkey"]').value;
+          
+              // 입력값에 띄어쓰기가 있는지 검사
+              if (input.includes(' ')) {
+                  // 띄어쓰기가 있으면 경고 메시지 표시
+                  alert('검색어에는 띄어쓰기를 포함할 수 없습니다.');
+          
+                  // 띄어쓰기 제거 및 입력 필드 업데이트
+                  document.querySelector('input[name="searchkey"]').value = input.replace(/\s/g, '');
+                  
+                  // 추가적으로 폼 제출을 방지하고 싶다면, 여기에 코드 추가
+                  // 예: return false; (단, 이 경우 HTML의 onkeyup 속성에 'return enterkey()'로 수정 필요)
+              }
+          }
+          </script>
+          
 
         
         <section class="searchresult" style="display: none;">
             <h2 class="searchresult-title">식당 이름 검색 결과</h2>
             <div class="searchResult" th:if="${nameSearchResults == null || nameSearchResults.isEmpty()}"> 0건 </div>
             <div class="searchResult" th:unless="${nameSearchResults == null || nameSearchResults.isEmpty()}">
+                <div><span th:text="${#lists.size(nameSearchResults)} + '건'" style="display: block;"></span>의 결과를 찾았습니다</div>
                 <table>
                     <tbody class="searchResultTable">
                         <tr th:id="${mdStore.storeId}" th:each="mdStore : ${nameSearchResults}" class="table-row">
-                            <td class="table-data" th:text="${mdStore.storeName != null ? mdStore.storeName : 'N/A'}"></td>
-                            <td class="table-data" th:text="${mdStore.storeAddr != null ? mdStore.storeAddr : 'N/A'}"></td>
+                            <td class="table-data" th:text="${mdStore.storeName != null ? mdStore.storeName : 'N/A'}" style="display: none;"></td>
+                            <td class="table-data" th:text="${mdStore.storeAddr != null ? mdStore.storeAddr : 'N/A'}" style="display: none;"></td>
                         </tr>
                     </tbody>
                 </table>
             </div>
-        
+            <script>
+                document.querySelector('.searchresult').style.display = 'block';
+            </script>
+        <!-- =====================================>수정 -->
                 <!-- <h2 class="searchresult-title">리뷰 검색 결과</h2>
                 <div class="searchResult" th:if="${reviewSearchResults == null || reviewSearchResults.isEmpty()}"> 0건 </div>
                 <div class="searchResult" th:unless="${reviewSearchResults == null || reviewSearchResults.isEmpty()}">
@@ -384,6 +407,7 @@
                 if (window.event.keyCode == 13) {
                     document.getElementById("searchForm").submit();
                 }
+                return false
             }
         }
 

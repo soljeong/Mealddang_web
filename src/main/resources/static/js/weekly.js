@@ -7,8 +7,7 @@ import * as echarts from 'https://cdn.jsdelivr.net/npm/echarts/dist/echarts.esm.
                 [100, 302, 301, 334, 390, 330, 320],
                 [320, 132, 101, 134, 90, 230, 210],
                 [220, 182, 191, 234, 290, 330, 310],
-                [150, 212, 201, 154, 190, 330, 410],
-                [820, 832, 901, 934, 1290, 1330, 1320]
+
                 ];
             const totalData = [];
                 for (let i = 0; i < rawData[0].length; ++i) {
@@ -25,11 +24,9 @@ import * as echarts from 'https://cdn.jsdelivr.net/npm/echarts/dist/echarts.esm.
                 bottom: 50
                 };
             const series = [
-                'Direct',
-                'Mail Ad',
-                'Affiliate Ad',
-                'Video Ad',
-                'Search Engine'
+                'tan',
+                'dan',
+                'zi',
                 ].map((name, sid) => {
                 return {
                 name,
