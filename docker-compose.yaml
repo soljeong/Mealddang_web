@@ -30,7 +30,6 @@ services:
   spring:
     depends_on:
       - mysql
-      - build
     image: openjdk:17
     # environment:
     #   SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/your_database?useSSL=false&serverTimezone=UTC
@@ -38,14 +37,16 @@ services:
     #   SPRING_DATASOURCE_PASSWORD: your_password
     volumes:
       - ./build/libs/mealddang-0.0.1-SNAPSHOT.jar:/app/app.jar
+      - static_volume:/app/src/main/resources/static
     ports:
       - "8080:8080"
     networks:
       - spring-boot-network
-    command: ["java", "-jar", "/app/app.jar"]
+    command: ["java", "-jar", "-Dspring.profiles.active=prod", "/app/app.jar"]
 
   nginx:
     image: nginx
+    restart: always
     volumes:
       - static_volume:/usr/src/app/static
       - ./nginx.conf:/etc/nginx/conf.d/default.conf
