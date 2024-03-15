@@ -185,11 +185,12 @@ var option;
 
 
 // 도넛 그래프
-var chartDom = document.getElementById('main2');
-var myChart = echarts.init(chartDom);
-var option;
+var chartDom2 = document.getElementById('main2');
+var myChart2 = echarts.init(chartDom2);
+var option2;
 
-option = {
+
+option2 = {
     tooltip: {
         trigger: 'item'
     },
@@ -279,4 +280,4 @@ option = {
     ]
 };
 
-option && myChart.setOption(option);
+option2 && myChart2.setOption(option2);
