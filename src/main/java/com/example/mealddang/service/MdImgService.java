@@ -21,6 +21,8 @@ import com.example.mealddang.model.repository.MdImgUploadRepository;
 import com.example.mealddang.model.repository.MdNutInfoRepository;
 import com.example.mealddang.model.repository.MdNutResultRepository;
 import com.example.mealddang.model.repository.MdUserRepository;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -61,8 +63,10 @@ public class MdImgService {
     }
 
     // 이미지업로더
-    public MdImgUpload imgUploader(MdImgUpload p_upload, String p_username,  MultipartFile imgFile) throws Exception {
+    public MdImgUpload imgUploader(MdImgUpload p_upload, String p_username,  MultipartFile imgFile, LocalDate selectedDate) throws Exception {
         MdImgUpload mdImgUpload = fileHandler.parseFileInfo(p_upload.getOriginPath(), p_username, imgFile);
+        mdImgUpload.setCreatedDate(selectedDate);
+        System.out.println(mdImgUpload.getCreatedDate());
         // DB에 저장
         mdImgUploadRepository.save(mdImgUpload);
         return mdImgUpload;

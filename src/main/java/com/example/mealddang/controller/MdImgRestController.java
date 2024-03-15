@@ -17,7 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.example.mealddang.model.entity.MdImgUpload;
 import com.example.mealddang.model.entity.MdNutResult;
 import com.example.mealddang.service.MdImgService;
-
+import java.time.LocalDate;
 
 @RestController
 public class MdImgRestController {
@@ -31,11 +31,11 @@ public class MdImgRestController {
 
     // 이미지 업로드 메소드
     @PostMapping(value = {"/api-upload"}, consumes = {"multipart/form-data"})
-    public ResponseEntity<Void> uploadImg(@Validated @RequestParam(value = "imgfile", required = false) MultipartFile imgfile, Authentication authentication) throws Exception {
+    public ResponseEntity<Void> uploadImg(@Validated @RequestParam(value = "imgfile", required = false) MultipartFile imgfile, Authentication authentication, @RequestParam("date") LocalDate selectedDate) throws Exception {
         username = authentication.getName();
-
         // 서버로컬에 이미지 저장
-        MdImgUpload mdImgUpload = mdImgService.imgUploader(MdImgUpload.builder().build(), username, imgfile);
+        MdImgUpload mdImgUpload = mdImgService.imgUploader(MdImgUpload.builder().build(), username, imgfile, selectedDate);
+        
 
         // 글로벌변수 originImgPath 업데이트
         originImgPath = mdImgUpload.getOriginPath();

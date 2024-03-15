@@ -8,13 +8,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.mealddang.model.entity.MdDiet;
+import com.example.mealddang.model.entity.MdNutResult;
 import com.example.mealddang.model.entity.MdUser;
 import com.example.mealddang.service.MdDietService;
 import com.example.mealddang.service.MdUserService;
 import org.springframework.web.bind.annotation.RequestParam;
 
+
+import java.time.LocalDate;
 
 // [인증 후] 식단관리(밀땅일지) 컨트롤러
 @Controller @RequestMapping("/user/diet")
@@ -35,16 +39,44 @@ public class MdDietController {
         // 유저 나이와 성별에 맞는 섭취기준(MdDiet엔티티) 불러오기
         MdDiet md_diet = mdDietService.getDiet(mdUser);
         model.addAttribute("md_diet", md_diet);
+
+        // 월요일 가져옴
+        LocalDate monday = mdDietService.getWeekDatesFromMonday(); 
+        model.addAttribute("monday", monday);
+
+        // 오늘 날짜
+        LocalDate today = mdDietService.getWeekDatesFromtoday(); 
+        model.addAttribute("today", today);
         
         return "diet/logPage";
     }
 
     // 상세1 이미지분석페이지
     @GetMapping("/analysis")
-    public String getAnalysis(Model model, Authentication authentication) {
+    public String getAnalysis(Model model, Authentication authentication, @RequestParam("date") LocalDate selectedDate) {
         String username = authentication.getName();
         MdUser mdUser = mdUserService.findByUsername(username);
         model.addAttribute("mdUser", mdUser);
+        model.addAttribute("selectedDate", selectedDate);
+
+
+        // 밑에서 부턴 추가 내용
+
+        // // 현재 유저 ID와 선택된 날짜에 해당하는 md_nut_result 데이터 가져오기
+        // List<MdNutResult> nutResults = mdNutResultService.findByUserIdAndDate(mdUser.getId(), selectedDate);
+
+        // // md_nut_result에서 가져온 데이터를 기반으로 영양성분 값 가져오기
+        // for (MdNutResult nutResult : nutResults) {
+        //     String resultLabel = nutResult.getResultLabel();
+        //     String foodName = nutResult.getFoodName();
+            
+        //     // md_nut_info에서 result_label과 food_name이 일치하는 데이터 가져오기
+        //     MdNutInfo nutInfo = mdNutInfoService.findByResultLabelAndFoodName(resultLabel, foodName);
+            
+        //     // 해당하는 영양성분 값을 모델에 추가
+        //     model.addAttribute(resultLabel, nutInfo);
+        // }
+
         return "diet/analysisPage";
     }
 

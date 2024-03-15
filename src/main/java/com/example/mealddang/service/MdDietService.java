@@ -11,6 +11,10 @@ import com.example.mealddang.model.entity.MdUser;
 import com.example.mealddang.model.repository.MdDietRepository;
 import com.example.mealddang.model.repository.MdNutResultRepository;
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+
+
 @Service
 public class MdDietService {
 
@@ -56,6 +60,23 @@ public class MdDietService {
             weekNutList.add(dailyNutList);
         }
         return weekNutList;
+    }
+
+
+    public LocalDate getWeekDatesFromMonday() {
+        LocalDate monday = LocalDate.now();
+        DayOfWeek dayOfWeek = monday.getDayOfWeek();
+        // 현재 요일이 월요일이 아니라면, 이번 주 월요일로 이동
+        if (!dayOfWeek.equals(DayOfWeek.MONDAY)) {
+            monday = monday.minusDays(dayOfWeek.getValue() - 1);
+        }
+        
+        return monday;
+    }
+
+    public LocalDate getWeekDatesFromtoday() {
+        LocalDate today = LocalDate.now();
+        return today;
     }
 
     public List<List<Float>> getWeeklySumNutrition(String username) {

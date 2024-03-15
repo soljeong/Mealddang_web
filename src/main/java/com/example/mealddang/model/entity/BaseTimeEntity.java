@@ -10,16 +10,20 @@ import org.springframework.format.annotation.DateTimeFormat;
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.MappedSuperclass;
+import lombok.Getter;
+import lombok.Setter;
+import java.time.LocalDate;
 
 @MappedSuperclass
+@Getter @Setter
 @EntityListeners(AuditingEntityListener.class)
 public abstract class BaseTimeEntity {
 
-    @CreatedDate
-    @DateTimeFormat(pattern = "yyyy-MM-dd/HH:mm:ss")
-    @Column(name = "created_date")
-    private LocalDateTime createdDate;
     
+    @Column(name = "created_date")
+    private LocalDate createdDate;
+    
+    @CreatedDate
     @LastModifiedDate
     @DateTimeFormat(pattern = "yyyy-MM-dd/HH:mm:ss")
     @Column(name = "update_date")
