@@ -14,24 +14,24 @@
             </button>
         </form> -->
         <script>
-          function enterkey() {
+        function enterkey() {
               // 입력 필드에서 값 가져오기
-              var input = document.querySelector('input[name="searchkey"]').value;
-          
-              // 입력값에 띄어쓰기가 있는지 검사
-              if (input.includes(' ')) {
-                  // 띄어쓰기가 있으면 경고 메시지 표시
-                  alert('검색어에는 띄어쓰기를 포함할 수 없습니다.');
-          
-                  // 띄어쓰기 제거 및 입력 필드 업데이트
-                  document.querySelector('input[name="searchkey"]').value = input.replace(/\s/g, '');
-                  
-                  // 추가적으로 폼 제출을 방지하고 싶다면, 여기에 코드 추가
-                  // 예: return false; (단, 이 경우 HTML의 onkeyup 속성에 'return enterkey()'로 수정 필요)
-              }
-          }
-          </script>
-          
+            var input = document.querySelector('input[name="searchkey"]').value;
+        
+            // 입력값에 띄어쓰기가 있는지 검사
+            if (input.includes(' ')) {
+                // 띄어쓰기가 있으면 경고 메시지 표시
+                alert('검색어에는 띄어쓰기를 포함할 수 없습니다.');
+        
+                // 띄어쓰기 제거 및 입력 필드 업데이트
+                document.querySelector('input[name="searchkey"]').value = input.replace(/\s/g, '');
+                
+                // 추가적으로 폼 제출을 방지하고 싶다면, 여기에 코드 추가
+                // 예: return false; (단, 이 경우 HTML의 onkeyup 속성에 'return enterkey()'로 수정 필요)
+            }
+        }
+        </script>
+        
 
         
         <section class="searchresult" style="display: none;">
@@ -306,9 +306,9 @@
                 </table>
             </div>
         </section>
-      <!-- 이하 script : 엔터키로 검색 버튼 클릭 기능 -->
-      <script th:inline="javascript">
-    
+    <!-- 이하 script : 엔터키로 검색 버튼 클릭 기능 -->
+    <script th:inline="javascript">
+
         var infowindow = new naver.maps.InfoWindow();
 
         var nameSearchResults = /*[[${nameSearchResults}]]*/ {}; 
@@ -464,6 +464,10 @@
             }
         });
     }, 5000);
+
+
+
+    
 
 
     </script>
