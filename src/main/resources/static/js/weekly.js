@@ -109,11 +109,12 @@ import * as echarts from 'https://cdn.jsdelivr.net/npm/echarts/dist/echarts.esm.
 var chartDom = document.getElementById('main');
 var myChart = echarts.init(chartDom);
 var option;
-    fetch('/diet/weeklyPage')
+    fetch('/api-weekly')
     .then(response => response.json())
     .then(data => {
     // 데이터베이스에서 조회한 데이터를 차트 데이터로 변환하는 로직
-    const rawData = transformData(weekNutList); 
+    const rawData = data.weekNutList; 
+    console.log(data.weekNutList);
     // const rawData = [
     //     [200, 100, 100],
     //     [302, 132, 182],
