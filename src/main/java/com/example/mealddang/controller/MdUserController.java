@@ -31,7 +31,7 @@ public class MdUserController {
     // 테스트 페이지
     @GetMapping("/")
     public String getIndex(Model model) {
-        return "index";
+        return "user/loginForm";
     }
     // 회원가입 페이지
     @GetMapping("/joinform")
