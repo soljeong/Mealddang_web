@@ -7,8 +7,8 @@ services:
     restart: always
     environment:
       - MYSQL_ROOT_PASSWORD=test1234
-      - MYSQL_USER=mealddang
-      - MYSQL_PASSWORD=alfEkd!!!
+      - MYSQL_USER=spring
+      - MYSQL_PASSWORD=spring
       - MYSQL_DATABASE=mealddang
     ports:
       - "3306:3306"
