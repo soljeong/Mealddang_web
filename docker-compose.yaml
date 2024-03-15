@@ -43,6 +43,7 @@ services:
     networks:
       - spring-boot-network
     command: ["java", "-jar", "-Dspring.profiles.active=prod", "/app/app.jar"]
+    # command: ["java", "-jar", "/app/app.jar"]
 
   nginx:
     image: nginx
