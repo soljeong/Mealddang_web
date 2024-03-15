@@ -7,46 +7,65 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.mealddang.model.entity.MdImgUpload;
-import com.example.mealddang.model.entity.MdUser;
+import com.example.mealddang.model.entity.MdNutResult;
 import com.example.mealddang.service.MdImgService;
-import com.example.mealddang.service.MdUserService;
+
 
 @RestController
 public class MdImgRestController {
     
     @Autowired
     private MdImgService mdImgService;
-    @Autowired
-    private MdUserService mdUserService;
+
+    // 글로벌변수
+    private String originImgPath = "";
+    private String username ="";
 
     // 이미지 업로드 메소드
     @PostMapping(value = {"/api-upload"}, consumes = {"multipart/form-data"})
-    public ResponseEntity<?> uploadImg(@Validated @RequestParam(value = "imgfile", required = false) MultipartFile imgfile, Authentication authentication) throws Exception {
-        String username = authentication.getName();
-        MdUser mdUser = mdUserService.findByUsername(username);
+    public ResponseEntity<Void> uploadImg(@Validated @RequestParam(value = "imgfile", required = false) MultipartFile imgfile, Authentication authentication) throws Exception {
+        username = authentication.getName();
 
-        // 업로드 이미지 저장 (MdImgUpload 엔티티 생성)
+        // MdImgUpload 엔티티 생성
         MdImgUpload mdImgUpload = mdImgService.imgUploader(username, MdImgUpload.builder().build(), imgfile);
 
-        // [미완]업로드 이미지 원본을 욜로모델에게 전달
+        // 글로벌변수 originImgPath 업데이트
+        originImgPath = mdImgUpload.getOriginPath();
 
-        // 모델분석 결과 저장 (MdYoloResult 엔티티 생성)
-        String label = "김치";        // 개발용 가짜 정보임, DB 연결 완성되면 수정할 것.
-        String imgPath = "/";         // 개발용 가짜 정보임, DB 연결 완성되면 수정할 것.
-        mdImgService.saveYoloResult(imgPath, label);
+        // View로 데이터 전달하지 않고 HTTP 상태 200 OK만 반환
+        return ResponseEntity.ok().build();
+    }
 
-        // 식단분석 결과 저장 (MDNutResult 엔티티 생성)
-        mdImgService.saveNutResult(mdUser, mdImgUpload);
+    // [미완] 욜로 모델로 원본 이미지 전달 및 결과 받는 메소드
+    @GetMapping(value = {"/api-yolo"})
+    public ResponseEntity<?> getYoloResult() {
+        // 업로드 이미지 원본을 욜로모델에게 전달
+        // 코드 짜야함. 아래는 dummy result
+        String resultPath = "/";
+        String resultLabel = "김치찌개";
 
+        // 분석 결과 저장 (MdYoloResult 엔티티 n개 생성)
+        mdImgService.saveYoloResult(originImgPath, resultPath);
+
+        // 분석 결과 저장2 (MDNutResult 엔티티 n개 생성)
+        MdNutResult mdNutResult = mdImgService.saveNutResult(username, originImgPath, resultPath, resultLabel);
+
+        // View로 데이터 전달 n개?
         Map<String, Object> response = new HashMap<>();
-        response.put("imgUrl", mdImgUpload.getOriginPath());
+        response.put("mdNutResult", mdNutResult);
+
         return ResponseEntity.ok().body(response);
     }
 
+    // 이미지 삭제 (MdImgUpload, MdNutResult, MdYoloResult 모두?) : 보류
+    @GetMapping("/api-delete")
+    public void deleteImg() {
+    }
 }

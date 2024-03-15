@@ -26,7 +26,8 @@ public class MdNutResult extends BaseTimeEntity {
     private MdImgUpload originPath;
     private String resultPath;
     private String resultLabel;
-    
+
+    // 이하는 모델분석 결과(resultLabel)를 토대로 nut_info table에서 가져오는 속성
     private Float kcal;
     private Float carbo_g;
     private Float fat_g;

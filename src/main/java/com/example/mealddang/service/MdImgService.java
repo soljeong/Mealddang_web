@@ -17,10 +17,13 @@ import lombok.extern.slf4j.Slf4j;
 
 import com.example.mealddang.model.repository.MdImgUploadRepository;
 import com.example.mealddang.model.repository.MdNutResultRepository;
+import com.example.mealddang.model.repository.MdUserRepository;
 
 @Service @Slf4j
 public class MdImgService {
 
+    @Autowired
+    private MdUserRepository mdUserRepository;
     @Autowired
     private MdImgUploadRepository mdImgUploadRepository;
     @Autowired
@@ -44,12 +47,19 @@ public class MdImgService {
         return mdImgUpload;
     }
 
-    // MdNutResult 초기화: 이미지분석결과 나오기 전 회원ID와 이미지경로 선 저장
-    public MdNutResult saveNutResult(MdUser p_username, MdImgUpload p_imgpath) {
+    // MdNutResult 저장
+    public MdNutResult saveNutResult(String p_username, String p_oripath, String p_resultpath, String p_resultlabel) {
+        MdUser mdUser = mdUserRepository.findByUsername(p_username).get();
+        MdImgUpload mdImgUpload = mdImgUploadRepository.findUploadEntitybyPath(p_oripath);
+        
         MdNutResult mdNutResult = new MdNutResult();
-        mdNutResult.setUsername(p_username);
-        mdNutResult.setOriginPath(p_imgpath);
+        mdNutResult.setUsername(mdUser);
+        mdNutResult.setOriginPath(mdImgUpload);
+        mdNutResult.setResultPath(p_resultpath);
+        mdNutResult.setResultLabel(p_resultlabel);
+
         mdNutResultRepository.save(mdNutResult);
+
         return mdNutResult;
     }
 
@@ -77,4 +87,6 @@ public class MdImgService {
         log.info(mdNutResults.size() + "개의 이미지 분석 히스토리를 찾았습니다.");
         return mdNutResults;
     }
+
+    // originPath로 이미지 삭제하기_보류
 }
