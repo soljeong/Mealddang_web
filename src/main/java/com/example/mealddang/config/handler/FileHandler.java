@@ -14,7 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j @Component
 public class FileHandler {
 
-    public MdImgUpload parseFileInfo(String username, String filePath, MultipartFile multipartFile) throws Exception {
+    public MdImgUpload parseFileInfo(String filePath, String username, MultipartFile multipartFile) throws Exception {
 
         MdImgUpload mdImgUpload = new MdImgUpload();
 

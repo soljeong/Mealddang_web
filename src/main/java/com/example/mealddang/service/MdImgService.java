@@ -41,8 +41,9 @@ public class MdImgService {
     }
 
     // 이미지업로더
-    public MdImgUpload imgUploader(String p_username, MdImgUpload p_upload, MultipartFile imgFile) throws Exception {
-        MdImgUpload mdImgUpload = fileHandler.parseFileInfo(p_username, p_upload.getOriginPath(), imgFile);
+    public MdImgUpload imgUploader(MdImgUpload p_upload, String p_username,  MultipartFile imgFile) throws Exception {
+        MdImgUpload mdImgUpload = fileHandler.parseFileInfo(p_upload.getOriginPath(), p_username, imgFile);
+        // DB에 저장
         mdImgUploadRepository.save(mdImgUpload);
         return mdImgUpload;
     }

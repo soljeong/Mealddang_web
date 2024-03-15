@@ -33,8 +33,8 @@ public class MdImgRestController {
     public ResponseEntity<Void> uploadImg(@Validated @RequestParam(value = "imgfile", required = false) MultipartFile imgfile, Authentication authentication) throws Exception {
         username = authentication.getName();
 
-        // MdImgUpload 엔티티 생성
-        MdImgUpload mdImgUpload = mdImgService.imgUploader(username, MdImgUpload.builder().build(), imgfile);
+        // 서버로컬에 이미지 저장
+        MdImgUpload mdImgUpload = mdImgService.imgUploader(MdImgUpload.builder().build(), username, imgfile);
 
         // 글로벌변수 originImgPath 업데이트
         originImgPath = mdImgUpload.getOriginPath();
