@@ -1,0 +1,56 @@
+version: '3'
+
+services:
+  # MySQL 컨테이너 설정
+  mysql:
+    image: mysql
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=test1234
+      - MYSQL_USER=mealddang
+      - MYSQL_PASSWORD=test1234
+      - MYSQL_DATABASE=mealddang
+    ports:
+      - "3306:3306"
+    volumes:
+      - db:/var/lib/mysql
+    networks:
+      - spring-boot-network
+
+  # # Spring Boot 애플리케이션 컨테이너 설정
+  spring:
+    depends_on:
+      - mysql
+    image: openjdk:17
+    # environment:
+    #   SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/your_database?useSSL=false&serverTimezone=UTC
+    #   SPRING_DATASOURCE_USERNAME: your_user
+    #   SPRING_DATASOURCE_PASSWORD: your_password
+    volumes:
+      - ./build/libs/mealddang-0.0.1-SNAPSHOT.jar:/app/app.jar
+    ports:
+      - "8080:8080"
+    networks:
+      - spring-boot-network
+    command: ["java", "-jar", "/app/app.jar"]
+
+  nginx:
+    image: nginx
+    volumes:
+      - static_volume:/usr/src/app/static
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+    ports:
+      - 80:80
+    depends_on:
+      - spring
+    networks:
+      - spring-boot-network
+
+networks:
+  spring-boot-network:
+    driver: bridge
+    
+volumes:
+  db:
+  static_volume:
+
