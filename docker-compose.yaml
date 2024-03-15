@@ -8,7 +8,7 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD=test1234
       - MYSQL_USER=mealddang
-      - MYSQL_PASSWORD=test1234
+      - MYSQL_PASSWORD=alfEkd!!!
       - MYSQL_DATABASE=mealddang
     ports:
       - "3306:3306"
@@ -17,10 +17,20 @@ services:
     networks:
       - spring-boot-network
 
+  # java 17, gradle
+  build:
+    image: gradle:jdk17
+    volumes:
+      - .:/app
+    working_dir: /app
+    command: gradle bootJar
+
+
   # # Spring Boot 애플리케이션 컨테이너 설정
   spring:
     depends_on:
       - mysql
+      - build
     image: openjdk:17
     # environment:
     #   SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/your_database?useSSL=false&serverTimezone=UTC
