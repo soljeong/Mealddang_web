@@ -38,8 +38,8 @@ public class MdImgService {
     }
 
     // 이미지업로더
-    public MdImgUpload uploadImg(MdImgUpload p_upload, MultipartFile imgFile) throws Exception {
-        MdImgUpload mdImgUpload = fileHandler.parseFileInfo(p_upload.getImgPath(), imgFile);
+    public MdImgUpload imgUploader(String p_username, MdImgUpload p_upload, MultipartFile imgFile) throws Exception {
+        MdImgUpload mdImgUpload = fileHandler.parseFileInfo(p_username, p_upload.getOriginPath(), imgFile);
         mdImgUploadRepository.save(mdImgUpload);
         return mdImgUpload;
     }
@@ -48,16 +48,16 @@ public class MdImgService {
     public MdNutResult saveNutResult(MdUser p_username, MdImgUpload p_imgpath) {
         MdNutResult mdNutResult = new MdNutResult();
         mdNutResult.setUsername(p_username);
-        mdNutResult.setImgPath(p_imgpath);
+        mdNutResult.setOriginPath(p_imgpath);
         mdNutResultRepository.save(mdNutResult);
         return mdNutResult;
     }
 
     // MdYoloResult 저장
-    public MdYoloResult saveYoloResult(String imgPath, String label) {
+    public MdYoloResult saveYoloResult(String p_originPath, String p_resultPath) {
         MdYoloResult mdYoloResult = new MdYoloResult();
-        mdYoloResult.setImgPath(imgPath);
-        mdYoloResult.setResultLabel(label);
+        mdYoloResult.setOriginPath(p_originPath);
+        mdYoloResult.setResultPath(p_resultPath);
         mdYoloResultRepository.save(mdYoloResult);
         return mdYoloResult;
     }
@@ -77,5 +77,4 @@ public class MdImgService {
         log.info(mdNutResults.size() + "개의 이미지 분석 히스토리를 찾았습니다.");
         return mdNutResults;
     }
-
 }

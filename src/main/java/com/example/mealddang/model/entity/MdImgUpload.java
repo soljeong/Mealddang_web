@@ -12,11 +12,11 @@ import lombok.NoArgsConstructor;
 @Builder @Getter @AllArgsConstructor @NoArgsConstructor
 public class MdImgUpload extends BaseTimeEntity {
     
-    @Id @Column(name = "img_path")
-    private String imgPath;
+    @Id @Column(name = "origin_path")
+    private String originPath;
 
-    @Column(name = "img_name")
-    private String imgName;
+    @Column(name = "origin_name")
+    private String originName;
 
     @Column(nullable = true)
     private long fileSize;

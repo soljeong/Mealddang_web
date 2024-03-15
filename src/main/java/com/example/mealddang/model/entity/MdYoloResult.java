@@ -19,20 +19,9 @@ public class MdYoloResult {
     @Column(name = "result_id")
     private long resultId;
 
-    @Column(columnDefinition = "varchar(20)")
-    private String resultLabel;
+    @Column(name = "origin_path")
+    private String originPath;
 
-    @Column(name = "img_path")
-    private String imgPath;
-
-    @Column(name = "result_conf")
-    private Float resultConf;
-    @Column(name = "result_x")
-    private Integer resultX;
-    @Column(name = "result_y")
-    private Integer resultY;
-    @Column(name = "result_w")
-    private Integer resultW;
-    @Column(name = "result_h")
-    private Integer resultH;
+    @Column(name = "result_path")
+    private String resultPath;
 }

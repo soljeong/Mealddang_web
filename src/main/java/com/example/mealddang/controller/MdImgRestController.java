@@ -28,9 +28,11 @@ public class MdImgRestController {
     // 이미지 업로드 메소드
     @PostMapping(value = {"/api-upload"}, consumes = {"multipart/form-data"})
     public ResponseEntity<?> uploadImg(@Validated @RequestParam(value = "imgfile", required = false) MultipartFile imgfile, Authentication authentication) throws Exception {
+        String username = authentication.getName();
+        MdUser mdUser = mdUserService.findByUsername(username);
 
         // 업로드 이미지 저장 (MdImgUpload 엔티티 생성)
-        MdImgUpload mdImgUpload = mdImgService.uploadImg(MdImgUpload.builder().build(), imgfile);
+        MdImgUpload mdImgUpload = mdImgService.imgUploader(username, MdImgUpload.builder().build(), imgfile);
 
         // [미완]업로드 이미지 원본을 욜로모델에게 전달
 
@@ -40,12 +42,10 @@ public class MdImgRestController {
         mdImgService.saveYoloResult(imgPath, label);
 
         // 식단분석 결과 저장 (MDNutResult 엔티티 생성)
-        String username = authentication.getName();
-        MdUser mdUser = mdUserService.findByUsername(username);
         mdImgService.saveNutResult(mdUser, mdImgUpload);
 
         Map<String, Object> response = new HashMap<>();
-        response.put("imgUrl", mdImgUpload.getImgPath());
+        response.put("imgUrl", mdImgUpload.getOriginPath());
         return ResponseEntity.ok().body(response);
     }
 

@@ -10,14 +10,14 @@ import com.example.mealddang.model.entity.MdNutResult;
 
 public interface MdNutResultRepository extends JpaRepository<MdNutResult, Long> {
     // 회원ID로 해당 회원의 모든 이미지분석 히스토리 찾기
-    @Query(value = "SELECT * FROM md_nut_result WHERE img_path in(SELECT DISTINCT(img_path) FROM md_nut_result WHERE user_id = :username)", nativeQuery = true)
+    @Query(value = "SELECT * FROM md_nut_result WHERE origin_path in(SELECT DISTINCT(origin_path) FROM md_nut_result WHERE user_id = :username)", nativeQuery = true)
     public List<MdNutResult> findAllNutResultbyUsername(@Param(value="username") String username);
 
-    // 회원ID로 해당 회원의 모든 업로드 이미지경로 찾기
-    @Query(value = "SELECT DISTINCT(img_path) FROM md_nut_result WHERE user_id = :username", nativeQuery = true)
+    // 회원ID로 해당 회원의 모든 업로드이미지(원본) 경로 찾기 -> MyGallery
+    @Query(value = "SELECT DISTINCT(origin_path) FROM md_nut_result WHERE user_id = :username", nativeQuery = true)
     public List<String> findAllPathbyUsername(@Param(value="username") String username);
 
-    // 하루 섭취량 가져오기 (이번주 기준)
+    // 하루 섭취량 가져오기 (이번주 기준) -> Weekly
     @Query(value = "SELECT SUM(kcal), SUM(carbo_g), SUM(protein_g), SUM(fat_g) \n" + //
                 "FROM md_nut_result \n" + //
                 "WHERE user_id = :username \n" + //

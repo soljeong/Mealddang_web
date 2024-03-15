@@ -22,14 +22,13 @@ public class MdNutResult extends BaseTimeEntity {
     @ManyToOne @JoinColumn(name = "user_id", referencedColumnName = "user_id")
     private MdUser username;
 
-    @ManyToOne @JoinColumn(name = "img_path", referencedColumnName = "img_path")
-    private MdImgUpload imgPath;
-
-    private String foodName;
+    @ManyToOne @JoinColumn(name = "origin_path", referencedColumnName = "origin_path")
+    private MdImgUpload originPath;
+    private String resultPath;
+    private String resultLabel;
+    
     private Float kcal;
     private Float carbo_g;
     private Float fat_g;
     private Float protein_g;
-
-    private String cropImgPath;
 }
