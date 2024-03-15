@@ -114,12 +114,28 @@ var option;
     .then(data => {
     // 데이터베이스에서 조회한 데이터를 차트 데이터로 변환하는 로직
     const rawData = transformData(weekNutList); 
+    // const rawData = [
+    //     [200, 100, 100],
+    //     [302, 132, 182],
+    //     [301, 101, 191],
+    //     [334, 134, 234],
+    //     [390, 90, 290],
+    //     [330, 230, 330],
+    //     [320, 210, 310]
+    // ];
     // 이후 차트 구성 코드...
-    const totalData = [weekNutList];
-    for (let i = 0; i < rawData[0].length; ++i) {
+    const reorganizedData = [];
+    const totalData = [];
+    
+    for (let i = 0; i < rawData.length; ++i) {
         let sum = 0;
-        for (let j = 0; j < rawData.length; ++j) {
-        sum += rawData[j][i];
+        const dailyData = []; // 각 요일별 합계를 저장할 배열
+        for (let j = 0; j < rawData[0].length; ++j) {
+            sum += rawData[i][j];
+            if (!reorganizedData[j]) {
+                reorganizedData[j] = [];
+            }
+            reorganizedData[j].push(rawData[i][j]);
         }
         totalData.push(sum);
     }
@@ -143,7 +159,7 @@ var option;
             show: true,
             formatter: (params) => Math.round(params.value * 1000) / 10 + '%'
         },
-    data: rawData[sid].map((d, did) =>
+    data: reorganizedData[sid].map((d, did) =>
             totalData[did] <= 0 ? 0 : d / totalData[did]
         )
         };
