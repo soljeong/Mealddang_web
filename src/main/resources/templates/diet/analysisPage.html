@@ -14,7 +14,7 @@
                 <div id="upload-thumbnail"></div> <!-- 썸네일 이미지를 표시할 공간 -->
 
                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-                <p th:text="${selectedDate}" id="selectedDate">선택된 날짜</p>
+                <p th:text="${selectedDate}" id="selectedDate" style="display: none;">선택된 날짜</p>
                 
                 <script>
                     function handleFileChange(event) {

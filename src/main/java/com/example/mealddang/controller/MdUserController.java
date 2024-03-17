@@ -155,7 +155,7 @@ public String postJoinRequest(@Valid MdUser mdUser, Errors errors, Model model, 
         MdUser mdUser = mdUserService.findByUsername(username);
         model.addAttribute("mdUser", mdUser);
 
-        List<MdNutResult> mdNutResults = mdImgService.findAllNutResultbyUsername(username);
+        List<MdNutResult> mdNutResults = mdImgService.findAllNutResultbyUsername(mdUser);
         model.addAttribute("mdNutResults", mdNutResults);
 
         return "user/myGallery";

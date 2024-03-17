@@ -213,7 +213,7 @@ public class MdImgService {
     }
 
     // 회원ID로 해당 회원의 모든 이미지분석결과 엔티티 찾기
-    public List<MdNutResult> findAllNutResultbyUsername(String username) {
+    public List<MdNutResult> findAllNutResultbyUsername(MdUser username) {
         log.info(username + " 회원님의 모든 이미지 분석 히스토리를 찾고 있습니다.");
         List<MdNutResult> mdNutResults = mdNutResultRepository.findAllNutResultbyUsername(username);
         log.info(mdNutResults.size() + "개의 이미지 분석 히스토리를 찾았습니다.");

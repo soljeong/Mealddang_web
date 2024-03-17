@@ -83,7 +83,7 @@ public class MdDietService {
 
         List<List<Float>> weeklySumNutritionList = new ArrayList<>();
 
-        for (int i = 1; i <= 7; i++) { // 7일치 데이터를 요청
+        for (int i = 0; i < 7; i++) { // 7일치 데이터를 요청
             List<Object[]> resultRows = mdNutResultRepository.sumNutDaily(username, i);
             List<Float> weeklySumNutrition = new ArrayList<>();
 
