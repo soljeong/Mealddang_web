@@ -88,7 +88,8 @@ public class MdDietController {
     public String getAnalysis(Model model, Authentication authentication, @RequestParam("date") LocalDate selectedDate) {
         String username = authentication.getName();
         MdUser mdUser = mdUserService.findByUsername(username);
-
+        model.addAttribute("mdUser", mdUser);
+        model.addAttribute("selectedDate", selectedDate);
 
         // 현재 유저 ID에 해당하는 md_nut_result 데이터 가져오기
         // List<MdNutResult> userResults = mdNutResultRepository.findAllNutResultbyUsername(mdUser);
@@ -122,7 +123,6 @@ public class MdDietController {
         //     // 해당하는 영양성분 값을 모델에 추가
         //     model.addAttribute(resultLabel, nutInfo);
         // }
-
         return "diet/analysisPage";
     }
 
