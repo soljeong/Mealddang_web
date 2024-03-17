@@ -1,5 +1,6 @@
 package com.example.mealddang.controller;
 
+import java.util.List;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -46,20 +47,24 @@ public class MdImgRestController {
     // [미완] 욜로 모델로 원본 이미지 전달 및 결과 받는 메소드
     @GetMapping(value = {"/api-yolo"})
     public ResponseEntity<?> getYoloResult() {
-        // 업로드 이미지 원본을 욜로모델에게 전달
-        // 코드 짜야함. 아래는 dummy result
-        String resultPath = "/";
-        String resultLabel = "김치찌개";
+        // 검출 API 요청
+        List<String> yoloResultList = mdImgService.sendYolo(originImgPath);
 
-        // 분석 결과 저장 (MdYoloResult 엔티티 n개 생성)
-        mdImgService.saveYoloResult(originImgPath, resultPath);
+        // 검출 리스트가 1개 이상이면 DB 저장
+        if (yoloResultList.size() != 0) {
+            // API에 저장되어 있는 이미지 가져오기
+            List<String> yoloImgeList = mdImgService.getYoloImg(yoloResultList, originImgPath);
 
-        // 분석 결과 저장2 (MDNutResult 엔티티 n개 생성)
-        MdNutResult mdNutResult = mdImgService.saveNutResult(username, originImgPath, resultPath, resultLabel);
+            // 분석 결과 저장 (MdYoloResult roe n개 생성)
+            mdImgService.saveYoloResult(originImgPath, yoloImgeList);
+    
+            // 분석 결과 저장2 (MDNutResult row n개 생성)
+            MdNutResult mdNutResult = mdImgService.saveNutResult(username, originImgPath, yoloImgeList);
+        }
 
         // View로 데이터 전달 n개?
         Map<String, Object> response = new HashMap<>();
-        response.put("mdNutResult", mdNutResult);
+        // response.put("mdNutResult", mdNutResult);
 
         return ResponseEntity.ok().body(response);
     }

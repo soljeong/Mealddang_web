@@ -12,42 +12,6 @@
                     <input type="file" name="imgfile" onchange="handleFileChange(event);"/>
                 </form>
                 <div id="upload-thumbnail"></div> <!-- 썸네일 이미지를 표시할 공간 -->
-
-                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-                <script>
-                    function handleFileChange(event) {
-                        setThumbnail(event); // 썸네일 설정
-                        var formData = new FormData($('#uploadForm')[0]);
-                        
-                        $.ajax({
-                            url: '/api-upload', // '/api-upload' 엔드포인트 사용
-                            type: 'POST',
-                            data: formData,
-                            processData: false, // FormData 사용 시 필수
-                            contentType: false, // FormData 사용 시 필수
-                            success: function(response) {
-                                alert('이미지 업로드 성공');
-                            },
-                            error: function(error) {
-                                console.log("이미지 업로드 실패:", error);
-                            }
-                        });
-                    }
-                
-                    function setThumbnail(event) {
-                        var reader = new FileReader();
-                        
-                        reader.onload = function(event) {
-                            var img = document.createElement("img");
-                            img.setAttribute("src", event.target.result);
-                            img.setAttribute("style", "max-width: 200px; max-height: 200px; object-fit: cover;");
-                            document.querySelector("#upload-thumbnail").appendChild(img);
-                        };
-                        
-                        reader.readAsDataURL(event.target.files[0]);
-                    }
-                </script>
-
                 <a href="/api-yolo"><button>이미지 분석</button></a>
             </div>
             <div id="result" class="col-md-6">
@@ -72,5 +36,37 @@
 
             </div>
         </section>
+        <script>
+            function handleFileChange(event) {
+                setThumbnail(event); // 썸네일 설정
+                var formData = new FormData($('#uploadForm')[0]);
+                
+                $.ajax({
+                    url: '/api-upload', // '/api-upload' 엔드포인트 사용
+                    type: 'POST',
+                    data: formData,
+                    processData: false, // FormData 사용 시 필수
+                    contentType: false, // FormData 사용 시 필수
+                    success: function(response) {
+                        alert('이미지 업로드 성공');
+                    },
+                    error: function(error) {
+                        console.log("이미지 업로드 실패:", error);
+                    }
+                });
+            }
+            function setThumbnail(event) {
+                var reader = new FileReader();
+                
+                reader.onload = function(event) {
+                    var img = document.createElement("img");
+                    img.setAttribute("src", event.target.result);
+                    img.setAttribute("style", "max-width: 200px; max-height: 200px; object-fit: cover;");
+                    document.querySelector("#upload-thumbnail").appendChild(img);
+                };
+                
+                reader.readAsDataURL(event.target.files[0]);
+            }
+        </script>
     </main>
 </html>
