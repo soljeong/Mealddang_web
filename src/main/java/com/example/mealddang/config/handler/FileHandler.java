@@ -30,13 +30,13 @@ public class FileHandler {
             String projectPath = new File("").getAbsolutePath() + "/";
             log.info("프로젝트 폴더 경로는 " + projectPath);
             
-            // resources dir 경로: src/main/resources/
+            // resources dir 경로: src/main/resources/static
             String resourcesPath = "src/main/resources/";
             log.info("리소스 폴더 경로는 " + resourcesPath);
 
-            // static dir 이하 경로: static/[username]/[UUID]/
-            String underStaticPath = "static/" + username + "/" + uuid + "/";
-            log.info("스태틱 폴더 이하 경로는 " + underStaticPath);
+            // static dir 아래 경로: [username]/[UUID]/
+            String underStaticPath = username + "/" + uuid + "/";
+            log.info("스태틱 폴더 아래 경로는 " + underStaticPath);
 
             // 업로드이미지 저장 경로 생성 : src/main/resources/static/[username]/[UUID]/
             String uploadSavingPath = resourcesPath + underStaticPath;
@@ -70,13 +70,13 @@ public class FileHandler {
             String new_file_name = uuid + originalFileExtension;
             mdImgUpload = MdImgUpload.builder()
                     .originName(multipartFile.getOriginalFilename())
-                    .originPath(underStaticPath + "/" + new_file_name)
+                    .originPath(underStaticPath + new_file_name)
                     .fileSize(multipartFile.getSize())
                     .build();
             log.info("업로드 된 이미지 엔티티는 " + mdImgUpload.toString());
             
             // full saving path c:/Users/3149n/workspace/mealddang/src/main/resources/static/[username]/[UUID]/[UUID].jpg
-            file = new File(projectPath + resourcesPath + underStaticPath + "/" + new_file_name);
+            file = new File(projectPath + resourcesPath + underStaticPath + new_file_name);
             multipartFile.transferTo(file);
             log.info("multipartFile : "+multipartFile.toString());
             return mdImgUpload;
