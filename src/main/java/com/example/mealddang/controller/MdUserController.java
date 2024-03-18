@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.example.mealddang.model.entity.MdNutResult;
 import com.example.mealddang.model.entity.MdUser;
 import com.example.mealddang.service.MdImgService;
 import com.example.mealddang.service.MdUserService;
