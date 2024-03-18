@@ -23,6 +23,6 @@ public interface MdNutResultRepository extends JpaRepository<MdNutResult, Long> 
                 "WHERE user_id = :username \n" + //
                 "AND created_date >= ADDDATE(CURDATE(), - WEEKDAY(CURDATE()) + :dayofweek)\n" + //
                 "AND created_date < ADDDATE(CURDATE(), - WEEKDAY(CURDATE()) + :dayofweek + 1)", nativeQuery = true)
-    public List<Float> sumNutDaily(@Param(value = "username") String username, @Param(value = "dayofweek") int dayofweek);
+    public List<Object[]> sumNutDaily(@Param(value = "username") String username, @Param(value = "dayofweek") int dayofweek);
 
 }

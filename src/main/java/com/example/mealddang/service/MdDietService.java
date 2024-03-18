@@ -49,10 +49,10 @@ public class MdDietService {
     }
 
     // 회원의 이번주 월~일 섭취량(열량, 탄, 단, 지 순서) 조회하는 메소드
-    public List<List<Float>> sumNutDaily(String username) {
-        List<List<Float>> weekNutList = new ArrayList<>();
+    public List<List<Object[]>> sumNutDaily(String username) {
+        List<List<Object[]>> weekNutList = new ArrayList<>();
         for (int dayOfWeek = 0; dayOfWeek < 7; dayOfWeek++) {
-            List<Float> dailyNutList = mdNutResultRepository.sumNutDaily(username, dayOfWeek);
+            List<Object[]> dailyNutList = mdNutResultRepository.sumNutDaily(username, dayOfWeek);
             weekNutList.add(dailyNutList);
         }
         return weekNutList;
