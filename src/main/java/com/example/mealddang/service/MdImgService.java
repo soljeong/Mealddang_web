@@ -54,6 +54,8 @@ public class MdImgService {
     private MdNutInfoRepository mdNutInfoRepository;
 
     private final FileHandler fileHandler;
+
+    private final LocalDate today = LocalDate.now();
     
     // 생성자
     @Autowired
@@ -91,6 +93,8 @@ public class MdImgService {
             mdNutResult.setFatG(resultInfo.getFat());
             mdNutResult.setKcal(resultInfo.getEnergyKcal());
             mdNutResult.setProteinG(resultInfo.getProtein());
+
+            mdNutResult.setCreatedDate(today);
             mdNutResultRepository.save(mdNutResult);
         }
 
