@@ -16,13 +16,21 @@
                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
                 <p th:text="${selectedDate}" id="selectedDate" style="display: none;">선택된 날짜</p>
                 <button id="analyzeButton">이미지 분석</button>
+
                 <!-- 로딩 화면 -->
-                <div id="loadingScreen" style="display: none;">
+                <!-- <div id="loadingScreen" style="display: none;">
                 <div class="mask" style="display: none;">
-                    <img class="loadingImg" src='https://i.ibb.co/20zw80q/1487.gif'>
+                    <img class="loadingImg" src='https://i.ibb.co/20zw80q/1487.gif'> -->
                 <!-- </div>
                 <p>분석 중입니다. 잠시만 기다려주세요...</p> -->
+
+                <!-- 로딩 2 -->
+                <div class="loading-wrapper">
+                    <div class="loading"></div>
+                    <div class="loading-text">로딩 중...</div>
+                </div>
             </div>
+
             <!-- 결과 페이지 또는 섹션 -->
             <div id="resultSection" style="display: none;">
                 <!-- 결과가 여기에 표시됩니다 -->
