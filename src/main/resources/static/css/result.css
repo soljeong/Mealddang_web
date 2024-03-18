@@ -17,18 +17,25 @@ border-radius: 5px 0 0 5px; /* 왼쪽 모서리만 둥글게, 필요에 따라 �
 flex-grow: 1; /* 이미지를 가능한 공간에 맞게 확장 */
 }
 .description {
-width: calc(50% - 5px); /* 설명의 너비를 전체의 50%에서 간격을 고려하여 조정, 필요에 따라 변경 */
-text-align: center; /* 설명 텍스트 정렬 */
-padding: 5px; /* 상하 좌우 패딩 */
-background-color: #f0f0f0; /* 배경색 */
-border-radius: 5px; /* 모서리 둥글게 */
-border: 10px solid #ffc107; /* 테두리 추가: 두께, 스타일(실선), 색상(#ccc) */
+    display: flex;
+    width: calc(50% - 5px); /* 설명의 너비를 전체의 50%에서 간격을 고려하여 조정, 필요에 따라 변경 */
+    text-align: center; /* 설명 텍스트 정렬 */
+    padding: 5px; /* 상하 좌우 패딩 */
+    background-color: #f0f0f0; /* 배경색 */
+    border-radius: 5px; /* 모서리 둥글게 */
+    border: 10px solid #ffc107; /* 테두리 추가: 두께, 스타일(실선), 색상(#ccc) */
+    font-size: 16px;
+    margin-bottom: 20px;
 }
-.description {
-font-size: 16px;
-margin-bottom: 20px;
+#left, #right {
+    display: flex; /* Flexbox 사용 설정 */
+    flex-direction: column; /* 항목들을 세로로 나열 */
+    align-items: center; /* 가로축(center)을 기준으로 항목들을 정렬 */
+    justify-content: space-between; /* 항목들 사이의 여백을 균등하게 분배 */
 }
-
+#right img, #right p, #right table {
+    margin: 10px 0; /* 상하 여백 추가, 좌우 여백은 0 */
+}
 .image-container-row {
 display: flex;
 justify-content: space-between; /* 이미지 컨테이너 간의 간격을 조정합니다. */

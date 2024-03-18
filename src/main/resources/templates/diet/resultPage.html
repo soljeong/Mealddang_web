@@ -5,51 +5,35 @@
             <h3 class="text-primary text-center pt-20 mb-10">이미지 AI 분석 결과</h3>
         </section>
 
-        <section>
-            <h2>결과물이다ㅏㅏㅏㅏㅏ</h2>
-            <!-- 사진 갤러리 공간 -->
-            <div class="gallery">
-                <div class="photo">
-                    <!-- <img src="/icons/fried-egg.png" alt="사진 설명 1"> -->
-                    <img th:src="@{'/uploaded/'+${mdNutResult.originPath.originPath}}">
+        <section id="content" class="row align-items-md-stretch">
+            <div class="description">
+                <div id="left">
+                    <img alt="originImg" th:src="@{'/uploaded/'+${mdNutResult.originPath.originPath}}" style="max-width: 300px; height: auto;">
                 </div>
-                <div>
-                    <!-- 크롭된 이미지 -->
-                    <img th:src="@{'/uploaded/'+${mdNutResult.resultPath}}">
-
-                </div>
-                    
-                <!-- <div class="description">  분석결과 <br>
-                    <img src="/icons/fried-egg.png" alt="크롭사진 설명1">
-                    <img src="/icons/fried-egg.png" alt="크롭사진 설명2">
-                    <img src="/icons/fried-egg.png" alt="크롭사진 설명3">
-
-
-                </div> -->
-
-                <div class="description">  
-                    분석결과 <br>
-                    <div class="image-container-row">
-                        <div class="image-container">
-                            <img src="/icons/fried-egg.png" alt="크롭사진 설명1">
-                            <p>크롭사진 설명1</p>
-                            <p th:text="${mdNutResult.resultLabel}"></p>
-                            <p th:text="${mdNutResult.fatG}"></p>
-                            <p th:text="${mdNutResult.kcal}"></p>
-                            <p th:text="${mdNutResult.carboG}"></p>
-                            <p th:text="${mdNutResult.proteinG}"></p>
-                        </div>
-                        <div class="image-container">
-                            <img src="/icons/fried-egg.png" alt="크롭사진 설명2">
-                            <p>크롭사진 설명2</p>
-                        </div>
-                        <div class="image-container">
-                            <img src="/icons/fried-egg.png" alt="크롭사진 설명3">
-                            <p>크롭사진 설명3</p>
-                        </div>
+                <div id="right">
+                    <div>
+                        <img th:src="@{'/uploaded/'+${mdNutResult.resultPath}}">
+                        <p th:text="${mdNutResult.resultLabel}"></p>
+                        <table>
+                            <tr>
+                                <td>칼로리</td>
+                                <td th:text="${mdNutResult.kcal}"></td>
+                            </tr>
+                            <tr>
+                                <td>탄수화물</td>
+                                <td th:text="${mdNutResult.carboG}"></td>
+                            </tr>
+                            <tr>
+                                <td>단백질</td>
+                                <td th:text="${mdNutResult.proteinG}"></td>
+                            </tr>
+                            <tr>
+                                <td>지방</td>
+                                <td th:text="${mdNutResult.fatG}"></td>
+                            </tr>
+                        </table>
                     </div>
                 </div>
-                <!-- <button class="button">저장</button> -->
                 
             </div>
         </section>
