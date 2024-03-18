@@ -2,16 +2,10 @@
     <main layout:fragment="content">
         <section id="title">
             <a href="/user/diet/log"><h3 th:text="${mdUser.nickname != null ? mdUser.nickname : mdUser.username} + '님의 밀땅일지'"></h3></a>
-            <p>테스트 페이지~~~~~~~</p>
+            <h3 class="text-primary text-center pt-20 mb-10">이미지 AI 분석 결과</h3>
         </section>
-        <!DOCTYPE html>
-        <html>
-        <head>
-            <title>사진 갤러리</title>
-        </head>
-        <body>
-        
-        <main>
+
+        <section>
             <h2>결과물이다ㅏㅏㅏㅏㅏ</h2>
             <!-- 사진 갤러리 공간 -->
             <div class="gallery">
@@ -58,7 +52,6 @@
                 <!-- <button class="button">저장</button> -->
                 
             </div>
-        </main>
-        
-        </body>
-        </html>
+        </section>
+    </body>
+</html>

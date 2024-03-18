@@ -2,7 +2,7 @@
     <main layout:fragment="content">
         <section id="title">
             <a href="/user/diet/log"><h3 th:text="${mdUser.nickname != null ? mdUser.nickname : mdUser.username} + '님의 밀땅일지'"></h3></a>
-            <h1 classe="text-primary text-center pt-20 mb-10">식단 AI 분석을 시작합니다.</h1>
+            <h3 class="text-primary text-center pt-20 mb-10">이미지 AI 분석</h3>
         </section>
 
         <section id="content" class="row align-items-md-stretch">
@@ -28,27 +28,6 @@
                 <!-- 결과가 여기에 표시됩니다 -->
             </div>
 
-            <div id="result" class="col-md-6">
-                <table>
-                    <tr>
-                        <td>분류된 이미지</td>
-                        <td>분류된 이미지</td>
-                        <td>분류된 이미지</td>
-                    </tr>
-                    <tr>
-                        <td>영양정보</td>
-                        <td>영양정보</td>
-                        <td>영양정보</td>
-                    </tr>
-                    <tr>
-                        <td> + </td>
-                    </tr>
-                </table>
-                <a href="/api-delete" class="delete-btn"><button type="submit" id="delete-btn">삭제</button></a>
-                <p>분석한 이미지는 자동으로 갤러리에 저장됩니다. 저장을 원하지 않으시면 삭제 버튼을 눌러주세요.</p>
-                <p>하지만 아직 삭제 기능은 구현 안됐습니다 ^^</p>
-
-            </div>
         </section>
         <script>
             function handleFileChange(event) {
