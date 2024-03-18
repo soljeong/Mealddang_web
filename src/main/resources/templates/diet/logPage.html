@@ -92,15 +92,12 @@
         
         <!-- 이미지 박스 영역 -->
         <div style="display: flex; justify-content: space-between;">
-            <div class="image-box" style="flex-grow: 1; margin-right: 10px;">
-            <img src="/icons/fried-egg.png" alt="이미지1 설명" style="width: 50%;">
-            </div>
-            <div class="image-box" style="flex-grow: 1; margin-right: 10px;">
-            <img src="이미지2_경로" alt="이미지2 설명" style="width: 50%;">
-            </div>
-            <div class="image-box" style="flex-grow: 1;">
-            <img src="이미지3_경로" alt="이미지3 설명" style="width: 50%;">
-            </div>
+            <!-- 각 이미지에 대한 반복문 -->
+            <th:block th:each="photoPath : ${photoPaths}">
+                <div class="image-box" style="flex-grow: 1; margin-right: 10px;">
+                    <img th:src="${photoPath}" alt="이미지 설명" style="width: 50%;">
+                </div>
+            </th:block>
         </div>
         </div>
         
