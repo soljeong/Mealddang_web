@@ -10,46 +10,43 @@
                 <span th:text="${#temporals.format(#temporals.createNow().with(T(java.time.temporal.TemporalAdjusters).previousOrSame(T(java.time.DayOfWeek).MONDAY)), 'yyyy.MM.dd')}">이번주 월요일</span>
                 <span> - </span>
                 <span th:text="${#temporals.format(#temporals.createNow().with(T(java.time.temporal.TemporalAdjusters).nextOrSame(T(java.time.DayOfWeek).SUNDAY)), 'yyyy.MM.dd')}">이번주 일요일</span>
-
                 <table>
                     <tbody>
                         <tr id="kcal">
                             <td>칼로리</td>
-                            <td>100</td>
+                            <td th:text="${totalKcal}"></td>
                             <td>/</td>
                             <td th:text="${md_diet.kcal != null ? md_diet.kcal*7 : '2500*7'}"></td>
                             <td>kcal</td>
                         </tr>
                         <tr id="carbohydrates">
                             <td>탄수화물</td>
-                            <td>100</td>
+                            <td th:text="${totalCarboG}"></td>
                             <td>/</td>
                             <td th:text="${md_diet.kcal != null ? T(java.lang.String).format('%1$.1f', (md_diet.kcal)*0.14*7) : '300.0*7'}"></td>
                             <td>g</td>
                         </tr>
                         <tr id="protein">
                             <td>단백질</td>
-                            <td>15</td>
+                            <td th:text="${totalProteinG}"></td>
                             <td>/</td>
                             <td th:text="${md_diet.protein != null ? md_diet.protein*7 : '40.0*7'}"></td>
                             <td>g</td>
                         </tr>
                         <tr id="fat">
                             <td>지방</td>
-                            <td>10</td>
+                            <td th:text="${totalFatG}"></td>
                             <td>/</td>
                             <td th:text="${md_diet.kcal != null ? T(java.lang.String).format('%1$.1f', (md_diet.kcal)*0.017*7) : '50.0*7'}"></td>
                             <td>g</td>
                         </tr>
                     </tbody>
                 </table>
-
                 <a href="/user/diet/weekly"><button>주간 AI 리포트</button></a>
             </div>
         </section>
         <hr>
         <hr>
-
         <div style="display: flex; align-items: flex-start;">
             <!-- 코드 영역 -->
             <div class="code-area" style="margin-right: 20px;">
@@ -58,37 +55,33 @@
             <a th:href="@{/user/diet/analysis(date=${today})}">
             <button>이미지 AI 분석</button>
             </a>
-            
             <!-- 식단 정보 테이블 -->
             <table>
             <tbody>
                 <tr id="kcal">
                 <td>칼로리</td>
-                <td th:text="${firstResult != null ? (firstResult.kcal != null ? firstResult.kcal : 'N/A') : '0'}"></td>
+                <td th:text="${todayKcal}"></td>
                 <td>/</td>
                 <td th:text="${md_diet.kcal != null ? md_diet.kcal : '2600'}"></td>
                 <td>kcal</td>
                 </tr>
                 <tr id="carbohydrates">
                 <td>탄수화물</td>
-                <td th:text="${firstResult != null ? (firstResult.carboG != null ? firstResult.carboG : 'N/A') : '0'}"></td>
+                <td th:text="${todayCarboG}"></td>
                 <td>/</td>
                 <td th:text="${md_diet.kcal != null ? T(java.lang.String).format('%1$.1f', (md_diet.kcal)*0.14) : '300.0'}"></td>
                 <td>g</td>
                 </tr>
                 <tr id="protein">
                 <td>단백질</td>
-                <td th:text="${proteing}"></td>
+                <td th:text="${todayProteinG}"></td>
                 <td>/</td>
                 <td th:text="${md_diet.protein != null ? md_diet.protein : '55.0'}"></td>
                 <td>g</td>
                 </tr>
                 <tr id="fat">
                 <td>지방</td>
-                <td>
-                    <span th:if="${fatg != null}" th:text="${fatg}"></span>
-                    <span th:if="${fatg == null}">0</span>
-                </td>
+                <td th:text="${todayFatG}"></td>
                 <td>/</td>
                 <td th:text="${md_diet.kcal != null ? T(java.lang.String).format('%1$.1f', (md_diet.kcal)*0.017) : '50.0'}"></td>
                 <td>g</td>
@@ -114,18 +107,15 @@
         <!-- 구분선 -->
         <hr>
         <hr>
-
                 <!--<h6 th:text="${#temporals.format(T(java.time.LocalDate).now(), 'yyyy.MM.dd')}">오늘 날짜 22</h6>-->
                 <th:block th:each="day : ${#numbers.sequence(0, 6)}">
                     <p th:if="${monday != null}" th:text="${monday.plusDays(day)}"></p>
-                </a>
                 <!-- 이미지 박스를 추가할 위치 -->
                 <div style="display: flex; justify-content: space-around; margin-bottom: 20px;">
                     <!-- 예시로 3개의 이미지 -->
                     <th:block th:each="n : ${#numbers.sequence(1, 3)}">
                         <div class="image-box" style="width: 30%;">
                             <img src="이미지1_경로" alt="이미지 1설명" style="width: 50%; height: auto;">
-                            
                         </div>
                     </th:block>
                 </div>
@@ -134,36 +124,34 @@
                     </a>
                     <table>
                         <tbody>
-                            <th:block th:each="result : ${results}">
-                                <tr th:if="${result.createdDate.equals(monday.plusDays(day))}">
-                                    <td>칼로리</td>
-                                    <td th:text="${result.kcal != null ? result.kcal : 0}"></td>
-                                    <td>/</td>
-                                    <td th:text="${md_diet.kcal != null ? md_diet.kcal : '2600'}"></td>
-                                    <td>kcal</td>
-                                </tr>
-                                <tr th:if="${result.createdDate.equals(monday.plusDays(day))}">
-                                    <td>탄수화물</td>
-                                    <td th:text="${result.carboG != null ? result.carboG : 0}"></td>
-                                    <td>/</td>
-                                    <td th:text="${md_diet.kcal != null ? T(java.lang.String).format('%1$.1f', (md_diet.kcal)*0.14) : '300.0'}"></td>
-                                    <td>g</td>
-                                </tr>
-                                <tr th:if="${result.createdDate.equals(monday.plusDays(day))}">
-                                    <td>단백질</td>
-                                    <td th:text="${result.proteinG != null ? result.proteinG : 0}"></td>
-                                    <td>/</td>
-                                    <td th:text="${md_diet.protein != null ? md_diet.protein : '55.0'}"></td>
-                                    <td>g</td>
-                                </tr>
-                                <tr th:if="${result.createdDate.equals(monday.plusDays(day))}">
-                                    <td>지방</td>
-                                    <td th:text="${result.fatG != null ? result.fatG : 0}"></td>
-                                    <td>/</td>
-                                    <td th:text="${md_diet.kcal != null ? T(java.lang.String).format('%1$.1f', (md_diet.kcal)*0.017) : '50.0'}"></td>
-                                    <td>g</td>
-                                </tr>
-                            </th:block>
+                            <tr>
+                                <td>칼로리</td>
+                                <td th:text="${eachResultsMap[date].stream().map(result -> result.getKcal() != null ? result.getKcal() : 0.0f).reduce(0.0f, (x, y) -> x + y)}"></td>
+                                <td>/</td>
+                                <td th:text="${md_diet.kcal != null ? md_diet.kcal : '2600'}"></td>
+                                <td>kcal</td>
+                            </tr>
+                            <tr>
+                                <td>탄수화물</td>
+                                <td th:text="${eachResultsMap[date].stream().map(result -> result.getCarboG() != null ? result.getCarboG() : 0.0f).reduce(0.0f, (x, y) -> x + y)}"></td>
+                                <td>/</td>
+                                <td th:text="${md_diet.kcal != null ? T(java.lang.String).format('%1$.1f', (md_diet.kcal)*0.14) : '300.0'}"></td>
+                                <td>g</td>
+                            </tr>
+                            <tr>
+                                <td>단백질</td>
+                                <td th:text="${eachResultsMap[date].stream().map(result -> result.getProteinG() != null ? result.getProteinG() : 0.0f).reduce(0.0f, (x, y) -> x + y)}"></td>
+                                <td>/</td>
+                                <td th:text="${md_diet.protein != null ? md_diet.protein : '55.0'}"></td>
+                                <td>g</td>
+                            </tr>
+                            <tr>
+                                <td>지방</td>
+                                <td th:text="${eachResultsMap[date].stream().map(result -> result.getFatG() != null ? result.getFatG() : 0.0f).reduce(0.0f, (x, y) -> x + y)}"></td>
+                                <td>/</td>
+                                <td th:text="${md_diet.kcal != null ? T(java.lang.String).format('%1$.1f', (md_diet.kcal)*0.017) : '50.0'}"></td>
+                                <td>g</td>
+                            </tr>
                         </tbody>
                     </table>
                     <hr>
