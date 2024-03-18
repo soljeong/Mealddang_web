@@ -75,10 +75,14 @@ public class MdImgService {
     }
 
     // MdNutResult 저장
-    public MdNutResult saveNutResult(String p_username, String p_oripath, List<String> yoloResult) {
+    public List<MdNutResult> saveNutResult(String p_username, String p_oripath, List<String> yoloResult) {
         MdUser mdUser = mdUserRepository.findByUsername(p_username).get();
         MdImgUpload mdImgUpload = mdImgUploadRepository.findUploadEntitybyPath(p_oripath);
         MdNutResult mdNutResult = new MdNutResult();
+
+        // 결과를 mdNutResult의 리스트로 저장
+        List<MdNutResult> mdNutResults = new ArrayList<>();
+
         
         for (String result : yoloResult) {
             mdNutResult.setUsername(mdUser);
@@ -96,10 +100,11 @@ public class MdImgService {
 
             mdNutResult.setCreatedDate(today);
             mdNutResultRepository.save(mdNutResult);
+            mdNutResults.add(mdNutResult);
         }
 
 
-        return mdNutResult;
+        return mdNutResults;
     }
 
     public MdNutInfo getResultLabel(String yoloLabel) {

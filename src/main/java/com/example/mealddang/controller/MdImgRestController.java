@@ -1,6 +1,7 @@
 package com.example.mealddang.controller;
 
 import java.util.List;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -50,6 +51,9 @@ public class MdImgRestController {
         // 검출 API 요청
         List<String> yoloResultList = mdImgService.sendYolo(originImgPath);
 
+        List<MdNutResult> mdNutResults = new ArrayList<>();
+
+
         // 검출 리스트가 1개 이상이면 DB 저장
         if (yoloResultList.size() != 0) {
             // API에 저장되어 있는 이미지 가져오기
@@ -59,7 +63,7 @@ public class MdImgRestController {
             mdImgService.saveYoloResult(originImgPath, yoloImgeList);
     
             // 분석 결과 저장2 (MDNutResult row n개 생성)
-            MdNutResult mdNutResult = mdImgService.saveNutResult(username, originImgPath, yoloImgeList);
+            mdNutResults = mdImgService.saveNutResult(username, originImgPath, yoloImgeList);
         }   
         else {
             // 검출 리스트가 0개이면 에러메시지 전달
@@ -68,7 +72,9 @@ public class MdImgRestController {
 
         // View로 데이터 전달 n개?
         Map<String, Object> response = new HashMap<>();
-        // response.put("mdNutResult", mdNutResult);
+
+        response.put("mdNutResults", mdNutResults);
+        response.put("listsize", mdNutResults.size());
 
         return ResponseEntity.ok().body(response);
     }
