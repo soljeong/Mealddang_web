@@ -60,6 +60,10 @@ public class MdImgRestController {
     
             // 분석 결과 저장2 (MDNutResult row n개 생성)
             MdNutResult mdNutResult = mdImgService.saveNutResult(username, originImgPath, yoloImgeList);
+        }   
+        else {
+            // 검출 리스트가 0개이면 에러메시지 전달
+            return ResponseEntity.badRequest().body("검출된 결과가 없습니다.");
         }
 
         // View로 데이터 전달 n개?
