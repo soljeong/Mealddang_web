@@ -1,5 +1,6 @@
 package com.example.mealddang.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,8 +29,6 @@ import org.slf4j.LoggerFactory;
 // [인증 후] 식단관리(밀땅일지) 컨트롤러
 @Controller @RequestMapping("/user/diet")
 public class MdDietController {
-    private static final Logger logger = LoggerFactory.getLogger(MdDietController.class);
-
     @Autowired
     private MdUserService mdUserService;
     @Autowired
@@ -55,9 +54,7 @@ public class MdDietController {
         // 오늘 날짜
         LocalDate today = mdDietService.getWeekDatesFromtoday(); 
         model.addAttribute("today", today);
-
         LocalDate sunday = monday.plusDays(6);
-
 
         // 오늘 영양 정보
         List<MdNutResult> results = mdNutResultRepository.findByMdUserAndtoDate(username, today);
@@ -80,7 +77,14 @@ public class MdDietController {
         model.addAttribute("todayProteinG", todayProteinG);
         model.addAttribute("todayFatG", todayFatG);
 
-
+        // 오늘의 사진 경로들 저장
+        List<String> photoPaths = new ArrayList<>();
+        for (MdNutResult result : results) {
+            if (result.getOriginPath() != null) {
+                photoPaths.add(result.getOriginPath().getOriginPath());
+            }
+        }
+        model.addAttribute("photoPaths", photoPaths);
 
         // 일주일 영양 정보 총합
         List<MdNutResult> weeklyResults = mdNutResultRepository.findByMdUserAndDate(username, monday);
@@ -102,10 +106,6 @@ public class MdDietController {
         model.addAttribute("totalProteinG", totalProteinG);
         model.addAttribute("totalFatG", totalFatG);
 
-
-
-        
-        
         // 일주일 각 날짜 결과 저장
         Map<LocalDate, List<MdNutResult>> eachResultsMap = new HashMap<>();
         // 월요일부터 일요일까지의 각 날짜에 대한 결과를 가져와 Map에 저장
@@ -113,13 +113,11 @@ public class MdDietController {
             List<MdNutResult> eachResults = mdNutResultRepository.findByMdUserAndtoDate(username, date);
             eachResultsMap.put(date, eachResults);
         }
-
         for (LocalDate date = monday; !date.isAfter(sunday); date = date.plusDays(1)) {
             long eachKcal = 0;
             long eachCarboG = 0;
             long eachProteinG = 0;
             long eachFatG = 0;
-
             List<MdNutResult> eachResults = eachResultsMap.get(date);
             for (MdNutResult eachResult : eachResults) {
                 if (eachResult.getCreatedDate() != null) {
@@ -129,7 +127,6 @@ public class MdDietController {
                     eachFatG += eachResult.getFatG() != null ? eachResult.getFatG() : 0.0f;
                 }
             }
-
             // 각 날짜별로 계산된 합계를 모델에 추가
             model.addAttribute(date.getDayOfWeek().toString().toLowerCase() + "Kcal", eachKcal);
             model.addAttribute(date.getDayOfWeek().toString().toLowerCase() + "CarboG", eachCarboG);
