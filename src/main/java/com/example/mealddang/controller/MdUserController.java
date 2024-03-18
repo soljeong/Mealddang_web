@@ -71,7 +71,11 @@ public class MdUserController {
 
     // 로그인 페이지
     @GetMapping("/loginform")
-    public String getLoginPage(Model model) {
+    public String getLoginPage(Model model, Authentication authentication) {
+        // 로그인회원이 다시 로그인페이지 접근시 메인화면으로 돌려
+        if (authentication != null && authentication.isAuthenticated()) {
+            return "redirect:/user/main";
+        }
         return "user/loginForm";
     }
 

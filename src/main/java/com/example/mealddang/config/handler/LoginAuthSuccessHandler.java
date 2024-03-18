@@ -14,10 +14,8 @@ import jakarta.servlet.http.HttpServletResponse;
 public class LoginAuthSuccessHandler extends SimpleUrlAuthenticationSuccessHandler{
 
     @Override
-    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
-    Authentication authentication) throws IOException, ServletException {
+    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         response.sendRedirect("/user/main"); // controller mapping
-        super.onAuthenticationSuccess(request, response, authentication);
+        // super.onAuthenticationSuccess(request, response, authentication);
     }
-    
 }
