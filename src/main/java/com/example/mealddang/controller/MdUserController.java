@@ -148,8 +148,8 @@ public class MdUserController {
         MdUser mdUser = mdUserService.findByUsername(username);
         model.addAttribute("mdUser", mdUser);
 
-        List<MdNutResult> mdNutResults = mdImgService.findAllNutResultbyUsername(mdUser);
-        model.addAttribute("mdNutResults", mdNutResults);
+        List<String> mygallery = mdImgService.findAllUploadbyUsername(username);
+        model.addAttribute("mygallery", mygallery);
 
         return "user/myGallery";
     }
