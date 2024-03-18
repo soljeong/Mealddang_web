@@ -34,58 +34,48 @@ public class MdUserController {
     public String getIndex(Model model) {
         return "user/loginForm";
     }
+
     // 회원가입 페이지
     @GetMapping("/joinform")
     public String getJoinPage(Model model) {
         model.addAttribute("mdUser", new MdUser());
         return "user/joinForm";
     }
+
     @PostMapping("/joinprocess")
-public String postJoinRequest(@Valid MdUser mdUser, Errors errors, Model model, HttpServletRequest request) { // HttpServletRequest 추가
-    if (errors.hasErrors()) {
-        // 회원가입 실패 시 로직
-        model.addAttribute("mdUser", mdUser);
-        Map<String, String> validatorResult = mdUserService.validateHandling(errors);
-        for (String key: validatorResult.keySet()) {
-            model.addAttribute(key, validatorResult.get(key));
+    public String postJoinRequest(@Valid MdUser mdUser, Errors errors, Model model, HttpServletRequest request) { // HttpServletRequest 추가
+        if (errors.hasErrors()) {
+            // 회원가입 실패 시 로직
+            model.addAttribute("mdUser", mdUser);
+            Map<String, String> validatorResult = mdUserService.validateHandling(errors);
+            for (String key: validatorResult.keySet()) {
+                model.addAttribute(key, validatorResult.get(key));
         }
         return "user/joinForm";
     }
-    // 아이디 중복 검사
-    mdUserService.checkUsernameDuplication(mdUser);
-    // 회원 저장
-    mdUserService.addMdUser(mdUser);
+        // 아이디 중복 검사
+        boolean isDuplicated = mdUserService.checkUsernameDuplication(mdUser);
+        if (isDuplicated) {
+            // 중복된 아이디가 있을 경우
+            model.addAttribute("mdUser", mdUser);
+            model.addAttribute("usernameDuplicationError", "이미 사용 중인 아이디입니다.");
+            return "user/joinForm";
+        }
+        // 회원 저장
+        mdUserService.addMdUser(mdUser);
 
-    // 회원가입 성공 메시지를 세션에 저장
-    request.getSession().setAttribute("successMessage", "회원가입이 완료되었습니다!");
+        // 회원가입 성공 메시지를 세션에 저장
+        request.getSession().setAttribute("successMessage", "회원가입이 완료되었습니다!");
 
-    return "redirect:/loginform"; // 로그인 페이지로 리다이렉션
-}
-    // // 회원가입 처리
-    // @PostMapping("/joinprocess")
-    // public String postJoinRequest(@Valid MdUser mdUser, Errors errors, Model model) {
-    //     if (errors.hasErrors()) {
-    //         // 회원가입 실패해도 입력한 데이터값을 유지
-    //         model.addAttribute("mdUser", mdUser);
-    //         // 실패 원인 메시지
-    //         Map<String, String> validatorResult = mdUserService.validateHandling(errors);
-    //         for (String key: validatorResult.keySet()) {
-    //             model.addAttribute(key, validatorResult.get(key));
-    //         }
-    //         // 회원가입 페이지로 리턴
-    //         return "user/joinForm";
-    //     }
-    //     // 아이디 중복 검사
-    //     mdUserService.checkUsernameDuplication(mdUser);
-    //     // 회원 저장
-    //     mdUserService.addMdUser(mdUser);
-    //     return "redirect:/loginform";
-    // }
+        return "redirect:/loginform"; // 로그인 페이지로 리다이렉션
+    }
+
     // 로그인 페이지
     @GetMapping("/loginform")
     public String getLoginPage(Model model) {
         return "user/loginForm";
     }
+
     // [인증 후] 메인 페이지
     @GetMapping("/user/main")
     public String getMain(Model model, Authentication authentication) {
@@ -94,6 +84,7 @@ public String postJoinRequest(@Valid MdUser mdUser, Errors errors, Model model, 
         model.addAttribute("mdUser", mdUser);
         return "user/mainPage";
     }
+
     // [인증 후] 마이 페이지
     @GetMapping("/user/mypage")
     public String getMyPage(Model model, Authentication authentication) {
@@ -102,6 +93,7 @@ public String postJoinRequest(@Valid MdUser mdUser, Errors errors, Model model, 
         model.addAttribute("mdUser", mdUser);
         return "user/myPage";
     }
+
     // [인증 후] 회원정보 수정
     // 1. 닉네임
     @PostMapping("/user/mypage/update_nickname")
@@ -148,6 +140,7 @@ public String postJoinRequest(@Valid MdUser mdUser, Errors errors, Model model, 
         model.addAttribute("mdUser", mdUser);
         return "redirect:/user/mypage";
     }
+
     // [인증 후] 마이 갤러리
     @GetMapping("user/mygallery")
     public String getMyGallery(Model model, Authentication authentication) {
