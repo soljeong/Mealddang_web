@@ -1,9 +1,7 @@
 package com.example.mealddang.controller;
 
 import java.util.HashMap;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +18,6 @@ import com.example.mealddang.model.entity.MdUser;
 import com.example.mealddang.model.repository.MdNutResultRepository;
 import com.example.mealddang.service.MdDietService;
 import com.example.mealddang.service.MdUserService;
-import org.springframework.web.bind.annotation.RequestParam;
 
 
 import java.time.LocalDate;
@@ -59,11 +56,6 @@ public class MdDietController {
         LocalDate today = mdDietService.getWeekDatesFromtoday(); 
         model.addAttribute("today", today);
 
-        LocalDate sunday = monday.plusDays(6);
-
-
-        // 오늘 영양 정보
-        List<MdNutResult> results = mdNutResultRepository.findByMdUserAndtoDate(username, today);
         LocalDate sunday = monday.plusDays(6);
 
 
