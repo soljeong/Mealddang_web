@@ -55,8 +55,6 @@ public class MdImgService {
 
     private final FileHandler fileHandler;
 
-    private final LocalDate today = LocalDate.now();
-    
     // 생성자
     @Autowired
     public MdImgService(MdImgUploadRepository p_uploadRepository) {
@@ -75,7 +73,7 @@ public class MdImgService {
     }
 
     // MdNutResult 저장
-    public MdNutResult saveNutResult(String p_username, String p_oripath, List<String> yoloResult) {
+    public MdNutResult saveNutResult(String p_username, String p_oripath, List<String> yoloResult, LocalDate selectedDate) {
         MdUser mdUser = mdUserRepository.findByUsername(p_username).get();
         MdImgUpload mdImgUpload = mdImgUploadRepository.findUploadEntitybyPath(p_oripath);
         MdNutResult mdNutResult = new MdNutResult();
@@ -94,7 +92,7 @@ public class MdImgService {
             mdNutResult.setKcal(resultInfo.getEnergyKcal());
             mdNutResult.setProteinG(resultInfo.getProtein());
 
-            mdNutResult.setCreatedDate(today);
+            mdNutResult.setCreatedDate(selectedDate);
             mdNutResultRepository.save(mdNutResult);
         }
 

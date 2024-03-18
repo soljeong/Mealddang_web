@@ -1,14 +1,12 @@
 document.getElementById("analyzeButton").addEventListener("click", function() {
     document.querySelector(".mask").style.display = "flex"; // 로딩 화면 보이게 설정
-
-
-
+    var selectedDate = document.getElementById("selectedDate").textContent;
     // 분석 시작 함수 호출
-    analyzeData();
+    analyzeData(selectedDate);
 });
 
-function fetchYoloResult() {
-    return fetch('/api-yolo')
+function fetchYoloResult(selectedDate) {
+    return fetch('/api-yolo?selectedDate=' + encodeURIComponent(selectedDate))
     .then(response => {
         if (!response.ok) {
             throw new Error('Network response was not ok');
@@ -38,10 +36,10 @@ function fetchYoloResult() {
     });
 }
 
-function analyzeData() {
+function analyzeData(selectedDate) {
     // 로딩 화면 표시
     document.getElementById('loadingScreen').style.display = 'block';
 
     // 데이터 분석 비동기 작업 호출
-    fetchYoloResult();
+    fetchYoloResult(selectedDate);
 }
