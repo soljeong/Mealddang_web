@@ -87,10 +87,10 @@ public class MdImgService {
             MdNutInfo resultInfo = getResultLabel(labelArr[1]);
             mdNutResult.setResultLabel(resultInfo.getFoodName());
 
-            mdNutResult.setCarbo_g(resultInfo.getCarbohydrate());
-            mdNutResult.setFat_g(resultInfo.getFat());
+            mdNutResult.setCarboG(resultInfo.getCarbohydrate());
+            mdNutResult.setFatG(resultInfo.getFat());
             mdNutResult.setKcal(resultInfo.getEnergyKcal());
-            mdNutResult.setProtein_g(resultInfo.getProtein());
+            mdNutResult.setProteinG(resultInfo.getProtein());
             mdNutResultRepository.save(mdNutResult);
         }
 
