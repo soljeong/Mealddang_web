@@ -123,7 +123,7 @@ public class MdImgService {
 
         // 현재 작업 디렉토리 확인
         String currentDirectory = System.getProperty("user.dir");
-        String scrDirectory = "/src/main/resources/";
+        String scrDirectory = "/src/main/resources/uploaded/";
         String fullPath = currentDirectory + scrDirectory;
         System.out.println("fullPath: " + fullPath);
         String uploadUrl = "http://3.38.213.167:8000/predict"; // FastAPI 업로드 엔드포인트 URL
@@ -173,7 +173,7 @@ public class MdImgService {
         for (int i = 0; i < pathArr.length-1; i++) {
             resultPath += pathArr[i] + "/";
         }
-        String scrDirectory = "/src/main/resources/" + resultPath;
+        String scrDirectory = "/src/main/resources/uploaded/" + resultPath;
 
         String fullPath = currentDirectory + scrDirectory;
         System.out.println("fullPath =====> " + fullPath);
@@ -222,6 +222,12 @@ public class MdImgService {
         List<MdNutResult> mdNutResults = mdNutResultRepository.findAllNutResultbyUsername(username);
         log.info(mdNutResults.size() + "개의 이미지 분석 히스토리를 찾았습니다.");
         return mdNutResults;
+    }
+
+    // // 해당 회원의 최근 결과 가져오기
+    public MdNutResult findRecentResultByUsername(String username) {
+        MdNutResult mdNutResult = mdNutResultRepository.findTop1ByMdUserOrderByUpdateDateDesc(username);
+        return mdNutResult;
     }
 
     // originPath로 이미지 삭제하기_보류

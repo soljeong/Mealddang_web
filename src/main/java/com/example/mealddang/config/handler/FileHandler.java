@@ -31,7 +31,7 @@ public class FileHandler {
             log.info("프로젝트 폴더 경로는 " + projectPath);
             
             // resources dir 경로: src/main/resources/static
-            String resourcesPath = "src/main/resources/";
+            String resourcesPath = "src/main/resources/uploaded/";
             log.info("리소스 폴더 경로는 " + resourcesPath);
 
             // static dir 아래 경로: [username]/[UUID]/
