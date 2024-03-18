@@ -17,6 +17,7 @@ import com.example.mealddang.model.entity.MdUser;
 import com.example.mealddang.service.MdImgService;
 import com.example.mealddang.service.MdUserService;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 
 // 회원 관련 서비스 컨트롤러
@@ -39,26 +40,47 @@ public class MdUserController {
         model.addAttribute("mdUser", new MdUser());
         return "user/joinForm";
     }
-    // 회원가입 처리
     @PostMapping("/joinprocess")
-    public String postJoinRequest(@Valid MdUser mdUser, Errors errors, Model model) {
-        if (errors.hasErrors()) {
-            // 회원가입 실패해도 입력한 데이터값을 유지
-            model.addAttribute("mdUser", mdUser);
-            // 실패 원인 메시지
-            Map<String, String> validatorResult = mdUserService.validateHandling(errors);
-            for (String key: validatorResult.keySet()) {
-                model.addAttribute(key, validatorResult.get(key));
-            }
-            // 회원가입 페이지로 리턴
-            return "user/joinForm";
+public String postJoinRequest(@Valid MdUser mdUser, Errors errors, Model model, HttpServletRequest request) { // HttpServletRequest 추가
+    if (errors.hasErrors()) {
+        // 회원가입 실패 시 로직
+        model.addAttribute("mdUser", mdUser);
+        Map<String, String> validatorResult = mdUserService.validateHandling(errors);
+        for (String key: validatorResult.keySet()) {
+            model.addAttribute(key, validatorResult.get(key));
         }
-        // 아이디 중복 검사
-        mdUserService.checkUsernameDuplication(mdUser);
-        // 회원 저장
-        mdUserService.addMdUser(mdUser);
-        return "redirect:/loginform";
+        return "user/joinForm";
     }
+    // 아이디 중복 검사
+    mdUserService.checkUsernameDuplication(mdUser);
+    // 회원 저장
+    mdUserService.addMdUser(mdUser);
+
+    // 회원가입 성공 메시지를 세션에 저장
+    request.getSession().setAttribute("successMessage", "회원가입이 완료되었습니다!");
+
+    return "redirect:/loginform"; // 로그인 페이지로 리다이렉션
+}
+    // // 회원가입 처리
+    // @PostMapping("/joinprocess")
+    // public String postJoinRequest(@Valid MdUser mdUser, Errors errors, Model model) {
+    //     if (errors.hasErrors()) {
+    //         // 회원가입 실패해도 입력한 데이터값을 유지
+    //         model.addAttribute("mdUser", mdUser);
+    //         // 실패 원인 메시지
+    //         Map<String, String> validatorResult = mdUserService.validateHandling(errors);
+    //         for (String key: validatorResult.keySet()) {
+    //             model.addAttribute(key, validatorResult.get(key));
+    //         }
+    //         // 회원가입 페이지로 리턴
+    //         return "user/joinForm";
+    //     }
+    //     // 아이디 중복 검사
+    //     mdUserService.checkUsernameDuplication(mdUser);
+    //     // 회원 저장
+    //     mdUserService.addMdUser(mdUser);
+    //     return "redirect:/loginform";
+    // }
     // 로그인 페이지
     @GetMapping("/loginform")
     public String getLoginPage(Model model) {
