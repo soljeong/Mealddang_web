@@ -123,7 +123,7 @@ public class MdImgService {
 
         // 현재 작업 디렉토리 확인
         String currentDirectory = System.getProperty("user.dir");
-        String scrDirectory = "/src/main/resources/";
+        String scrDirectory = "/src/main/resources/uploaded/";
         String fullPath = currentDirectory + scrDirectory;
         System.out.println("fullPath: " + fullPath);
         String uploadUrl = "http://3.38.213.167:8000/predict"; // FastAPI 업로드 엔드포인트 URL
@@ -173,7 +173,7 @@ public class MdImgService {
         for (int i = 0; i < pathArr.length-1; i++) {
             resultPath += pathArr[i] + "/";
         }
-        String scrDirectory = "/src/main/resources/" + resultPath;
+        String scrDirectory = "/src/main/resources/uploaded/" + resultPath;
 
         String fullPath = currentDirectory + scrDirectory;
         System.out.println("fullPath =====> " + fullPath);
