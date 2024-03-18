@@ -234,4 +234,7 @@ public class MdImgService {
     }
 
     // originPath로 이미지 삭제하기_보류
+    public void deleteImgUploadByOriPath(String originPath) {
+        mdImgUploadRepository.deleteById(originPath);
+    }
 }

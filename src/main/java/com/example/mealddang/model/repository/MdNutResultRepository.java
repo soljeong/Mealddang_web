@@ -48,6 +48,5 @@ public interface MdNutResultRepository extends JpaRepository<MdNutResult, Long> 
     @Query(value = "SELECT * FROM md_nut_result WHERE user_id = :username ORDER BY update_date DESC LIMIT 1", nativeQuery = true)
     public MdNutResult findTop1ByMdUserOrderByUpdateDateDesc(@Param(value = "username") String username);
 
-
 }
 

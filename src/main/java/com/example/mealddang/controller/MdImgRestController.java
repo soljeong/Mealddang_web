@@ -81,6 +81,7 @@ public class MdImgRestController {
 
     // 이미지 삭제 (MdImgUpload, MdNutResult, MdYoloResult 모두?) : 보류
     @GetMapping("/api-delete")
-    public void deleteImg() {
+    public void deleteImgUploadByOriPath() {
+        mdImgService.deleteImgUploadByOriPath(originImgPath);
     }
 }
