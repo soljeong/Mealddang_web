@@ -143,9 +143,9 @@ public class MdDietController {
         MdDiet md_diet = mdDietService.getDiet(mdUser);
         model.addAttribute("md_diet", md_diet);
 
-        // // 이번주 섭취량 요일별로 조회하기
-        // List<List<Object[]>> weekNutList = mdDietService.sumNutDaily(username);
-        // model.addAttribute("weekNutList", weekNutList);
+        // 유저의 일주일치 섭취량 불러오기
+        List<Float> user_diet = mdDietService.weekTotal(username);
+        model.addAttribute("user_diet", user_diet);
 
         return "diet/weeklyPage";
     }

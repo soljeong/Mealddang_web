@@ -25,6 +25,10 @@ public class MdGraphRestController {
         // 이번주 섭취량 요일별로 조회하기
         List<List<Float>> weekNutList = mdDietService.getWeeklySumNutrition(username);
         response.put("weekNutList", weekNutList);
+
+        // 일주일치 통합(월+화+수+...+일) -> [7일치 kcal, 7일치 carb, 7일치 prot, 7일치 fat]
+        List<Float> weekTotal = mdDietService.weekTotal(username);
+        response.put("weekTotal", weekTotal);
         
         return response;
     }
