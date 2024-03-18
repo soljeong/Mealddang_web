@@ -1,5 +1,7 @@
 document.getElementById("analyzeButton").addEventListener("click", function() {
-    document.querySelector(".mask").style.display = "block"; // 로딩 화면 보이게 설정
+    document.querySelector(".mask").style.display = "flex"; // 로딩 화면 보이게 설정
+
+
 
     // 분석 시작 함수 호출
     analyzeData();
