@@ -38,7 +38,7 @@
             <h2 class="searchresult-title">식당 이름 검색 결과</h2>
             <div class="searchResult" th:if="${nameSearchResults == null || nameSearchResults.isEmpty()}"> 0건 </div>
             <div class="searchResult" th:unless="${nameSearchResults == null || nameSearchResults.isEmpty()}">
-                <div><span th:text="${#lists.size(nameSearchResults)} + '건'" style="display: block;"></span>의 결과를 찾았습니다</div>
+                <div><span th:text="${#lists.size(nameSearchResults)} + '건'" style="display:inline-block;"></span>의 결과를 찾았습니다</div>
                 <table>
                     <tbody class="searchResultTable">
                         <tr th:id="${mdStore.storeId}" th:each="mdStore : ${nameSearchResults}" class="table-row">
