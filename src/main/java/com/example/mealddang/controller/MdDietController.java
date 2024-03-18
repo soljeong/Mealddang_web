@@ -18,6 +18,7 @@ import com.example.mealddang.model.entity.MdUser;
 import com.example.mealddang.model.repository.MdNutResultRepository;
 import com.example.mealddang.service.MdDietService;
 import com.example.mealddang.service.MdUserService;
+import com.example.mealddang.service.MdImgService;
 
 
 import java.time.LocalDate;
@@ -36,6 +37,8 @@ public class MdDietController {
     private MdDietService mdDietService;
     @Autowired
     private MdNutResultRepository mdNutResultRepository;
+    @Autowired
+    private MdImgService mdImgService;
 
     // 메인
     @GetMapping("/log")
@@ -237,6 +240,10 @@ public class MdDietController {
         String username = authentication.getName();
         MdUser mdUser = mdUserService.findByUsername(username);
         model.addAttribute("mdUser", mdUser);
+
+        // 최근 분석 결과 가져오기
+        MdNutResult mdNutResult = mdImgService.findRecentResultByUsername(username);
+        model.addAttribute("mdNutResult", mdNutResult);
 
         return "diet/resultPage";
     }

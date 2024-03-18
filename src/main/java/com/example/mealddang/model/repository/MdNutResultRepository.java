@@ -44,5 +44,10 @@ public interface MdNutResultRepository extends JpaRepository<MdNutResult, Long> 
                 "AND m.created_date >= ADDDATE(CURDATE(), - WEEKDAY(CURDATE()))" + 
                 "AND m.created_date < ADDDATE(CURDATE(), - WEEKDAY(CURDATE())+7)", nativeQuery = true)
     public List<Object[]> weekTotal(@Param(value = "username") String username);
+    // 해당 회원의 가장 최근 결과 가져오기
+    @Query(value = "SELECT * FROM md_nut_result WHERE user_id = :username ORDER BY update_date DESC LIMIT 1", nativeQuery = true)
+    public MdNutResult findTop1ByMdUserOrderByUpdateDateDesc(@Param(value = "username") String username);
+
+
 }
 

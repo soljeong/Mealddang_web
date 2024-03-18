@@ -224,5 +224,11 @@ public class MdImgService {
         return mdNutResults;
     }
 
+    // // 해당 회원의 최근 결과 가져오기
+    public MdNutResult findRecentResultByUsername(String username) {
+        MdNutResult mdNutResult = mdNutResultRepository.findTop1ByMdUserOrderByUpdateDateDesc(username);
+        return mdNutResult;
+    }
+
     // originPath로 이미지 삭제하기_보류
 }
