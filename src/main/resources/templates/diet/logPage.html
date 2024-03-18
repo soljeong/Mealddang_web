@@ -50,53 +50,85 @@
         <hr>
         <hr>
 
-            <section id="logs">
-                <div class="text-primary pt-20 mb-10">
-                    <p th:text="'오늘 (' + ${#dates.format(#dates.createNow(), 'yyyy-MM-dd')} + ')'">오늘 날짜</p>
-                    <a th:href="@{/user/diet/analysis(date=${today})}">
-                        <button>이미지 AI 분석</button>
-                    </a>    
-                    <table>
-                        <tbody>
-                            <tr id="kcal">
-                                <td>칼로리</td>
-                                <td th:text="${firstResult != null ? (firstResult.kcal != null ? firstResult.kcal : 'N/A') : '0'}">
-                                <td>/</td>
-                                <td th:text="${md_diet.kcal != null ? md_diet.kcal : '2600'}"></td>
-                                <td>kcal</td>
-                            </tr>
-                            <tr id="carbohydrates">
-                                <td>탄수화물</td>
-                                <td th:text="${firstResult != null ? (firstResult.carboG != null ? firstResult.carboG : 'N/A') : '0'}">Carbohydrates</td>
-                                <td>/</td>
-                                <td th:text="${md_diet.kcal != null ? T(java.lang.String).format('%1$.1f', (md_diet.kcal)*0.14) : '300.0'}"></td>
-                                <td>g</td>
-                            </tr>
-                        <tr id="protein">
-                            <td>단백질</td>
-                            <td th:text="${proteing}">Protein</td>
-                            <td>/</td>
-                            <td th:text="${md_diet.protein != null ? md_diet.protein : '55.0'}"></td>
-                            <td>g</td>
-                        </tr>
-                        <tr id="fat">
-                            <td>지방</td>
-                            <td>
-                                <span th:if="${fatg != null}" th:text="${fatg}">Fat</span>
-                                <span th:if="${fatg == null}">0</span>
-                            </td>
-                            <td>/</td>
-                            <td th:text="${md_diet.kcal != null ? T(java.lang.String).format('%1$.1f', (md_diet.kcal)*0.017) : '50.0'}"></td>
-                            <td>g</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <hr>
-                <hr>
+        <div style="display: flex; align-items: flex-start;">
+            <!-- 코드 영역 -->
+            <div class="code-area" style="margin-right: 20px;">
+            <!-- 오늘 날짜와 이미지 AI 분석 버튼 -->
+            <p th:text="'오늘 (' + ${#dates.format(#dates.createNow(), 'yyyy-MM-dd')} + ')'">오늘 날짜</p>
+            <a th:href="@{/user/diet/analysis(date=${today})}">
+            <button>이미지 AI 분석</button>
+            </a>
+            
+            <!-- 식단 정보 테이블 -->
+            <table>
+            <tbody>
+                <tr id="kcal">
+                <td>칼로리</td>
+                <td th:text="${firstResult != null ? (firstResult.kcal != null ? firstResult.kcal : 'N/A') : '0'}"></td>
+                <td>/</td>
+                <td th:text="${md_diet.kcal != null ? md_diet.kcal : '2600'}"></td>
+                <td>kcal</td>
+                </tr>
+                <tr id="carbohydrates">
+                <td>탄수화물</td>
+                <td th:text="${firstResult != null ? (firstResult.carboG != null ? firstResult.carboG : 'N/A') : '0'}"></td>
+                <td>/</td>
+                <td th:text="${md_diet.kcal != null ? T(java.lang.String).format('%1$.1f', (md_diet.kcal)*0.14) : '300.0'}"></td>
+                <td>g</td>
+                </tr>
+                <tr id="protein">
+                <td>단백질</td>
+                <td th:text="${proteing}"></td>
+                <td>/</td>
+                <td th:text="${md_diet.protein != null ? md_diet.protein : '55.0'}"></td>
+                <td>g</td>
+                </tr>
+                <tr id="fat">
+                <td>지방</td>
+                <td>
+                    <span th:if="${fatg != null}" th:text="${fatg}"></span>
+                    <span th:if="${fatg == null}">0</span>
+                </td>
+                <td>/</td>
+                <td th:text="${md_diet.kcal != null ? T(java.lang.String).format('%1$.1f', (md_diet.kcal)*0.017) : '50.0'}"></td>
+                <td>g</td>
+                </tr>
+            </tbody>
+            </table>
+        </div>
+        
+        <!-- 이미지 박스 영역 -->
+        <div style="display: flex; justify-content: space-between;">
+            <div class="image-box" style="flex-grow: 1; margin-right: 10px;">
+            <img src="/icons/fried-egg.png" alt="이미지1 설명" style="width: 50%;">
+            </div>
+            <div class="image-box" style="flex-grow: 1; margin-right: 10px;">
+            <img src="이미지2_경로" alt="이미지2 설명" style="width: 50%;">
+            </div>
+            <div class="image-box" style="flex-grow: 1;">
+            <img src="이미지3_경로" alt="이미지3 설명" style="width: 50%;">
+            </div>
+        </div>
+        </div>
+        
+        <!-- 구분선 -->
+        <hr>
+        <hr>
 
                 <!--<h6 th:text="${#temporals.format(T(java.time.LocalDate).now(), 'yyyy.MM.dd')}">오늘 날짜 22</h6>-->
                 <th:block th:each="day : ${#numbers.sequence(0, 6)}">
                     <p th:if="${monday != null}" th:text="${monday.plusDays(day)}"></p>
+                </a>
+                <!-- 이미지 박스를 추가할 위치 -->
+                <div style="display: flex; justify-content: space-around; margin-bottom: 20px;">
+                    <!-- 예시로 3개의 이미지 -->
+                    <th:block th:each="n : ${#numbers.sequence(1, 3)}">
+                        <div class="image-box" style="width: 30%;">
+                            <img src="이미지1_경로" alt="이미지 1설명" style="width: 50%; height: auto;">
+                            
+                        </div>
+                    </th:block>
+                </div>
                     <a th:href="@{/user/diet/analysis(date=${monday.plusDays(day)})}">
                         <button>이미지 AI 분석</button>
                     </a>
