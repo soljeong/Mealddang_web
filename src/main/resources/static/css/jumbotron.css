@@ -191,3 +191,8 @@ py-5 {
 .no-wrap {
     white-space: nowrap;
 }
+/* btn */
+.btn.active {
+  background-color: yellow;
+  color: black;
+}

@@ -69,6 +69,7 @@ public class MdMapController {
             System.out.println(filteredStores.get(i));
         }
         model.addAttribute("filteredStores", filteredStores);
+        model.addAttribute("keyword", keyword);
         return "map/navermap";
     }
 }
