@@ -7,10 +7,10 @@
         <section class="row align-items-md-stretch">
             <div class="col-12">
                 <h3>주간 섭취량</h3>
-                    
+                <span th:text="${#temporals.format(#temporals.createNow().with(T(java.time.temporal.TemporalAdjusters).previousOrSame(T(java.time.DayOfWeek).MONDAY)), 'yyyy.MM.dd')}">이번주 일요일</span>
                 <span> - </span>
-                <span th:text="${#temporals.format(#temporals.createNow().with(T(java.time.temporal.TemporalAdjusters).nextOrSame(T(java.time.DayOfWeek).SATURDAY)), 'yyyy.MM.dd')}">이번주 토요일</span>
-
+                <span th:text="${#temporals.format(#temporals.createNow().with(T(java.time.temporal.TemporalAdjusters).nextOrSame(T(java.time.DayOfWeek).SUNDAY)), 'yyyy.MM.dd')}">이번주 토요일</span>
+                    
                 <div>
                     <h3>영양 신호등</h3>
                     <div class="box-row">
@@ -18,25 +18,25 @@
                         <div class="box-title">칼로리
                             <div class="box"
                             th:text="${user_diet[0] <= md_diet.kcal ? '적정' : '과다'}"
-                            th:style="${user_diet[0] <= md_diet.kcal ? 'background-color:#91cc75' : 'background-color:#ff0000'}"></div>
+                            th:style="${user_diet[0] <= md_diet.kcal ? 'background-color:#3ba272' : 'background-color:#ee6666'}"></div>
                         </div>
                         <!-- 탄수화물 박스 -->
                         <div class="box-title">탄수화물
                             <div class="box"
                             th:text="${user_diet[1]*4 <= md_diet.kcal*0.5 ? '적정' : '과다'}"
-                            th:style="${user_diet[1]*4 <= md_diet.kcal*0.5 ? 'background-color:#91cc75' : 'background-color:#ff0000'}"></div>
+                            th:style="${user_diet[1]*4 <= md_diet.kcal*0.5 ? 'background-color:#3ba272' : 'background-color:#ee6666'}"></div>
                         </div>
                         <!-- 단백질 박스 -->
                         <div class="box-title">단백질
                             <div class="box"
                             th:text="${user_diet[2] <= md_diet.protein ? '적정' : '과다'}"
-                            th:style="${user_diet[2] <= md_diet.protein ? 'background-color:#91cc75' : 'background-color:#ff0000'}"></div>
+                            th:style="${user_diet[2] <= md_diet.protein ? 'background-color:#3ba272' : 'background-color:#ee6666'}"></div>
                         </div>
                         <!-- 지방 박스 -->
                         <div class="box-title">지방
                             <div class="box"
                             th:text="${user_diet[3]*9 <= md_diet.kcal*0.35 ? '적정' : '과다'}"
-                            th:style="${user_diet[3]*9 <= md_diet.kcal*0.35 ? 'background-color:#91cc75' : 'background-color:#ff0000'}"></div>
+                            th:style="${user_diet[3]*9 <= md_diet.kcal*0.35 ? 'background-color:#3ba272' : 'background-color:#ee6666'}"></div>
                         </div>
                     </div>
                 </div>
