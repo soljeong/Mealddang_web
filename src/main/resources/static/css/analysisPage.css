@@ -1,0 +1,10 @@
+.mask {
+    /* 로딩 화면 위치 및 스타일 설정 */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.7);
+    display: none; /* 기본적으로는 숨김 */
+}
