@@ -57,4 +57,32 @@ public class MdDietService {
         }
         return weekNutList;
     }
+
+    public List<List<Float>> getWeeklySumNutrition(String username) {
+
+        List<List<Float>> weeklySumNutritionList = new ArrayList<>();
+
+        for (int i = 1; i <= 7; i++) { // 7일치 데이터를 요청
+            List<Object[]> resultRows = mdNutResultRepository.sumNutDaily(username, i);
+            List<Float> weeklySumNutrition = new ArrayList<>();
+
+            if (resultRows != null && !resultRows.isEmpty()) {
+                Object[] row = resultRows.get(0); // Assuming only one row is returned
+                for (Object obj : row) {
+                    if (obj != null) {
+                        weeklySumNutrition.add(Float.valueOf(obj.toString()));
+                    } else {
+                        weeklySumNutrition.add(0f); // If any value is null, adding 0
+                    }
+                }
+            } else {
+                // If no row is returned, adding 0 for all columns
+                for (int j = 0; j < 3; j++) {
+                    weeklySumNutrition.add(0f);
+                }
+            }
+            weeklySumNutritionList.add(weeklySumNutrition);
+        }
+        return weeklySumNutritionList;
+    }
 }

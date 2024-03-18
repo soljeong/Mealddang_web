@@ -18,7 +18,7 @@ public interface MdNutResultRepository extends JpaRepository<MdNutResult, Long> 
     public List<String> findAllPathbyUsername(@Param(value="username") String username);
 
     // 하루 섭취량 가져오기 (이번주 기준) -> Weekly
-    @Query(value = "SELECT SUM(kcal), SUM(carbo_g), SUM(protein_g), SUM(fat_g) \n" + //
+    @Query(value = "SELECT  SUM(carbo_g), SUM(protein_g), SUM(fat_g) \n" + //
                 "FROM md_nut_result \n" + //
                 "WHERE user_id = :username \n" + //
                 "AND created_date >= ADDDATE(CURDATE(), - WEEKDAY(CURDATE()) + :dayofweek)\n" + //

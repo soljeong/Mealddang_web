@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.example.mealddang.model.repository.MdNutResultRepository;
+import com.example.mealddang.service.MdDietService;
 
 @SpringBootTest
 class MealddangApplicationTests {
@@ -21,5 +22,15 @@ class MealddangApplicationTests {
 
 
 	}
+
+	@Autowired
+	MdDietService mdDietService;
+	
+	// getWeeklySumNutrition test
+	@Test
+	void getWeeklySumNutritionTest() {
+		System.out.println(mdDietService.getWeeklySumNutrition("test"));
+	}
+
 
 }
