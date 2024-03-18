@@ -10,7 +10,7 @@
             </div>
             <div class="my-img" th:unless="${mygallery == null || mygallery.isEmpty()}">
               <ul class="image-grid">
-                <li th:each="myphoto : ${mygallery}"><img th:src="@{'/images/'+${myphoto}}"></li>
+                <li th:each="myphoto : ${mygallery}"><img th:src="@{'/'+${myphoto}}"></li>
               </ul>
             </div>
             <!-- 로딩 화면 -->
