@@ -47,7 +47,7 @@ public class MdImgRestController {
 
     // [미완] 욜로 모델로 원본 이미지 전달 및 결과 받는 메소드
     @GetMapping(value = {"/api-yolo"})
-    public ResponseEntity<?> getYoloResult() {
+    public ResponseEntity<?> getYoloResult(@RequestParam("selectedDate") LocalDate selectedDate) {
         // 검출 API 요청
         List<String> yoloResultList = mdImgService.sendYolo(originImgPath);
 
@@ -63,7 +63,7 @@ public class MdImgRestController {
             mdImgService.saveYoloResult(originImgPath, yoloImgeList);
     
             // 분석 결과 저장2 (MDNutResult row n개 생성)
-            mdNutResults = mdImgService.saveNutResult(username, originImgPath, yoloImgeList);
+            mdNutResults = mdImgService.saveNutResult(username, originImgPath, yoloImgeList, selectedDate);
         }   
         else {
             // 검출 리스트가 0개이면 에러메시지 전달

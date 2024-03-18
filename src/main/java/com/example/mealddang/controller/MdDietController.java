@@ -116,18 +116,22 @@ public class MdDietController {
             List<MdNutResult> eachResults = mdNutResultRepository.findByMdUserAndtoDate(username, date);
             eachResultsMap.put(date, eachResults);
         }
+
         for (LocalDate date = monday; !date.isAfter(sunday); date = date.plusDays(1)) {
+            List<String> eachPhotoPaths = new ArrayList<>();
+            List<MdNutResult> eachResults = eachResultsMap.get(date);
+
             long eachKcal = 0;
             long eachCarboG = 0;
             long eachProteinG = 0;
             long eachFatG = 0;
-            List<MdNutResult> eachResults = eachResultsMap.get(date);
             for (MdNutResult eachResult : eachResults) {
-                if (eachResult.getCreatedDate() != null) {
+                if (eachResult.getCreatedDate() != null && eachResult.getOriginPath() != null) {
                     eachKcal += eachResult.getKcal() != null ? eachResult.getKcal() : 0.0f;
                     eachCarboG += eachResult.getCarboG() != null ? eachResult.getCarboG() : 0.0f;
                     eachProteinG += eachResult.getProteinG() != null ? eachResult.getProteinG() : 0.0f;
                     eachFatG += eachResult.getFatG() != null ? eachResult.getFatG() : 0.0f;
+                    eachPhotoPaths.add(eachResult.getOriginPath().getOriginPath());
                 }
             }
             // 각 날짜별로 계산된 합계를 모델에 추가
@@ -135,6 +139,7 @@ public class MdDietController {
             model.addAttribute(date.getDayOfWeek().toString().toLowerCase() + "CarboG", eachCarboG);
             model.addAttribute(date.getDayOfWeek().toString().toLowerCase() + "ProteinG", eachProteinG);
             model.addAttribute(date.getDayOfWeek().toString().toLowerCase() + "FatG", eachFatG);
+            model.addAttribute(date.getDayOfWeek().toString().toLowerCase() + "eachPhotoPaths", eachPhotoPaths);
         }
 
         
