@@ -1,6 +1,9 @@
 package com.example.mealddang.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -16,7 +19,7 @@ import com.example.mealddang.model.entity.MdUser;
 import com.example.mealddang.model.repository.MdNutResultRepository;
 import com.example.mealddang.service.MdDietService;
 import com.example.mealddang.service.MdUserService;
-import org.springframework.web.bind.annotation.RequestParam;
+import com.example.mealddang.service.MdImgService;
 
 
 import java.time.LocalDate;
@@ -27,14 +30,14 @@ import org.slf4j.LoggerFactory;
 // [인증 후] 식단관리(밀땅일지) 컨트롤러
 @Controller @RequestMapping("/user/diet")
 public class MdDietController {
-    private static final Logger logger = LoggerFactory.getLogger(MdDietController.class);
-
     @Autowired
     private MdUserService mdUserService;
     @Autowired
     private MdDietService mdDietService;
     @Autowired
     private MdNutResultRepository mdNutResultRepository;
+    @Autowired
+    private MdImgService mdImgService;
 
     // 메인
     @GetMapping("/log")
@@ -54,9 +57,92 @@ public class MdDietController {
         // 오늘 날짜
         LocalDate today = mdDietService.getWeekDatesFromtoday(); 
         model.addAttribute("today", today);
+        LocalDate sunday = monday.plusDays(6);
 
-        List<MdNutResult> results = mdNutResultRepository.findByMdUserAndDate(username, monday);
+        // 오늘 영양 정보
+        List<MdNutResult> results = mdNutResultRepository.findByMdUserAndtoDate(username, today);
         model.addAttribute("results", results);
+        long todayKcal = 0;
+        long todayCarboG = 0;
+        long todayProteinG = 0;
+        long todayFatG = 0;
+        for (MdNutResult result : results){
+            if(result.getCreatedDate()!=null) {
+                Float kcal = result.getKcal() != null ? result.getKcal() : 0.0f;
+                todayKcal += kcal;
+                todayCarboG += result.getCarboG() != null ? result.getCarboG() : 0.0f;
+                todayProteinG += result.getProteinG() != null ? result.getProteinG() : 0.0f;
+                todayFatG += result.getFatG() != null ? result.getFatG() : 0.0f;
+            }
+        }
+        model.addAttribute("todayKcal", todayKcal);
+        model.addAttribute("todayCarboG", todayCarboG);
+        model.addAttribute("todayProteinG", todayProteinG);
+        model.addAttribute("todayFatG", todayFatG);
+
+        // 오늘의 사진 경로들 저장
+        List<String> photoPaths = new ArrayList<>();
+        for (MdNutResult result : results) {
+            if (result.getOriginPath() != null) {
+                photoPaths.add(result.getOriginPath().getOriginPath());
+            }
+        }
+        model.addAttribute("photoPaths", photoPaths);
+
+        // 일주일 영양 정보 총합
+        List<MdNutResult> weeklyResults = mdNutResultRepository.findByMdUserAndDate(username, monday);
+        long totalKcal = 0;
+        long totalCarboG = 0;
+        long totalProteinG = 0;
+        long totalFatG = 0;
+        for (MdNutResult weeklyResult : weeklyResults){
+            if(weeklyResult.getCreatedDate()!=null && !weeklyResult.getCreatedDate().isBefore(monday) && !weeklyResult.getCreatedDate().isAfter(monday.plusDays(6))) {
+                Float kcal = weeklyResult.getKcal() != null ? weeklyResult.getKcal() : 0.0f;
+                totalKcal += kcal;
+                totalCarboG += weeklyResult.getCarboG() != null ? weeklyResult.getCarboG() : 0.0f;
+                totalProteinG += weeklyResult.getProteinG() != null ? weeklyResult.getProteinG() : 0.0f;
+                totalFatG += weeklyResult.getFatG() != null ? weeklyResult.getFatG() : 0.0f;
+            }
+        }
+        model.addAttribute("totalKcal", totalKcal);
+        model.addAttribute("totalCarboG", totalCarboG);
+        model.addAttribute("totalProteinG", totalProteinG);
+        model.addAttribute("totalFatG", totalFatG);
+
+        // 일주일 각 날짜 결과 저장
+        Map<LocalDate, List<MdNutResult>> eachResultsMap = new HashMap<>();
+        // 월요일부터 일요일까지의 각 날짜에 대한 결과를 가져와 Map에 저장
+        for (LocalDate date = monday; !date.isAfter(sunday); date = date.plusDays(1)) {
+            List<MdNutResult> eachResults = mdNutResultRepository.findByMdUserAndtoDate(username, date);
+            eachResultsMap.put(date, eachResults);
+        }
+
+        for (LocalDate date = monday; !date.isAfter(sunday); date = date.plusDays(1)) {
+            List<String> eachPhotoPaths = new ArrayList<>();
+            List<MdNutResult> eachResults = eachResultsMap.get(date);
+
+            long eachKcal = 0;
+            long eachCarboG = 0;
+            long eachProteinG = 0;
+            long eachFatG = 0;
+            for (MdNutResult eachResult : eachResults) {
+                if (eachResult.getCreatedDate() != null && eachResult.getOriginPath() != null) {
+                    eachKcal += eachResult.getKcal() != null ? eachResult.getKcal() : 0.0f;
+                    eachCarboG += eachResult.getCarboG() != null ? eachResult.getCarboG() : 0.0f;
+                    eachProteinG += eachResult.getProteinG() != null ? eachResult.getProteinG() : 0.0f;
+                    eachFatG += eachResult.getFatG() != null ? eachResult.getFatG() : 0.0f;
+                    eachPhotoPaths.add(eachResult.getOriginPath().getOriginPath());
+                }
+            }
+            // 각 날짜별로 계산된 합계를 모델에 추가
+            model.addAttribute(date.getDayOfWeek().toString().toLowerCase() + "Kcal", eachKcal);
+            model.addAttribute(date.getDayOfWeek().toString().toLowerCase() + "CarboG", eachCarboG);
+            model.addAttribute(date.getDayOfWeek().toString().toLowerCase() + "ProteinG", eachProteinG);
+            model.addAttribute(date.getDayOfWeek().toString().toLowerCase() + "FatG", eachFatG);
+            model.addAttribute(date.getDayOfWeek().toString().toLowerCase() + "eachPhotoPaths", eachPhotoPaths);
+        }
+
+        
         
         // List<MdNutResult> nutResults = mdNutResultRepository.findByMdUserAndDate(mdUser, selectedDate);
         // logger.info("Nutrition results for user {} on date {}: {}", mdUser.getUsername(), selectedDate, nutResults);
@@ -143,9 +229,9 @@ public class MdDietController {
         MdDiet md_diet = mdDietService.getDiet(mdUser);
         model.addAttribute("md_diet", md_diet);
 
-        // // 이번주 섭취량 요일별로 조회하기
-        // List<List<Object[]>> weekNutList = mdDietService.sumNutDaily(username);
-        // model.addAttribute("weekNutList", weekNutList);
+        // 유저의 일주일치 섭취량 불러오기
+        List<Float> user_diet = mdDietService.weekTotal(username);
+        model.addAttribute("user_diet", user_diet);
 
         return "diet/weeklyPage";
     }
@@ -156,6 +242,10 @@ public class MdDietController {
         String username = authentication.getName();
         MdUser mdUser = mdUserService.findByUsername(username);
         model.addAttribute("mdUser", mdUser);
+
+        // 최근 분석 결과 가져오기
+        MdNutResult mdNutResult = mdImgService.findRecentResultByUsername(username);
+        model.addAttribute("mdNutResult", mdNutResult);
 
         return "diet/resultPage";
     }

@@ -69,7 +69,6 @@ public class SecurityConfig {
             .failureHandler(loginAuthFailureHandler)
             .permitAll()
         )
-
         .logout(logout -> logout
             .logoutUrl("/logout")
             .logoutSuccessHandler(logoutAuthSuccessHandler)

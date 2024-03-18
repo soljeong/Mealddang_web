@@ -1,0 +1,21 @@
+
+
+.mask {
+    /* 로딩 화면 위치 및 스타일 설정 */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.7);
+    display: none; /* 기본적으로는 숨김 처리 */
+    display: flex; /* flexbox를 사용하여 내부 아이템을 중앙에 배치 */
+    justify-content: center; /* 가로 방향 중앙 정렬 */
+    align-items: center; /* 세로 방향 중앙 정렬 */
+}
+
+.loadingImg {
+    /* 로딩 이미지 스타일 */
+    max-width: 100px; /* 이미지 크기 조정, 필요에 따라 조절 */
+    max-height: 100px; /* 이미지 크기 조정, 필요에 따라 조절 */
+}

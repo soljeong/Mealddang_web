@@ -10,15 +10,11 @@
             </div>
             <div class="my-img" th:unless="${mygallery == null || mygallery.isEmpty()}">
               <ul class="image-grid">
-                <li th:each="myphoto : ${mygallery}"><img th:src="@{'/'+${myphoto}}"></li>
+                <li th:each="myphoto : ${mygallery}"><img th:src="@{'/uploaded/'+${myphoto}}"></li>
               </ul>
             </div>
-            <!-- 로딩 화면 -->
-    <div class="mask">
-    <img class="loadingImg" src='https://i.ibb.co/20zw80q/1487.gif'>
-    </div>
-    <!-- 로딩화면 끝 -->
-    <div class="wrap">  
+            
+    <div class="wrap">
         <!-- <img src="https://images.unsplash.com/photo-1689122777005-44185708d220?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="">
     <img src="https://images.unsplash.com/photo-1670831945939-c8ec61856016?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="">
     <img src="https://images.unsplash.com/photo-1670899555263-4546f62ebce9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=735&q=80" alt=""> -->

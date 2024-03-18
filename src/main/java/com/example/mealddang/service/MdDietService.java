@@ -1,6 +1,7 @@
 package com.example.mealddang.service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,7 +63,25 @@ public class MdDietService {
         return weekNutList;
     }
 
+    // 일주일치 통합(월+화+수+...+일)
+    public List<Float> weekTotal(String username) {
+        List<Float> resultList = new ArrayList<>();
 
+        List<Object[]> rawList = mdNutResultRepository.weekTotal(username);
+        if (rawList != null && !rawList.isEmpty()) {
+            Object[] row = rawList.get(0); // 첫 번째 요소만 사용
+            // row의 각 열을 순회하여 처리
+            for (Object obj : row) {
+                Float obj_f = obj != null ? Float.valueOf(obj.toString()) : 0f;
+                resultList.add(obj_f);
+            }
+        } else {
+            // 결과가 없는 경우 0으로 채움
+            resultList.addAll(Arrays.asList(0f, 0f, 0f, 0f));
+        }
+        return resultList;
+    }
+    
     public LocalDate getWeekDatesFromMonday() {
         LocalDate monday = LocalDate.now();
         DayOfWeek dayOfWeek = monday.getDayOfWeek();

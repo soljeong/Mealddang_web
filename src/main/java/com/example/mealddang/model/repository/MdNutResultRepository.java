@@ -30,14 +30,23 @@ public interface MdNutResultRepository extends JpaRepository<MdNutResult, Long> 
     public List<String> findAllPathbyUsername(@Param(value="username") String username);
 
     // 하루 섭취량 가져오기 (이번주 기준) -> Weekly
-    @Query(value = "SELECT  SUM(carbo_g), SUM(protein_g), SUM(fat_g) \n" + //
+    @Query(value = "SELECT ROUND(SUM(carbo_g),0), ROUND(SUM(protein_g),0), ROUND(SUM(fat_g),0) \n" + //
                 "FROM md_nut_result \n" + //
                 "WHERE user_id = :username \n" + //
                 "AND created_date >= ADDDATE(CURDATE(), - WEEKDAY(CURDATE()) + :dayofweek)\n" + //
                 "AND created_date < ADDDATE(CURDATE(), - WEEKDAY(CURDATE()) + :dayofweek + 1)", nativeQuery = true)
     public List<Object[]> sumNutDaily(@Param(value = "username") String username, @Param(value = "dayofweek") int dayofweek);
 
-    
+    // 일주일치 통합(월+화+수+...+일) 섭취량 -> Weekly
+    @Query(value = "SELECT ROUND(SUM(m.kcal),0), ROUND(SUM(m.carbo_g),0), ROUND(SUM(m.protein_g),0), ROUND(SUM(m.fat_g),0)" +
+                "FROM md_nut_result m " +
+                "WHERE m.user_id = :username " +
+                "AND m.created_date >= ADDDATE(CURDATE(), - WEEKDAY(CURDATE()))" + 
+                "AND m.created_date < ADDDATE(CURDATE(), - WEEKDAY(CURDATE())+7)", nativeQuery = true)
+    public List<Object[]> weekTotal(@Param(value = "username") String username);
+    // 해당 회원의 가장 최근 결과 가져오기
+    @Query(value = "SELECT * FROM md_nut_result WHERE user_id = :username ORDER BY update_date DESC LIMIT 1", nativeQuery = true)
+    public MdNutResult findTop1ByMdUserOrderByUpdateDateDesc(@Param(value = "username") String username);
 
 
 }

@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.example.mealddang.model.entity.MdNutResult;
 import com.example.mealddang.model.entity.MdUser;
 import com.example.mealddang.service.MdImgService;
 import com.example.mealddang.service.MdUserService;
@@ -72,7 +71,11 @@ public class MdUserController {
 
     // 로그인 페이지
     @GetMapping("/loginform")
-    public String getLoginPage(Model model) {
+    public String getLoginPage(Model model, Authentication authentication) {
+        // 로그인회원이 다시 로그인페이지 접근시 메인화면으로 돌려
+        if (authentication != null && authentication.isAuthenticated()) {
+            return "redirect:/user/main";
+        }
         return "user/loginForm";
     }
 

@@ -40,6 +40,7 @@ public class MdMapController {
     // 검색
     @GetMapping("/search/name")
     public String searchByName(@RequestParam("searchkey") String searchkey, Model model) {
+        searchkey = searchkey.trim();
         if (ObjectUtils.isEmpty(searchkey)){
             return "redirect:/user/rsrt/map";
         }

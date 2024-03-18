@@ -2,7 +2,7 @@
     <main layout:fragment="content">
         <!-- 이하 form : 검색창 -->
         <form class="search-box" action="/user/rsrt/search/name" method="GET">
-            <input onkeyup="return enterkey()" type="search" name="searchkey" placeholder="식당 이름 기준 검색"/>
+            <input onkeyup="enterkey()" type="search" name="searchkey" placeholder="식당 이름 기준 검색"/>
             <button type="submit" class="btn btn-outline-warning">
                 <i class="fa-solid fa-magnifying-glass"></i>
             </button>
@@ -13,7 +13,7 @@
                 <i class="fa-solid fa-magnifying-glass"></i>
             </button>
         </form> -->
-        <script>
+        <!-- <script>
         function enterkey() {
               // 입력 필드에서 값 가져오기
             var input = document.querySelector('input[name="searchkey"]').value;
@@ -30,7 +30,7 @@
                 // 예: return false; (단, 이 경우 HTML의 onkeyup 속성에 'return enterkey()'로 수정 필요)
             }
         }
-        </script>
+        </script> -->
         
 
         
@@ -259,7 +259,7 @@
                 <div class="img-search"><h5>이미지 검색</h5></div>
                 
                 
-                <!-- 챗봇 코드 추가 -->
+                <!-- 챗봇 코드 추가
                 <div id="chatbot" style="position: fixed; bottom: 20px; right: 20px; width: 300px; height: 400px; border: 1px solid #ccc; background-color: #f9f9f9; overflow-y: auto;">
                     <div id="chatbot-messages" style="padding: 10px;"></div>
                     <input type="text" id="chatbot-input" style="width: 100%; padding: 5px; box-sizing: border-box; border: 1px solid #ccc;">
@@ -288,7 +288,7 @@
                             event.target.value = ''; // 입력 필드 초기화
                         }
                     });
-                </script>
+                </script> -->
             </div>
         </section>
 
