@@ -48,7 +48,31 @@
                 <div>
                     <h3>일일 영양섭취량</h3>
                     <p>월화수목금토일 막대그래프</p>
-                    <script th:inline="javascript">
+                    <div id="weekly-report"></div>
+                    <script>
+                        $(document).ready(function() {
+                            $.ajax({
+                                url: '/api-weekly',
+                                type: 'POST',
+                                dataType: 'json',
+                                success: function(data) {
+                                    // 성공적으로 데이터를 받았을 때의 처리
+                                    console.log(data); // 콘솔에 데이터 출력
+                                    // 예를 들어, 받은 데이터를 이용해 `#weekly-report` div에 내용을 채웁니다.
+                                    if (data.weekNutList) {
+                                        data.weekNutList.forEach(function(item) {
+                                            $('#weekly-report').append('<p>' + JSON.stringify(item) + '</p>');
+                                        });
+                                    }
+                                },
+                                error: function(err) {
+                                    // 에러 처리
+                                    console.error(err);
+                                }
+                            });
+                        });
+                    </script>
+                    <!-- <script th:inline="javascript">
                         /*<![CDATA[*/
                         var weekNutList = [[${weekNutList}]];
                         var monCarbo = weekNutList[0][1];
@@ -59,7 +83,7 @@
                     <div id="main" style="width: 800px;height:600px;"></div>
                     <div>
                         <h1>weekNutList TEST</h1>
-                        <p th:text="${weekNutList[1][0]}"></p>
+                        <p th:text="${weekNutList[1][0]}"></p> -->
                     </div>
                 </div>
 
@@ -68,7 +92,6 @@
                     <p>권장비율과 실제섭취비율 비교하는 원그래프</p>
                     <div id="main2" style="width: 800px;height:600px;"></div>
                 </div>
-
                 
             </div>
 
