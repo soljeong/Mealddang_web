@@ -1,0 +1,63 @@
+<html layout:decorate="~{layout-inner}">
+    <main layout:fragment="content">
+        <section id="title">
+            <a href="/user/diet/log"><h3 th:text="${mdUser.nickname != null ? mdUser.nickname : mdUser.username} + '님의 밀땅일지'"></h3></a>
+            <p>테스트 페이지~~~~~~~</p>
+            <p>실패페이지</p>
+
+<!-- <title>Layout Example</title> -->
+<style>
+.container {
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: space-between;
+height: 100vh;
+padding: 20px;
+}
+.box {
+border: 2px solid red;
+padding: 10px;
+text-align: center;
+}
+.large-box {
+width: 80%;
+height: 60%;
+}
+.small-boxes-container {
+width: 80%;
+display: grid;
+grid-template-columns: repeat(3, 1fr);
+gap: 10px;
+}
+.small-box {
+border: 1px solid black;
+padding: 20px;
+}
+.button {
+padding: 10px 20px;
+background-color: blue;
+color: white;
+border: none;
+border-radius: 5px;
+}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="box large-box">
+<!-- Large box content -->
+<span>+</span>
+</div>
+<div class="small-boxes-container">
+<!-- Small boxes -->
+<div class="box small-box">부트디 이미지</div>
+<div class="box small-box">부트디 이미지</div>
+<div class="box small-box">부트디 이미지</div>
+</div>
+<button class="button">저장</button>
+
+</div>
+</body>
+</html>
+        </section>

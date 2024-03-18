@@ -13,6 +13,8 @@ import com.example.mealddang.model.entity.MdDiet;
 import com.example.mealddang.model.entity.MdUser;
 import com.example.mealddang.service.MdDietService;
 import com.example.mealddang.service.MdUserService;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 // [인증 후] 식단관리(밀땅일지) 컨트롤러
 @Controller @RequestMapping("/user/diet")
@@ -68,5 +70,24 @@ public class MdDietController {
         model.addAttribute("weekNutList", weekNutList);
 
         return "diet/weeklyPage";
+    }
+
+    // 이미지분석 성공 결과 user/diet/analysis_result_ok
+    @GetMapping("/analysis_result_ok")
+    public String getAnalysisResult(Model model, Authentication authentication) {
+        String username = authentication.getName();
+        MdUser mdUser = mdUserService.findByUsername(username);
+        model.addAttribute("mdUser", mdUser);
+
+        return "diet/resultPage";
+    }
+    // 이미지분석 실패 결과  user/diet/analysis_result_fail
+    @GetMapping("/analysis_result_fail")
+    public String getFailResult(Model model, Authentication authentication) {
+        String username = authentication.getName();
+        MdUser mdUser = mdUserService.findByUsername(username);
+        model.addAttribute("mdUser", mdUser);
+        
+        return "diet/failPage";
     }
 }
