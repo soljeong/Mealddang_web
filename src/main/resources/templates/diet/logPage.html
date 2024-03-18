@@ -42,7 +42,7 @@
                         </tr>
                     </tbody>
                 </table>
-                <a href="/user/diet/weekly"><button>주간 AI 리포트</button></a>
+                <a href="/user/diet/weekly"><button class="btn btn-outline-warning">주간 AI 리포트</button></a>
             </div>
         </section>
         <hr>
@@ -52,7 +52,7 @@
             <!-- 오늘 날짜와 이미지 AI 분석 버튼 -->
             <p th:text="'오늘 (' + ${#dates.format(#dates.createNow(), 'yyyy-MM-dd')} + ')'">오늘 날짜</p>
             <a th:href="@{/user/diet/analysis(date=${today})}" style="margin-left: auto;">
-                <button>이미지 AI 분석</button>
+                <button class="btn btn-outline-warning">이미지 AI 분석</button>
             </a>
         </div>
         <div style="display: flex; align-items: flex-start;">
@@ -108,7 +108,7 @@
                 <p th:if="${monday != null}" th:text="${monday.plusDays(day)}"></p>
                 <!-- 이미지 AI 분석 버튼 -->
                 <a th:href="@{/user/diet/analysis(date=${today})}" style="margin-left: auto;">
-                    <button>이미지 AI 분석</button>
+                    <button class="btn btn-outline-warning">이미지 AI 분석</button>
                 </a>
             </div>
             <div style="display: flex; align-items: flex-start;">
