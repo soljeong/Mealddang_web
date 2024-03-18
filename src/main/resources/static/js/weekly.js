@@ -183,7 +183,33 @@ fetch('/api-weekly')
                         { value: rawData2[3], name: '지방' }
                     ]
                 }
+        ],
+        //각 그래프 별 제목넣어주기
+        graphic: [
+            {
+                type: 'text',
+                left: '22%', // 첫 번째 그래프의 중심 위치에 맞추어 조정하세요
+                top: '20%', // 조정이 필요할 수 있습니다.
+                style: {
+                    text: '<권장 비율>',
+                    textAlign: 'center',
+                    fill: '#333',
+                    fontSize: 18
+                }
+            },
+            {
+                type: 'text',
+                left: '71%', // 두 번째 그래프의 중심 위치에 맞추어 조정하세요
+                top: '20%', // 조정이 필요할 수 있습니다.
+                style: {
+                    text: '<실섭취 비율>',
+                    textAlign: 'center',
+                    fill: '#333',
+                    fontSize: 18
+                }
+            }
         ]
+        
         };
 
     option2 && myChart2.setOption(option2);
