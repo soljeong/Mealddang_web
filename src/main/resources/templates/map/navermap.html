@@ -53,7 +53,24 @@
                             window.location.href = '/user/rsrt/filter/atmosphere?keyword=' + keyword;
                         });
                     </script>
-
+                    <!-- <script>
+                      document.addEventListener("DOMContentLoaded", function() {
+                          var atmosphereButton = document.getElementById("atmosphereButton");
+                          var keyword = encodeURIComponent("분위기");
+                  
+                          atmosphereButton.addEventListener("click", function() {
+                              window.location.href = '/user/rsrt/filter/atmosphere?keyword=' + keyword;
+                          });
+                  
+                          // 버튼 상태 유지
+                          var urlParams = new URLSearchParams(window.location.search);
+                          var currentKeyword = decodeURIComponent(urlParams.get("keyword"));
+                  
+                          if (currentKeyword === "분위기") {
+                              atmosphereButton.classList.add("active");
+                          }
+                      });
+                  </script> -->
                     <button class="btn btn-outline-warning" id="tasteButton">맛있는</button>
                     <script>
                         document.getElementById("tasteButton").addEventListener("click", function() {
@@ -61,7 +78,24 @@
                             window.location.href = '/user/rsrt/filter/atmosphere?keyword=' + keyword;
                         });
                     </script>
-
+                    <!-- <script>
+                      document.addEventListener("DOMContentLoaded", function() {
+                          var atmosphereButton = document.getElementById("tasteButton");
+                          var keyword = encodeURIComponent("맛");
+                  
+                          atmosphereButton.addEventListener("click", function() {
+                              window.location.href = '/user/rsrt/filter/atmosphere?keyword=' + keyword;
+                          });
+                  
+                          // 버튼 상태 유지
+                          var urlParams = new URLSearchParams(window.location.search);
+                          var currentKeyword = decodeURIComponent(urlParams.get("keyword"));
+                  
+                          if (currentKeyword === "맛") {
+                              atmosphereButton.classList.add("active");
+                          }
+                      });
+                  </script> -->
                     <button class="btn btn-outline-warning" id="cleanButton">깔끔한</button>
                     <script>
                         document.getElementById("cleanButton").addEventListener("click", function() {
