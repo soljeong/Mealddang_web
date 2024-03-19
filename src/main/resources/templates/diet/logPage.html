@@ -18,33 +18,29 @@
                 <div class="text-primary text-center pt-20 mb-10">
                 <table>                    
                     <tbody>
-                        <tr id="kcal">
-                            <td>칼로리</td>
-                            <td th:text="${totalKcal}"></td>
-                            <td>/</td>
-                            <td th:text="${md_diet.kcal != null ? md_diet.kcal*7 : '2500*7'}"></td>
-                            <td>kcal</td>
+                        <tr id="totalkcal">
+                            <td colspan="2" style="text-align: left;">칼로리</td>
+                            <td colspan="3" style="text-align: right;">
+                                <span th:text="${totalKcal + ' / ' + (md_diet.kcal != null ? md_diet.kcal*7 : '2500*7') + ' kacl'}"> </span>
+                            </td>
                         </tr>
-                        <tr id="carbohydrates">
-                            <td>탄수화물</td>
-                            <td th:text="${totalCarboG}"></td>
-                            <td>/</td>
-                            <td th:text="${md_diet.kcal != null ? T(java.lang.String).format('%1$.1f', (md_diet.kcal)*0.14*7) : '300.0*7'}"></td>
-                            <td>g</td>
+                        <tr id="totalcarbohydrates">
+                            <td colspan="2" style="text-align: left;">탄수화물</td>
+                            <td colspan="3" style="text-align: right;">
+                                <span th:text="${totalCarboG + ' / ' + (md_diet.kcal != null ? T(java.lang.String).format('%1$.1f', (md_diet.kcal)*0.14*7) : '300.0*7')+ ' g'} "> </span>
+                            </td>
                         </tr>
-                        <tr id="protein">
-                            <td>단백질</td>
-                            <td th:text="${totalProteinG}"></td>
-                            <td>/</td>
-                            <td th:text="${md_diet.protein != null ? md_diet.protein*7 : '40.0*7'}"></td>
-                            <td>g</td>
+                        <tr id="totalprotein">
+                            <td colspan="2" style="text-align: left;">단백질</td>
+                            <td colspan="3" style="text-align: right;">
+                                <span th:text="${totalProteinG + ' / ' + (md_diet.protein != null ? md_diet.protein*7 : '40.0*7')+ ' g'} "> </span>
+                            </td>
                         </tr>
-                        <tr id="fat">
-                            <td>지방</td>
-                            <td th:text="${totalFatG}"></td>
-                            <td>/</td>
-                            <td th:text="${md_diet.kcal != null ? T(java.lang.String).format('%1$.1f', (md_diet.kcal)*0.017*7) : '50.0*7'}"></td>
-                            <td>g</td>
+                        <tr id="totalfat">
+                            <td colspan="2" style="text-align: left;">지방</td>
+                            <td colspan="3" style="text-align: right;">
+                                <span th:text="${totalFatG + ' / ' + (md_diet.kcal != null ? T(java.lang.String).format('%1$.1f', (md_diet.kcal)*0.017*7) : '50.0*7')+ ' g'} "> </span>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -67,32 +63,29 @@
             <!-- 식단 정보 테이블 -->
             <table>
                 <tbody>
-                    <tr id="kcal">
-                        <td>칼로리</td>
-                        <td th:text="${todayKcal}"></td>
-                        <td>/</td>
-                        <td th:text="${md_diet.kcal != null ? md_diet.kcal : '2600'}"></td>
-                        <td>kcal</td>
-                    </tr>
-                    <tr id="carbohydrates">
-                        <td>탄수화물</td>
-                        <td th:text="${todayCarboG}"></td>
-                        <td>/</td>
-                        <td th:text="${md_diet.kcal != null ? T(java.lang.String).format('%1$.1f', (md_diet.kcal)*0.14) : '300.0'}"></td>
-                        <td>g</td>
-                    </tr>
-                    <tr id="protein">
-                        <td style="text-align: left;">단백질</td>
-                        <td colspan="4" style="text-align: right;">
-                            <span th:text="${todayProteinG + '/' + (md_diet.protein != null ? md_diet.protein : '55.0')}"></span>g
+                    <tr id="todaykcal">
+                        <td colspan="2" style="text-align: left;">칼로리</td>
+                        <td colspan="3" style="text-align: right;">
+                            <span th:text="${todayKcal + ' / ' + (md_diet.kcal != null ? md_diet.kcal : '2600') + ' kacl'}"> </span>
                         </td>
                     </tr>
-                    <tr id="fat">
-                        <td>지방</td>
-                        <td th:text="${todayFatG}"></td>
-                        <td>/</td>
-                        <td th:text="${md_diet.kcal != null ? T(java.lang.String).format('%1$.1f', (md_diet.kcal)*0.017) : '50.0'}"></td>
-                        <td>g</td>
+                    <tr id="todaycarbohydrates">
+                        <td colspan="2" style="text-align: left;">탄수화물</td>
+                        <td colspan="3" style="text-align: right;">
+                            <span th:text="${todayCarboG + ' / ' + (md_diet.kcal != null ? T(java.lang.String).format('%1$.1f', (md_diet.kcal)*0.14) : '300.0')+ ' g'} "> </span>
+                        </td>
+                    </tr>
+                    <tr id="todayprotein">
+                        <td colspan="2" style="text-align: left;">단백질</td>
+                        <td colspan="3" style="text-align: right;">
+                            <span th:text="${todayProteinG + ' / ' + (md_diet.protein != null ? md_diet.protein : '55.0')+ ' g'} "> </span>
+                        </td>
+                    </tr>
+                    <tr id="todayfat">
+                        <td colspan="2" style="text-align: left;">지방</td>
+                        <td colspan="3" style="text-align: right;">
+                            <span th:text="${todayFatG + ' / ' + (md_diet.kcal != null ? T(java.lang.String).format('%1$.1f', (md_diet.kcal)*0.017) : '50.0')+ ' g'} "> </span>
+                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -123,33 +116,28 @@
                 <table>
                     <tbody>
                         <tr>
-                            <td>칼로리</td>
-                            <td th:text="${__${monday.plusDays(day).getDayOfWeek().toString().toLowerCase() + 'Kcal'}__}"></td>
-                            <td>/</td>
-                            <td th:text="${md_diet.kcal != null ? md_diet.kcal : '2600'}"></td>
-                            <td>kcal</td>
+                            <td colspan="2" style="text-align: left;">칼로리</td>
+                            <td colspan="3" style="text-align: right;">
+                                <span th:text="${__${monday.plusDays(day).getDayOfWeek().toString().toLowerCase() + 'Kcal'}__ + ' / ' + (md_diet.kcal != null ? md_diet.kcal : '2600')+ ' kacl'}"></span>
+                            </td>
                         </tr>
-                        <tr>
-                            <td>탄수화물</td>
-                            <td th:text="${__${monday.plusDays(day).getDayOfWeek().toString().toLowerCase() + 'CarboG'}__}"></td>
-                            <td>/</td>
-                            <td th:text="${md_diet.kcal != null ? T(java.lang.String).format('%1$.1f', (md_diet.kcal)*0.14) : '300.0'}"></td>
-                            <td>g</td>
+                        <tr id="carbohydrates">
+                            <td colspan="2" style="text-align: left;">탄수화물</td>
+                            <td colspan="3" style="text-align: right;">
+                                <span th:text="${__${monday.plusDays(day).getDayOfWeek().toString().toLowerCase() + 'CarboG'}__ + ' / ' + (md_diet.kcal != null ? T(java.lang.String).format('%1$.1f', (md_diet.kcal)*0.14) : '300.0')+ ' g'} "> </span>
+                            </td>
                         </tr>
-                        <tr>
-                            <td>단백질</td>
-                            <td th:text="${__${monday.plusDays(day).getDayOfWeek().toString().toLowerCase() + 'ProteinG'}__}"></td>
-
-                            <td>/</td>
-                            <td th:text="${md_diet.protein != null ? md_diet.protein : '55.0'}"></td>
-                            <td>g</td>
+                        <tr id="protein">
+                            <td colspan="2" style="text-align: left;">단백질</td>
+                            <td colspan="3" style="text-align: right;">
+                                <span th:text="${__${monday.plusDays(day).getDayOfWeek().toString().toLowerCase() + 'ProteinG'}__ + ' / ' + (md_diet.protein != null ? md_diet.protein : '55.0')+ ' g'} "></span>
+                            </td>
                         </tr>
-                        <tr>
-                            <td>지방</td>
-                            <td th:text="${__${monday.plusDays(day).getDayOfWeek().toString().toLowerCase() + 'FatG'}__}"></td>
-                            <td>/</td>
-                            <td th:text="${md_diet.kcal != null ? T(java.lang.String).format('%1$.1f', (md_diet.kcal)*0.017) : '50.0'}"></td>
-                            <td>g</td>
+                        <tr id="fat">
+                            <td colspan="2" style="text-align: left;">지방</td>
+                            <td colspan="3" style="text-align: right;">
+                                <span th:text="${__${monday.plusDays(day).getDayOfWeek().toString().toLowerCase() + 'FatG'}__ + ' / ' + (md_diet.kcal != null ? T(java.lang.String).format('%1$.1f', (md_diet.kcal)*0.017) : '50.0')+ ' g'} "> </span>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -171,6 +159,12 @@
                 width: 330px; /* 표의 너비를 500px로 설정 */
                 height: 40px; /* 표의 높이를 300px로 설정 */
                 table-layout: fixed; /* 표의 레이아웃을 고정으로 설정하여 셀 크기를 고정 */
+                border: 1px solid #000; /* 표의 테두리 스타일 및 색상 설정 */
+                border-collapse: collapse; /* 표의 셀 테두리를 병합하여 하나로 표시 */
+            }
+            table td {
+                padding: 5px 15px; /* 위아래로 5px, 좌우로 10px의 패딩을 적용합니다. */
+                border: 1px solid #000; /* 셀의 테두리 스타일 및 색상 설정 */
             }
             .code-area {
                 display: flex;
@@ -193,6 +187,8 @@
                 height: 200px; /* 원하는 이미지 세로 크기 */
                 overflow: hidden; /* 이미지가 지정된 크기를 초과하는 경우를 대비하여 오버플로우 처리 */
                 margin-right: 10px; 
+                border: 1px solid #000; /* 테두리 스타일 및 색상 설정 */
+                padding: 5px; /* 테두리와 이미지 사이의 간격 설정 */
             }
             .image-box img {
                 width: 100%;
