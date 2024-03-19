@@ -8,44 +8,45 @@
             <div class="text-primary text-center pt-20 mb-10">
                 <h3>주간 섭취량</h3>
                 <div class="date-navigation">
-                <button type="button" class="btn btn-outline-warning" style="float: left;">저번주</button>
-                <div class="date-center pt-20 mb-10">
-                    <span th:text="${#temporals.format(#temporals.createNow().with(T(java.time.temporal.TemporalAdjusters).previousOrSame(T(java.time.DayOfWeek).MONDAY)), 'yyyy.MM.dd')}">이번주 월요일</span>
-                    <span> - </span>
-                    <span th:text="${#temporals.format(#temporals.createNow().with(T(java.time.temporal.TemporalAdjusters).nextOrSame(T(java.time.DayOfWeek).SUNDAY)), 'yyyy.MM.dd')}">이번주 일요일</span>
+                    <button type="button" class="btn btn-outline-warning" style="float: left;">저번주</button>
+                    <div class="date-center">
+                        <span th:text="${#temporals.format(#temporals.createNow().with(T(java.time.temporal.TemporalAdjusters).previousOrSame(T(java.time.DayOfWeek).MONDAY)), 'yyyy.MM.dd')}">이번주 월요일</span>
+                        <span> - </span>
+                        <span th:text="${#temporals.format(#temporals.createNow().with(T(java.time.temporal.TemporalAdjusters).nextOrSame(T(java.time.DayOfWeek).SUNDAY)), 'yyyy.MM.dd')}">이번주 일요일</span>
+                    </div>
+                    <button type="button" class="btn btn-outline-warning" style="float: right;">다음주</button>
                 </div>
-                <button type="button" class="btn btn-outline-warning" style="float: right;">다음주</button>
-                <div class="text-primary text-center pt-20 mb-10 center;">
-                <table>                    
-                    <tbody>
-                        <tr id="totalkcal">
-                            <td colspan="2" style="text-align: left;">칼로리</td>
-                            <td colspan="3" style="text-align: right;">
-                                <span th:text="${totalKcal + ' / ' + (md_diet.kcal != null ? md_diet.kcal*7 : '2500*7') + ' kacl'}"> </span>
-                            </td>
-                        </tr>
-                        <tr id="totalcarbohydrates">
-                            <td colspan="2" style="text-align: left;">탄수화물</td>
-                            <td colspan="3" style="text-align: right;">
-                                <span th:text="${totalCarboG + ' / ' + (md_diet.kcal != null ? T(java.lang.String).format('%1$.1f', (md_diet.kcal)*0.14*7) : '300.0*7')+ ' g'} "> </span>
-                            </td>
-                        </tr>
-                        <tr id="totalprotein">
-                            <td colspan="2" style="text-align: left;">단백질</td>
-                            <td colspan="3" style="text-align: right;">
-                                <span th:text="${totalProteinG + ' / ' + (md_diet.protein != null ? md_diet.protein*7 : '40.0*7')+ ' g'} "> </span>
-                            </td>
-                        </tr>
-                        <tr id="totalfat">
-                            <td colspan="2" style="text-align: left;">지방</td>
-                            <td colspan="3" style="text-align: right;">
-                                <span th:text="${totalFatG + ' / ' + (md_diet.kcal != null ? T(java.lang.String).format('%1$.1f', (md_diet.kcal)*0.017*7) : '50.0*7')+ ' g'} "> </span>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <a href="/user/diet/weekly"><button class="btn btn-outline-warning">주간 AI 리포트</button></a>
-            </div>
+                <div class="text-primary text-center pt-20 mb-10 center">
+                    <table style="margin: 0 auto;">                    
+                        <tbody>
+                            <tr id="totalkcal">
+                                <td colspan="2" style="text-align: left;">칼로리</td>
+                                <td colspan="3" style="text-align: right;">
+                                    <span th:text="${totalKcal + ' / ' + (md_diet.kcal != null ? md_diet.kcal*7 : '2500*7') + ' kacl'}"> </span>
+                                </td>
+                            </tr>
+                            <tr id="totalcarbohydrates">
+                                <td colspan="2" style="text-align: left;">탄수화물</td>
+                                <td colspan="3" style="text-align: right;">
+                                    <span th:text="${totalCarboG + ' / ' + (md_diet.kcal != null ? T(java.lang.String).format('%1$.1f', (md_diet.kcal)*0.14*7) : '300.0*7')+ ' g'} "> </span>
+                                </td>
+                            </tr>
+                            <tr id="totalprotein">
+                                <td colspan="2" style="text-align: left;">단백질</td>
+                                <td colspan="3" style="text-align: right;">
+                                    <span th:text="${totalProteinG + ' / ' + (md_diet.protein != null ? md_diet.protein*7 : '40.0*7')+ ' g'} "> </span>
+                                </td>
+                            </tr>
+                            <tr id="totalfat">
+                                <td colspan="2" style="text-align: left;">지방</td>
+                                <td colspan="3" style="text-align: right;">
+                                    <span th:text="${totalFatG + ' / ' + (md_diet.kcal != null ? T(java.lang.String).format('%1$.1f', (md_diet.kcal)*0.017*7) : '50.0*7')+ ' g'} "> </span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <a href="/user/diet/weekly"><button class="btn btn-outline-warning">주간 AI 리포트</button></a>
+                </div>
             </div>
         </section>
         <hr>
