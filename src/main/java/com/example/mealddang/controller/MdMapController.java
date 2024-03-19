@@ -66,11 +66,13 @@ public class MdMapController {
             return "redirect:/user/rsrt/map"; 
         }
         List<MdKey> filteredStores = mdKeyRepository.findByKeyword(keyword);
-        for(int i = 0; i < filteredStores.size(); i++){
+        int storeCnt = filteredStores.size();
+        for(int i = 0; i < storeCnt; i++){
             System.out.println(filteredStores.get(i));
         }
         model.addAttribute("filteredStores", filteredStores);
         model.addAttribute("keyword", keyword);
+        model.addAttribute("storeCnt", storeCnt);
         return "map/navermap";
     }
 }
