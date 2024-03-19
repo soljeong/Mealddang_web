@@ -55,7 +55,8 @@
                 <button class="btn btn-outline-warning">이미지 AI 분석</button>
             </a>
         </div>
-        <div style="display: flex; align-items: flex-start;">
+        
+        <div style="display: flex; justify-content: space-between; align-items: flex-start;">
             <!-- 식단 정보 테이블 -->
             <table>
                 <tbody>
@@ -74,11 +75,10 @@
                         <td>g</td>
                     </tr>
                     <tr id="protein">
-                        <td>단백질</td>
-                        <td th:text="${todayProteinG}"></td>
-                        <td>/</td>
-                        <td th:text="${md_diet.protein != null ? md_diet.protein : '55.0'}"></td>
-                        <td>g</td>
+                        <td style="text-align: left;">단백질</td>
+                        <td colspan="4" style="text-align: right;">
+                            <span th:text="${todayProteinG + '/' + (md_diet.protein != null ? md_diet.protein : '55.0')}"></span>g
+                        </td>
                     </tr>
                     <tr id="fat">
                         <td>지방</td>
@@ -90,13 +90,13 @@
                 </tbody>
             </table>
             <!-- 이미지 박스 영역 -->
-            <div style="display: flex; justify-content: flex-start; overflow-x: auto;">
+            <div class="image-box-wrapper">
                 <!-- 각 이미지에 대한 반복문 -->
-                <th:block th:each="photoPath : ${photoPaths}">
-                    <div class="image-box" style="margin-right: 10px;">
-                        <img th:src="@{'/uploaded/'+${photoPath}}" alt="이미지 설명" style="width: 50%;">
+                <div th:each="photoPath : ${photoPaths}">
+                    <div class="image-box">
+                        <img th:src="@{'/uploaded/'+${photoPath}}" alt="이미지 설명">
                     </div>
-                </th:block>
+                </div>
             </div>
         </div>
         
@@ -111,7 +111,7 @@
                     <button class="btn btn-outline-warning">이미지 AI 분석</button>
                 </a>
             </div>
-            <div style="display: flex; align-items: flex-start;">
+            <div class="image-box-wrapper" style="flex: 1; display: flex; justify-content: space-around; align-items: flex-start; margin-bottom: 20px; overflow-x: auto;">
                 <!-- 각 날짜별 결과 테이블 -->
                 <table>
                     <tbody>
@@ -147,16 +147,81 @@
                     </tbody>
                 </table>
                 <!-- 이미지 박스를 추가할 위치 -->
-                <div style="display: flex; justify-content: space-around; margin-bottom: 20px; overflow-x: auto;">
-                    <th:block th:each="eachPhotoPath : ${__${monday.plusDays(day).getDayOfWeek().toString().toLowerCase() + 'eachPhotoPaths'}__}">
-                        <div class="image-box" style="width: 30%;" th:if="${eachPhotoPath != null}">
-                            <img th:src="@{'/uploaded/' + ${eachPhotoPath}}" alt="사진 설명" style="width: 50%; height: auto;">
+                <div class="image-box-wrapper">
+                    <div th:each="eachPhotoPath : ${__${monday.plusDays(day).getDayOfWeek().toString().toLowerCase() + 'eachPhotoPaths'}__}">
+                        <div class="image-box" th:if="${eachPhotoPath != null}">
+                            <img th:src="@{'/uploaded/' + ${eachPhotoPath}}" alt="이미지 설명">
                         </div>
-                    </th:block>
+                    </div>
                 </div>
             </div>
             <hr>
         </th:block>
         <hr>
+        <style>
+            /* 표의 크기를 고정하기 위한 CSS */
+            table {
+                width: 330px; /* 표의 너비를 500px로 설정 */
+                height: 40px; /* 표의 높이를 300px로 설정 */
+                table-layout: fixed; /* 표의 레이아웃을 고정으로 설정하여 셀 크기를 고정 */
+            }
+            .code-area {
+                display: flex;
+                justify-content: space-between;
+                align-items: flex-start;
+                margin-bottom: 20px;
+            }
+            .image-box-wrapper {
+                flex: 1;
+                display: flex;
+                justify-content: flex-start;
+                align-items: flex-start;
+                margin-bottom: 20px;
+                overflow-x: auto;
+                overflow-y: hidden;
+                white-space: nowrap; /* 이미지를 가로로 나열하기 위해 필요한 CSS 속성 */
+            }
+            .image-box {
+                width: 200px; /* 원하는 이미지 가로 크기 */
+                height: 200px; /* 원하는 이미지 세로 크기 */
+                overflow: hidden; /* 이미지가 지정된 크기를 초과하는 경우를 대비하여 오버플로우 처리 */
+                margin-right: 10px; 
+            }
+            .image-box img {
+                width: 100%;
+                height: 100%;
+                object-fit: contain; /* 이미지가 비율을 유지하면서 박스 안에 들어가도록 합니다. */
+            }
+        </style>
+
+        <!-- <script>
+        // 이미지 박스를 감싸는 div 요소를 선택합니다.
+        var imageBoxWrapper = document.querySelector('.image-box-wrapper');
+        
+        // 표의 각 행을 선택합니다.
+        var tableRows = document.querySelectorAll('table tbody tr td');
+        
+        // 이미지 박스의 최소 너비를 설정합니다.
+        var minImageWidth = 30; // 최소 너비 설정 (원하는 크기로 변경 가능)
+        
+        // 각 행의 텍스트 길이를 기준으로 이미지 크기를 조정합니다.
+        tableRows.forEach(function(row) {
+            // 각 행의 텍스트 길이를 구합니다.
+            var textLength = row.textContent.trim().length;
+        
+            // 이미지의 너비를 텍스트 길이에 따라 계산합니다.
+            var imageWidth = textLength * 10; // 10은 텍스트 길이에 따라 조정할 계수입니다.
+        
+            // 이미지의 최소 너비를 고려하여 너비를 설정합니다.
+            imageWidth = Math.max(imageWidth, minImageWidth);
+        
+            // 이미지 요소를 선택합니다.
+            var image = row.nextElementSibling.querySelector('img');
+        
+            // 이미지의 너비를 설정합니다.
+            image.style.width = imageWidth + 'px';
+        });
+        </script> -->
     </main>
 </html>
+
