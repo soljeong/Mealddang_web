@@ -226,13 +226,18 @@ public class MdImgService {
         return mdNutResults;
     }
 
-    // // 해당 회원의 최근 결과 가져오기
+    // 해당 회원의 최근 결과 가져오기 [삭제 예정]
     public MdNutResult findRecentResultByUsername(String username) {
         MdNutResult mdNutResult = mdNutResultRepository.findTop1ByMdUserOrderByUpdateDateDesc(username);
         return mdNutResult;
     }
 
-    // originPath로 이미지 삭제하기_보류
+    // origin_path로 분석결과 리스트 가져오기
+    public List<MdNutResult> findAllNResultByOriPath(String username, String originPath) {
+        return mdNutResultRepository.findAllNResultByOriPath(username, originPath);
+    }
+
+    // originPath로 이미지 삭제하기
     public void deleteImgUploadByOriPath(String originPath) {
         mdImgUploadRepository.deleteById(originPath);
     }

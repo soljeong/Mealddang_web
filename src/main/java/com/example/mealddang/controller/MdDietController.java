@@ -230,25 +230,33 @@ public class MdDietController {
         return "diet/weeklyPage";
     }
 
-    // 이미지분석 성공 결과 user/diet/analysis_result_ok
-    @GetMapping("/analysis_result_ok")
-    public String getAnalysisResult(Model model, Authentication authentication) {
+    // 이미지분석 성공 결과 user/diet/airesult
+    @GetMapping("/airesult")
+    public String getAnalysisResult(String originPath, Model model, Authentication authentication) {
         String username = authentication.getName();
         MdUser mdUser = mdUserService.findByUsername(username);
         model.addAttribute("mdUser", mdUser);
 
-        // 최근 분석 결과 가져오기
-        MdNutResult mdNutResult = mdImgService.findRecentResultByUsername(username);
-        model.addAttribute("mdNutResult", mdNutResult);
+        // 최근 분석 결과 가져오기 [삭제 예정]
+        MdNutResult _mdNutResult = mdImgService.findRecentResultByUsername(username);
+        model.addAttribute("mdNutResult", _mdNutResult);
+
+        // origin_path로 분석결과 리스트 가져오기
+        List<MdNutResult> allNResults = mdImgService.findAllNResultByOriPath(username, originPath);
+        model.addAttribute("allNResults", allNResults);
 
         return "diet/resultPage";
     }
-    // 이미지분석 실패 결과  user/diet/analysis_result_fail
-    @GetMapping("/analysis_result_fail")
-    public String getFailResult(Model model, Authentication authentication) {
+
+    // 이미지분석 실패 결과  user/diet/noresult
+    @GetMapping("/noresult")
+    public String getFailResult(String originPath, Model model, Authentication authentication) {
         String username = authentication.getName();
         MdUser mdUser = mdUserService.findByUsername(username);
         model.addAttribute("mdUser", mdUser);
+
+        // 실패시 업로드사진 삭제
+        mdImgService.deleteImgUploadByOriPath(originPath);
         
         return "diet/failPage";
     }
