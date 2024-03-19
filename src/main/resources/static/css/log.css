@@ -1,0 +1,71 @@
+#logs {
+    border: 2px solid #ffc107; 
+    padding: 20px;
+    margin: 20px 0;
+    border-radius: 10px; /* 모서리를 둥글게 */
+}
+
+
+#logs .date-navigation span {
+margin-top: 10px; /* 날짜 표시와 버튼 사이의 간격을 조정 */
+color: black; /* 글씨 색상을 검은색으로 변경 */
+}
+
+#logs .data-list {
+    text-align: center; /* 텍스트 가운데 정렬 */
+}
+
+#logs .data-list ul {
+    list-style-type: none; /* 기본 리스트 스타일 제거 */
+    padding: 0; /* 기본 패딩 제거 */
+}
+
+#logs .data-list ul li {
+    display: inline-block; /* 아이템을 가로로 나열 */
+    margin: 0 10px; /* 아이템 간격 설정 */
+}
+.date-center {
+    text-align: center; /* 텍스트를 가운데 정렬합니다. */
+    display: block; /* 블록 레벨 요소로 만들어 전체 너비를 차지하게 합니다. */
+    margin: auto; /* 자동 마진을 사용하여 가로 방향으로 가운데 정렬합니다. */
+}
+table {
+    width: 350px; /* 표의 너비를 500px로 설정 */
+    height: 40px; /* 표의 높이를 300px로 설정 */
+    table-layout: fixed; /* 표의 레이아웃을 고정으로 설정하여 셀 크기를 고정 */
+    border: 1px solid #000; /* 표의 테두리 스타일 및 색상 설정 */
+    border-collapse: collapse; /* 표의 셀 테두리를 병합하여 하나로 표시 */
+}
+table td {
+    padding: 5px 10px; /* 위아래로 5px, 좌우로 10px의 패딩을 적용합니다. */
+    border: 1px solid #000; /* 셀의 테두리 스타일 및 색상 설정 */
+}
+.code-area {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 20px;
+}
+.image-box-wrapper {
+    flex: 1;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin-bottom: 20px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap; /* 이미지를 가로로 나열하기 위해 필요한 CSS 속성 */
+}
+.image-box {
+    width: 200px; /* 원하는 이미지 가로 크기 */
+    height: 200px; /* 원하는 이미지 세로 크기 */
+    overflow: hidden; /* 이미지가 지정된 크기를 초과하는 경우를 대비하여 오버플로우 처리 */
+    margin-right: 10px; 
+    border: 1px solid #000; /* 테두리 스타일 및 색상 설정 */
+    padding: 5px; /* 테두리와 이미지 사이의 간격 설정 */
+}
+.image-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* 이미지가 비율을 유지하면서 박스 안에 들어가도록 합니다. */
+}
