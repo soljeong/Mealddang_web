@@ -1,8 +1,8 @@
 spring:
     servlet:
         multipart:
-            max-file-size: 10MB
-            max-request-size: 10MB
+            max-file-size: 100MB
+            max-request-size: 100MB
     jackson:
             serialization:
                 fail-on-empty-beans: false    # json 반환 오류 처리

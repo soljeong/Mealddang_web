@@ -7,7 +7,13 @@
         var successMessage = /*[[${session.successMessage}]]*/ 'default message';
         if(successMessage && successMessage !== 'default message') {
         alert(successMessage);
-    }
+        }
+
+        var errorMessage = /*[[${errorMessage}]]*/ null;
+        var errorCode = /*[[${errorCode}]]*/ null;
+        if(errorMessage !== null && errorCode !== null) {
+            alert("로그인 실패: " + errorMessage);
+        }
         /*]]>*/
     </script>
 </head>
@@ -33,6 +39,7 @@
 
 </body>
 </html>
+
 <!-- <html layout:decorate="~{layout}">
 
     <main layout:fragment="content">
@@ -51,7 +58,7 @@
             <hr class="my-4">
             <a href="/joinform" class="w-100 btn btn-secondary btn-lg">회원가입</a>
         </form>
-      </main>
+    </main>
 </html> -->
         
     

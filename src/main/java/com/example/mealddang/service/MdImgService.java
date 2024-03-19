@@ -22,7 +22,6 @@ import com.example.mealddang.model.repository.MdNutInfoRepository;
 import com.example.mealddang.model.repository.MdNutResultRepository;
 import com.example.mealddang.model.repository.MdUserRepository;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
