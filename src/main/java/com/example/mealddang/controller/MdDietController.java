@@ -10,6 +10,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -231,8 +232,12 @@ public class MdDietController {
     }
 
     // 이미지분석 성공 결과 user/diet/airesult
-    @GetMapping("/airesult")
-    public String getAnalysisResult(String originPath, Model model, Authentication authentication) {
+    @GetMapping(value = "/airesult")
+    public String getAnalysisResult( @RequestParam("originPath") String originPath, Model model, Authentication authentication) {
+        // 파라미터 로그 표시
+        System.out.println("originPath: " + originPath);
+
+
         String username = authentication.getName();
         MdUser mdUser = mdUserService.findByUsername(username);
         model.addAttribute("mdUser", mdUser);
