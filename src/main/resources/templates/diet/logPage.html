@@ -5,18 +5,40 @@
         </section>
 
         <section id="logs">
-            <div class="text-primary text-center pt-20 mb-10">
-                <h3>주간 섭취량</h3>
+            <div class="text-primary text-center">
+                <h3 style="color: black;">주간 섭취량</h3>
                 <div class="date-navigation">
-                    <button type="button" class="btn btn-outline-warning" style="float: left;">저번주</button>
+                    <button id="prev" class="btn btn-outline-warning"> < </button>
                     <div class="date-center">
                         <span th:text="${#temporals.format(#temporals.createNow().with(T(java.time.temporal.TemporalAdjusters).previousOrSame(T(java.time.DayOfWeek).MONDAY)), 'yyyy.MM.dd')}">이번주 월요일</span>
                         <span> - </span>
                         <span th:text="${#temporals.format(#temporals.createNow().with(T(java.time.temporal.TemporalAdjusters).nextOrSame(T(java.time.DayOfWeek).SUNDAY)), 'yyyy.MM.dd')}">이번주 일요일</span>
                     </div>
-                    <button type="button" class="btn btn-outline-warning" style="float: right;">다음주</button>
+                    <button id="next" class="btn btn-outline-warning"> > </button>
                 </div>
-                <div class="text-primary text-center pt-20 mb-10 center">
+<div id="slider">
+<!-- 슬라이드 내용이 들어갈 곳 -->
+<div class="slide" id="lastWeek">저번주 내용</div>
+
+
+<!-- 여기다가내용써야하는데~~~~~~~~~~~~~요 -->
+
+
+
+
+
+
+<div class="slide" id="thisWeek" style="display:none;">이번주 내용</div>
+
+
+
+<!-- 여기다가내용써야하는데~~~~~~~~~~~~~요 -->
+
+
+
+
+</div>
+                <div class="text-primary text-center">
                     <table style="margin: 0 auto;">                    
                         <tbody>
                             <tr id="totalkcal">
@@ -45,7 +67,8 @@
                             </tr>
                         </tbody>
                     </table>
-                    <a href="/user/diet/weekly"><button class="btn btn-outline-warning">주간 AI 리포트</button></a>
+                    <a href="/user/diet/weekly" style="margin-left: auto;">
+                        <button class="btn btn-outline-warning">주간 AI 리포트</button></a>
                 </div>
             </div>
         </section>
@@ -114,6 +137,7 @@
             </div>
             <div class="image-box-wrapper" style="flex: 1; display: flex; justify-content: space-around; align-items: flex-start; margin-bottom: 20px; overflow-x: auto;">
                 <!-- 각 날짜별 결과 테이블 -->
+                
                 <table>
                     <tbody>
                         <tr>
