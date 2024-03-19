@@ -17,10 +17,12 @@ import com.example.mealddang.service.MdImgService;
 import com.example.mealddang.service.MdUserService;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 
 // 회원 관련 서비스 컨트롤러
-@Controller
+@Controller @Slf4j
 public class MdUserController {
 
     @Autowired
@@ -71,11 +73,28 @@ public class MdUserController {
 
     // 로그인 페이지
     @GetMapping("/loginform")
-    public String getLoginPage(Model model, Authentication authentication) {
+    public String getLoginPage(HttpServletRequest request, Model model, Authentication authentication) {
         // 로그인회원이 다시 로그인페이지 접근시 메인화면으로 돌려
         if (authentication != null && authentication.isAuthenticated()) {
             return "redirect:/user/main";
         }
+
+        // 로그인 관련 에러메시지 출력
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            String errorMessage = (String) session.getAttribute("authenticationErrorMessage");
+            Integer errorCode = (Integer) session.getAttribute("authenticationErrorCode");
+            log.info(errorCode + errorMessage);
+            if (errorMessage != null && errorCode != null) {
+                model.addAttribute("errorMessage", errorMessage);
+                model.addAttribute("errorCode", errorCode);
+    
+                // 에러 메시지와 코드를 모델에 추가한 후, 세션에서 해당 속성 제거
+                session.removeAttribute("authenticationErrorMessage");
+                session.removeAttribute("authenticationErrorCode");
+            }
+        }
+
         return "user/loginForm";
     }
 

@@ -1,22 +1,31 @@
 <html layout:decorate="~{layout-inner}">
     <main layout:fragment="content">
 
-        <!-- 이하 section: 상호명 검색창 -->
-        <section>
-            <form class="search-box" action="/user/rsrt/search/name" method="GET">
-                <input onkeyup="enterkey()" type="search" name="searchkey" placeholder="식당 이름 기준 검색"/>
+        <!-- 검색창 section -->
+        <section id="search-box">
+            <h2 class="title">식당 검색</h2>
+            <form action="/user/rsrt/search/name" method="GET">
+                <input onkeyup="enterkey()" type="search" name="searchkey" placeholder="식당 이름 검색"/>
                 <button type="submit" class="btn btn-outline-warning">
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </button>
             </form>
+        </section>
+
+        <!-- 검색 및 필터 결과 section -->
+        <section id="map-result">
             <div class="searchresult" style="display: none;">
-                <h2 class="searchresult-title">식당 이름 검색 결과</h2>
-                <div class="searchResult" th:if="${nameSearchResults == null || nameSearchResults.isEmpty()}">
+                <div th:if="${(nameSearchResults == null || nameSearchResults.isEmpty()) && storeCnt == 0}">
                     <span>0건의 결과를 찾았습니다.</span>
                 </div>
-                <div class="searchResult" th:unless="${nameSearchResults == null || nameSearchResults.isEmpty()}">
+                <div th:if="${!(nameSearchResults == null || nameSearchResults.isEmpty())}">
                     <span th:text="${#lists.size(nameSearchResults)} + '건의 결과를 찾았습니다.'" style="display:inline-block;"></span>
-                    <!-- <table>
+                </div>
+                <div th:if="${storeCnt > 0}">
+                    <span th:text="${storeCnt} + '건의 결과를 찾았습니다.'" style="display:inline-block;"></span>
+                </div>
+                
+                <!-- <table>
                         <tbody class="searchResultTable">
                             <tr th:id="${mdStore.storeId}" th:each="mdStore : ${nameSearchResults}" class="table-row">
                                 <td class="table-data" th:text="${mdStore.storeName != null ? mdStore.storeName : 'N/A'}" style="display: none;"></td>
@@ -24,17 +33,18 @@
                             </tr>
                         </tbody>
                     </table> -->
-                </div>
+
                 <script>
                     document.querySelector('.searchresult').style.display = 'block';
                 </script>
             </div>
         </section>
 
-        <!-- 이하 section : 키워드 카테고리 필터  -->
+        <!-- 키워드 카테고리 필터 section -->
         <section id="category-filter">
             <div class="category-container">
-                <h2 class="category-title">mealddang 카테고리를 선택해보세요</h2>
+                <h2 class="category-title">밀땅 카테고리를 선택해보세요.</h2>
+
                 <div class="category-list">
                     <button class="btn btn-outline-warning" id="atmosphereButton">분위기</button>
                     <script>
@@ -67,7 +77,6 @@
                             window.location.href = '/user/rsrt/filter/atmosphere?keyword=' + keyword;
                         });
                     </script>
-
 
                     <button class="btn btn-outline-warning" id="bookButton">예약가능</button>
                     <script>
@@ -216,11 +225,12 @@
             </div>
         </section>
 
+        <!-- 지도 section -->
         <section id="map">
             <div class="map-container">
                 <div class="map" style="width:70%; height:500px; right: -250px;"></div>
+
                 <!-- <div class="img-search"><h5>이미지 검색</h5></div> -->
-                
                 
                 <!-- 챗봇 코드 추가
                 <div id="chatbot" style="position: fixed; bottom: 20px; right: 20px; width: 300px; height: 400px; border: 1px solid #ccc; background-color: #f9f9f9; overflow-y: auto;">
@@ -255,185 +265,161 @@
             </div>
         </section>
 
-        <!-- <section class="keywordresults" style="display: none;">
-            <h2 class="keywordresult-title">식당 키워드 결과</h2>
-            <div class="keywordResults" th:if="${filteredStores == null || filteredStores.isEmpty()}"> 0건 </div>
-            <div class="keywordResults" th:unless="${filteredStores == null || filteredStores.isEmpty()}">
-                <table>
-                    <tbody class="keywordResultTable">
-                        <tr th:each="mdKey : ${filteredStores}" class="table-row">
-                            <td class="table-data" th:text="${mdKey.storeName != null ? mdKey.storeName : 'N/A'}"></td>
-                            <td class="table-data" th:text="${mdKey.storeRoadAddressN != null ? mdKey.storeRoadAddressN : 'N/A'}"></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </section> -->
+        <script th:inline="javascript">
+            var infowindow = new naver.maps.InfoWindow();
 
-    <!-- 이하 script : 엔터키로 검색 버튼 클릭 기능 -->
-    <script th:inline="javascript">
+            var nameSearchResults = /*[[${nameSearchResults}]]*/ {}; 
+            console.log(nameSearchResults);
+            var filteredStores = /*[[${filteredStores}]]*/ {}; 
+            console.log(filteredStores);
 
-        var infowindow = new naver.maps.InfoWindow();
-
-        var nameSearchResults = /*[[${nameSearchResults}]]*/ {}; 
-        console.log(nameSearchResults);
-        var filteredStores = /*[[${filteredStores}]]*/ {}; 
-        console.log(filteredStores);
-
-        // 지도 생성
-        var map = new naver.maps.Map('map', {
-            center: new naver.maps.LatLng(37.498095, 127.027610), // 강남역 중심으로 하는 지도
-            zoom: 13
-        });
-
-        if (nameSearchResults){
-            // nameSearchResults에 대한 마커 생성
-            nameSearchResults.forEach(function(store) {
-                var marker = new naver.maps.Marker({
-                    position: new naver.maps.LatLng(store.storeY, store.storeX),
-                    map: map
-                });
-                
-                var contentString = [
-                    '<div class="iw_inner">',
-                    '   <h3>' + store.storeName + '</h3>',
-                    '   <p>' + store.storeAddr + '<br />',
-                    '       <img src= '+ store.storeImgUrl + '" width="55" height="55" alt="' + store.storeName + '" class="thumb" /><br />',
-                    '       ' + store.storeTel + ' | <button onclick="window.open(\'' + store.storeMenuUrlN + '\', \'_blank\')">메뉴 보기</button>',
-                    '   </p>',
-                    '</div>'
-                ].join('');
-
-                var infowindow = new naver.maps.InfoWindow({
-                    content: contentString,
-                    maxWidth: 300,
-                    backgroundColor: "lightyellow", // 연노랑색 배경
-                    borderColor: "#ffc107", // 노란색 테두리
-                    borderWidth: 3,
-                    anchorSize: new naver.maps.Size(30, 30),
-                    anchorSkew: true,
-                    anchorColor: "lightyellow", // 연노랑색 앵커
-                    pixelOffset: new naver.maps.Point(20, -20)
-                });
-        
-                naver.maps.Event.addListener(marker, 'click', function(e) {
-                    if (infowindow.getMap()) {
-                        infowindow.close();
-                    } else {
-                        infowindow.setContent(contentString);
-                        infowindow.open(map, marker);
-                    }
-                });
+            // 지도 생성
+            var map = new naver.maps.Map('map', {
+                center: new naver.maps.LatLng(37.498095, 127.027610), // 강남역 중심으로 하는 지도
+                zoom: 13
             });
-        }
 
-        if(filteredStores){
-            // filteredStores에 대한 마커 생성
-            filteredStores.forEach(function(store) {
-                var marker = new naver.maps.Marker({
-                    position: new naver.maps.LatLng(store.storeY, store.storeX),
-                    map: map
-                });
-                
-                var contentString = [
-                    '<div class="iw_inner">',
-                    '   <h3>' + store.storeName + '</h3>',
-                    '   <p>' + store.storeRoadAddressN + '<br />',
-                    '       <img src="' + store.storeImageUrl + '" width="55" height="55" alt="' + store.storeName + '" class="thumb" /><br />',
-                    '       ' + store.storePhone + ' | <button onclick="window.open(\'' + store.storeMenuUrlN + '\', \'_blank\')">메뉴 보기</button>',
-                    '   </p>',
-                    '</div>'
-                ].join('');
+            if (nameSearchResults){
+                // nameSearchResults에 대한 마커 생성
+                nameSearchResults.forEach(function(store) {
+                    var marker = new naver.maps.Marker({
+                        position: new naver.maps.LatLng(store.storeY, store.storeX),
+                        map: map
+                    });
+                    
+                    var contentString = [
+                        '<div class="iw_inner">',
+                        '   <h3>' + store.storeName + '</h3>',
+                        '   <p>' + store.storeAddr + '<br />',
+                        '       <img src= '+ store.storeImgUrl + '" width="55" height="55" alt="' + store.storeName + '" class="thumb" /><br />',
+                        '       ' + store.storeTel + ' | <button onclick="window.open(\'' + store.storeMenuUrlN + '\', \'_blank\')">메뉴 보기</button>',
+                        '   </p>',
+                        '</div>'
+                    ].join('');
 
-                var infowindow = new naver.maps.InfoWindow({
-                    content: contentString,
-                    maxWidth: 300,
-                    backgroundColor: "lightyellow", // 연노랑색 배경
-                    borderColor: "#ffc107", // 노란색 테두리
-                    borderWidth: 3,
-                    anchorSize: new naver.maps.Size(30, 30),
-                    anchorSkew: true,
-                    anchorColor: "lightyellow", // 연노랑색 앵커
-                    pixelOffset: new naver.maps.Point(20, -20)
+                    var infowindow = new naver.maps.InfoWindow({
+                        content: contentString,
+                        maxWidth: 300,
+                        backgroundColor: "lightyellow", // 연노랑색 배경
+                        borderColor: "#ffc107", // 노란색 테두리
+                        borderWidth: 3,
+                        anchorSize: new naver.maps.Size(30, 30),
+                        anchorSkew: true,
+                        anchorColor: "lightyellow", // 연노랑색 앵커
+                        pixelOffset: new naver.maps.Point(20, -20)
+                    });
+            
+                    naver.maps.Event.addListener(marker, 'click', function(e) {
+                        if (infowindow.getMap()) {
+                            infowindow.close();
+                        } else {
+                            infowindow.setContent(contentString);
+                            infowindow.open(map, marker);
+                        }
+                    });
                 });
-                // 정보 창 내용 설정 후 열기
-                naver.maps.Event.addListener(marker, 'click', function(e) {
-                    if (infowindow.getMap()) {
-                        infowindow.close();
-                    } else {
-                        infowindow.setContent(contentString);
-                        infowindow.open(map, marker);
+            }
+
+            if(filteredStores){
+                // filteredStores에 대한 마커 생성
+                filteredStores.forEach(function(store) {
+                    var marker = new naver.maps.Marker({
+                        position: new naver.maps.LatLng(store.storeY, store.storeX),
+                        map: map
+                    });
+                    
+                    var contentString = [
+                        '<div class="iw_inner">',
+                        '   <h3>' + store.storeName + '</h3>',
+                        '   <p>' + store.storeRoadAddressN + '<br />',
+                        '       <img src="' + store.storeImageUrl + '" width="55" height="55" alt="' + store.storeName + '" class="thumb" /><br />',
+                        '       ' + store.storePhone + ' | <button onclick="window.open(\'' + store.storeMenuUrlN + '\', \'_blank\')">메뉴 보기</button>',
+                        '   </p>',
+                        '</div>'
+                    ].join('');
+
+                    var infowindow = new naver.maps.InfoWindow({
+                        content: contentString,
+                        maxWidth: 300,
+                        backgroundColor: "lightyellow", // 연노랑색 배경
+                        borderColor: "#ffc107", // 노란색 테두리
+                        borderWidth: 3,
+                        anchorSize: new naver.maps.Size(30, 30),
+                        anchorSkew: true,
+                        anchorColor: "lightyellow", // 연노랑색 앵커
+                        pixelOffset: new naver.maps.Point(20, -20)
+                    });
+                    // 정보 창 내용 설정 후 열기
+                    naver.maps.Event.addListener(marker, 'click', function(e) {
+                        if (infowindow.getMap()) {
+                            infowindow.close();
+                        } else {
+                            infowindow.setContent(contentString);
+                            infowindow.open(map, marker);
+                        }
+                    });
+                }); 
+                // 검색창 엔터키 이벤트
+                function enterkey() {
+                    if (window.event.keyCode == 13) {
+                        document.getElementById("searchForm").submit();
                     }
-                });
-            }); 
-            // 엔터키 이벤트
-            function enterkey() {
-                if (window.event.keyCode == 13) {
-                    document.getElementById("searchForm").submit();
+                    return false
                 }
-                return false
             }
-        }
 
-        //실시간 위치 업데이트
-        var currentMarker = null; // 현재 마커를 저장할 전역 변수
-        var lastPosition = null; // 마지막 위치를 저장할 전역 변수
-        var isFirstLocation = true; // 첫 번째 위치 확인인지 여부를 저장할 변수
+            //실시간 위치 업데이트
+            var currentMarker = null; // 현재 마커를 저장할 전역 변수
+            var lastPosition = null; // 마지막 위치를 저장할 전역 변수
+            var isFirstLocation = true; // 첫 번째 위치 확인인지 여부를 저장할 변수
 
-        setInterval(function() {
-            navigator.geolocation.getCurrentPosition(function(position) {
-                var latitude = position.coords.latitude;
-                var longitude = position.coords.longitude;
-        
-        // 새 위치와 마지막 위치를 비교
-        if (lastPosition && latitude === lastPosition.lat && longitude === lastPosition.lng) {
-            // 위치가 변경되지 않았으면 아무것도 하지 않음
-            return;
-        }
+            setInterval(function() {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    var latitude = position.coords.latitude;
+                    var longitude = position.coords.longitude;
+            
+                // 새 위치와 마지막 위치를 비교
+                if (lastPosition && latitude === lastPosition.lat && longitude === lastPosition.lng) {
+                    // 위치가 변경되지 않았으면 아무것도 하지 않음
+                    return;
+                }
 
-        // 새 위치를 마지막 위치로 업데이트
-        lastPosition = { lat: latitude, lng: longitude };
+                // 새 위치를 마지막 위치로 업데이트
+                lastPosition = { lat: latitude, lng: longitude };
 
-        // 이전 마커가 있으면 지도에서 제거
-        if (currentMarker) {
-            currentMarker.setMap(null);
-        }
+                // 이전 마커가 있으면 지도에서 제거
+                if (currentMarker) {
+                    currentMarker.setMap(null);
+                }
 
-        // var markerOptions = {
-        //     position: new naver.maps.LatLng(latitude, longitude),
-        //     map: map,
-        //     icon: {
-        //         content: '<img src="/static/icons/map-marker-icon_34392.png" style="width: 33px; height: 33px;">'
-        //     } // 빨간색 마커 이미지로 설정
-        // };
+                // var markerOptions = {
+                //     position: new naver.maps.LatLng(latitude, longitude),
+                //     map: map,
+                //     icon: {
+                //         content: '<img src="/static/icons/map-marker-icon_34392.png" style="width: 33px; height: 33px;">'
+                //     } // 빨간색 마커 이미지로 설정
+                // };
 
-        var markerOptions = {
-            position: new naver.maps.LatLng(latitude, longitude),
-            map: map,
-            icon: {
-                url: '/icons/map-marker-icon_34392.png', // 이미지의 경로를 설정합니다.
-                size: new naver.maps.Size(33, 33), // 이미지의 크기를 설정합니다.
-                scaledSize: new naver.maps.Size(33, 33) // 이미지의 크기를 화면에 표시될 크기로 조절합니다.
-            }
-        };
-        var marker = new naver.maps.Marker(markerOptions);
-        
-        // 새로 생성된 마커를 현재 마커로 저장
-        currentMarker = marker;
+                var markerOptions = {
+                    position: new naver.maps.LatLng(latitude, longitude),
+                    map: map,
+                    icon: {
+                        url: '/icons/map-marker-icon_34392.png', // 이미지의 경로를 설정합니다.
+                        size: new naver.maps.Size(33, 33), // 이미지의 크기를 설정합니다.
+                        scaledSize: new naver.maps.Size(33, 33) // 이미지의 크기를 화면에 표시될 크기로 조절합니다.
+                    }
+                };
+                var marker = new naver.maps.Marker(markerOptions);
+                
+                // 새로 생성된 마커를 현재 마커로 저장
+                currentMarker = marker;
 
-        // 첫 번째 위치 확인이거나 위치가 변경된 경우에만 지도의 중심을 현재 위치로 이동
-        if (isFirstLocation || (latitude !== lastPosition.lat || longitude !== lastPosition.lng)) {
-            map.setCenter(markerOptions.position);
-            isFirstLocation = false; // 첫 번째 위치 확인이 끝났으므로 false로 설정
-            }
-        });
-    }, 5000);
-
-
-
-    
-
-
-    </script>
+                // 첫 번째 위치 확인이거나 위치가 변경된 경우에만 지도의 중심을 현재 위치로 이동
+                if (isFirstLocation || (latitude !== lastPosition.lat || longitude !== lastPosition.lng)) {
+                    map.setCenter(markerOptions.position);
+                    isFirstLocation = false; // 첫 번째 위치 확인이 끝났으므로 false로 설정
+                }
+                });
+            }, 5000);
+        </script>
     </main>
-</html>

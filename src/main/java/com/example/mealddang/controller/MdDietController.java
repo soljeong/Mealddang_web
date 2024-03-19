@@ -21,11 +21,7 @@ import com.example.mealddang.service.MdDietService;
 import com.example.mealddang.service.MdUserService;
 import com.example.mealddang.service.MdImgService;
 
-
 import java.time.LocalDate;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 // [인증 후] 식단관리(밀땅일지) 컨트롤러
 @Controller @RequestMapping("/user/diet")
@@ -142,8 +138,6 @@ public class MdDietController {
             model.addAttribute(date.getDayOfWeek().toString().toLowerCase() + "eachPhotoPaths", eachPhotoPaths);
         }
 
-        
-        
         // List<MdNutResult> nutResults = mdNutResultRepository.findByMdUserAndDate(mdUser, selectedDate);
         // logger.info("Nutrition results for user {} on date {}: {}", mdUser.getUsername(), selectedDate, nutResults);
 
