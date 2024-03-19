@@ -39,7 +39,7 @@
                 var selectedDate = $('#selectedDate').text();
                 console.log("selectedDate:", selectedDate); 
                 formData.append('date', selectedDate);
-                formData.append('file', event.target.files[0]); // 파일 추가
+                formData.append('imgfile', event.target.files[0]); // 파일 추가
                 $.ajax({
                     url: '/api-upload',
                     type: 'POST',
