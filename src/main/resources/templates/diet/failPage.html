@@ -2,8 +2,22 @@
     <main layout:fragment="content">
         <section id="title">
             <a href="/user/diet/log"><h3 th:text="${mdUser.nickname != null ? mdUser.nickname : mdUser.username} + '님의 밀땅일지'"></h3></a>
-            <p>테스트 페이지~~~~~~~</p>
-            <p>실패페이지</p>
+            <h3 class="text-primary text-center pt-20 mb-10">이미지 AI 분석 실패</h3>
+            <div class="container">
+                <div class="box large-box">
+                    <!-- Large box content -->
+                    <span>+</span>
+                </div>
+                <div class="small-boxes-container">
+                <!-- Small boxes -->
+                    <div class="box small-box">부트디 이미지</div>
+                    <div class="box small-box">부트디 이미지</div>
+                    <div class="box small-box">부트디 이미지</div>
+                </div>
+                <button class="button">저장</button>
+            </div>
+    </main>
+        
 
 <!-- <title>Layout Example</title> -->
 <style>
@@ -42,22 +56,3 @@ border: none;
 border-radius: 5px;
 }
 </style>
-</head>
-<body>
-<div class="container">
-<div class="box large-box">
-<!-- Large box content -->
-<span>+</span>
-</div>
-<div class="small-boxes-container">
-<!-- Small boxes -->
-<div class="box small-box">부트디 이미지</div>
-<div class="box small-box">부트디 이미지</div>
-<div class="box small-box">부트디 이미지</div>
-</div>
-<button class="button">저장</button>
-
-</div>
-</body>
-</html>
-        </section>

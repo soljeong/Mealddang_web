@@ -24,7 +24,6 @@ public interface MdNutResultRepository extends JpaRepository<MdNutResult, Long> 
     public List<MdNutResult> findByMdUserAndtoDate(@Param(value="username") String username, @Param(value="today") LocalDate today);
 
 
-
     // 회원ID로 해당 회원의 모든 업로드이미지(원본) 경로 찾기 -> MyGallery
     @Query(value = "SELECT DISTINCT(origin_path) FROM md_nut_result WHERE user_id = :username", nativeQuery = true)
     public List<String> findAllPathbyUsername(@Param(value="username") String username);
@@ -44,9 +43,13 @@ public interface MdNutResultRepository extends JpaRepository<MdNutResult, Long> 
                 "AND m.created_date >= ADDDATE(CURDATE(), - WEEKDAY(CURDATE()))" + 
                 "AND m.created_date < ADDDATE(CURDATE(), - WEEKDAY(CURDATE())+7)", nativeQuery = true)
     public List<Object[]> weekTotal(@Param(value = "username") String username);
-    // 해당 회원의 가장 최근 결과 가져오기
+
+    // 해당 회원의 가장 최근 결과 가져오기 [삭제 예정]
     @Query(value = "SELECT * FROM md_nut_result WHERE user_id = :username ORDER BY update_date DESC LIMIT 1", nativeQuery = true)
     public MdNutResult findTop1ByMdUserOrderByUpdateDateDesc(@Param(value = "username") String username);
 
+    // origin_path로 분석결과 리스트 가져오기
+    @Query(value = "SELECT * FROM md_nut_result WHERE user_id = :username AND origin_path = :origin_path", nativeQuery = true)
+    public List<MdNutResult> findAllNResultByOriPath(@Param(value = "username") String username, @Param(value = "origin_path") String origin_path);
 }
 

@@ -31,13 +31,17 @@
         </section>
         <script>
             function handleFileChange(event) {
+                
                 setThumbnail(event); // 썸네일 설정
-                var formData = new FormData($('#uploadForm')[0]);
+
+                // var formData = new FormData($('#uploadForm')[0]);
+                var formData = new FormData();  // 업로더 초기화
                 var selectedDate = $('#selectedDate').text();
                 console.log("selectedDate:", selectedDate); 
                 formData.append('date', selectedDate);
+                formData.append('imgfile', event.target.files[0]); // 파일 추가
                 $.ajax({
-                    url: '/api-upload', // '/api-upload' 엔드포인트 사용
+                    url: '/api-upload',
                     type: 'POST',
                     data: formData,
                     processData: false, // FormData 사용 시 필수
@@ -52,8 +56,10 @@
             }
         
             function setThumbnail(event) {
+                var uploadThumbnail = document.querySelector("#upload-thumbnail");
+                uploadThumbnail.innerHTML = ''; // 이전에 생성된 썸네일이 있다면 삭제
+
                 var reader = new FileReader();
-                
                 reader.onload = function(event) {
                     var img = document.createElement("img");
                     img.setAttribute("src", event.target.result);

@@ -16,13 +16,16 @@ function fetchYoloResult(selectedDate) {
     .then(data => {
         console.log(data); // 서버로부터 받은 데이터 처리
         // 여기에서 받은 데이터를 바탕으로 웹 페이지에 결과를 표시할 수 있음
+        console.log(data.mdNutResults[0].originPath.originPath); // 서버로부터 받은 데이터 처리
+        // 서버로부터 받은 데이터를 js 글로벌 변수에 담기
+        window.yoloResult = data;
 
         // 로딩 화면 숨기기
         document.getElementById('loadingScreen').style.display = 'none';
 
         // 결과 페이지로 이동하거나 결과 섹션 표시
         // 결과 페이지로 리다이렉트하는 경우:
-        window.location.href = 'http://localhost:8080/user/diet/analysis_result_ok';
+        window.location.href = 'http://localhost:8080/user/diet/airesult?originPath=' + data.mdNutResults[0].originPath.originPath;
 
         // 또는 결과 섹션을 동적으로 업데이트하는 경우:
         // document.getElementById('resultSection').style.display = 'block';
