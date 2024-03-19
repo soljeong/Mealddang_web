@@ -7,10 +7,16 @@
         <section id="logs">
             <div class="text-primary text-center pt-20 mb-10">
                 <h3>주간 섭취량</h3>
-                <span th:text="${#temporals.format(#temporals.createNow().with(T(java.time.temporal.TemporalAdjusters).previousOrSame(T(java.time.DayOfWeek).MONDAY)), 'yyyy.MM.dd')}">이번주 월요일</span>
-                <span> - </span>
-                <span th:text="${#temporals.format(#temporals.createNow().with(T(java.time.temporal.TemporalAdjusters).nextOrSame(T(java.time.DayOfWeek).SUNDAY)), 'yyyy.MM.dd')}">이번주 일요일</span>
-                <table>
+                <div class="date-navigation">
+                <button type="button" class="btn btn-outline-warning" style="float: left;">저번주</button>
+                <div class="date-center pt-20 mb-10">
+                    <span th:text="${#temporals.format(#temporals.createNow().with(T(java.time.temporal.TemporalAdjusters).previousOrSame(T(java.time.DayOfWeek).MONDAY)), 'yyyy.MM.dd')}">이번주 월요일</span>
+                    <span> - </span>
+                    <span th:text="${#temporals.format(#temporals.createNow().with(T(java.time.temporal.TemporalAdjusters).nextOrSame(T(java.time.DayOfWeek).SUNDAY)), 'yyyy.MM.dd')}">이번주 일요일</span>
+                </div>
+                <button type="button" class="btn btn-outline-warning" style="float: right;">다음주</button>
+                <div class="text-primary text-center pt-20 mb-10">
+                <table>                    
                     <tbody>
                         <tr id="kcal">
                             <td>칼로리</td>
@@ -43,6 +49,7 @@
                     </tbody>
                 </table>
                 <a href="/user/diet/weekly"><button class="btn btn-outline-warning">주간 AI 리포트</button></a>
+            </div>
             </div>
         </section>
         <hr>
