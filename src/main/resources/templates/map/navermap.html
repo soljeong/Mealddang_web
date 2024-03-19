@@ -53,7 +53,24 @@
                             window.location.href = '/user/rsrt/filter/atmosphere?keyword=' + keyword;
                         });
                     </script>
-
+                    <script>
+                      document.addEventListener("DOMContentLoaded", function() {
+                          var atmosphereButton = document.getElementById("atmosphereButton");
+                          var keyword = encodeURIComponent("분위기");
+                  
+                          atmosphereButton.addEventListener("click", function() {
+                              window.location.href = '/user/rsrt/filter/atmosphere?keyword=' + keyword;
+                          });
+                  
+                          // 버튼 상태 유지
+                          var urlParams = new URLSearchParams(window.location.search);
+                          var currentKeyword = decodeURIComponent(urlParams.get("keyword"));
+                  
+                          if (currentKeyword === "분위기") {
+                              atmosphereButton.classList.add("active");
+                          }
+                      });
+                  </script>
                     <button class="btn btn-outline-warning" id="tasteButton">맛있는</button>
                     <script>
                         document.getElementById("tasteButton").addEventListener("click", function() {
