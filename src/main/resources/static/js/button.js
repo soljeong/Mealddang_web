@@ -1,21 +1,21 @@
 document.addEventListener("DOMContentLoaded", function() {
-  var buttons = document.querySelectorAll(".btn.btn-outline-warning");
+    var buttons = document.querySelectorAll(".activebtn");
 
-  buttons.forEach(function(button) {
-      var keyword = encodeURIComponent(button.innerText);
+    buttons.forEach(function(button) {
+        var keyword = encodeURIComponent(button.innerText);
 
-      button.addEventListener("click", function() {
-          window.location.href = '/user/rsrt/filter/atmosphere?keyword=' + keyword;
-      });
+        button.addEventListener("click", function() {
+            window.location.href = '/user/rsrt/filter/atmosphere?keyword=' + keyword;
+        });
 
-      // 버튼 상태 유지
-      var urlParams = new URLSearchParams(window.location.search);
-      var currentKeyword = decodeURIComponent(urlParams.get("keyword"));
+        // 버튼 상태 유지
+        var urlParams = new URLSearchParams(window.location.search);
+        var currentKeyword = decodeURIComponent(urlParams.get("keyword"));
 
-      if (currentKeyword === button.innerText) {
-          button.classList.add("active");
-      }
-  });
+        if (currentKeyword === button.innerText) {
+            button.classList.add("active");
+        }
+    });
 });
 // document.addEventListener("DOMContentLoaded", function() {
 //   var buttons = document.getElementsByClassName("filterButton");
