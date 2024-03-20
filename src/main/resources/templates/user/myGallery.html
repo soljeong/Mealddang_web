@@ -1,24 +1,20 @@
-<html layout:decorate="~{layout-inner}"> 
-  <main layout:fragment="content">
-    <link href="/css/imgGrid.css" rel="stylesheet">
-        <h3 th:text="${mdUser.nickname != null ? mdUser.nickname : mdUser.username} + '님의 갤러리'"></h3>
-        <hr class="my-4">
-        <section id="gallery">
-            <div class="my-img" th:if="${mygallery == null || mygallery.isEmpty()}">
-                <p>아직 사진이 없네요...</p>
-                <p>음식사진 올리고 분석 결과 확인해보기~ (링크 연결 해야함)</p>
+<html layout:decorate="~{layout-inner}">
+    <main layout:fragment="content">
+        <div class="container page-top">
+            <!-- 마이갤러리가 없을 경우 -->
+            <div class="row" th:if="${mygallery == null || mygallery.isEmpty()}">
+                <p> 아직 이미지 AI 분석 히스토리가 없습니다. </p>
+                <p> 이미지 AI 분석을 해보시겠어요? </p>
             </div>
-            <div class="my-img" th:unless="${mygallery == null || mygallery.isEmpty()}">
-              <ul class="image-grid">
-                <li th:each="myphoto : ${mygallery}"><img th:src="@{'/uploaded/'+${myphoto}}"></li>
-              </ul>
+
+            <!-- 마이갤러리가 있을 경우 -->
+            <div class="row" th:unless="${mygallery == null || mygallery.isEmpty()}">
+                <div class="col-lg-3 col-md-4 col-xs-6 thumb" th:each="myphoto : ${mygallery}">
+                    <a th:href="|http://localhost:8080/user/diet/airesult?originPath=${myphoto}|">
+                        <img th:src="@{'/uploaded/'+${myphoto}}" class="zoom img-fluid" alt="Origin-Img-Analyzed">
+                    </a>
+                </div>
             </div>
-            
-    <div class="wrap">
-        <!-- <img src="https://images.unsplash.com/photo-1689122777005-44185708d220?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="">
-    <img src="https://images.unsplash.com/photo-1670831945939-c8ec61856016?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="">
-    <img src="https://images.unsplash.com/photo-1670899555263-4546f62ebce9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=735&q=80" alt=""> -->
-    </div>
-        </section>
+        </div>
     </main>
 </html>
