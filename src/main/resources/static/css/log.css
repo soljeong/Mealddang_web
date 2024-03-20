@@ -1,3 +1,12 @@
+.yellow-border {
+
+    border: 3px solid #ffc107;
+    padding: 20px;
+    margin: 20px 0;
+    border-radius: 10px;
+    /* 모서리를 둥글게 */
+}
+
 #logs {
     
     border: 3px solid #ffc107;
@@ -52,7 +61,9 @@ table td {
     margin-bottom: 20px;
 }
 .image-box-wrapper {
-    
+    border: 2px solid rgb(26, 155, 95);
+    padding: 20px;
+    border-radius: 10px;
     flex: 1;
     display: flex;
     justify-content: flex-start;
@@ -62,19 +73,21 @@ table td {
     overflow-y: hidden;
     white-space: nowrap; /* 이미지를 가로로 나열하기 위해 필요한 CSS 속성 */
 }
+.image-box-wrapper:not(:has(img)) {
+    height: 244px; /* 원하는 이미지 세로 크기 */
+
+}
 .image-box {
-    
     width: 200px; /* 원하는 이미지 가로 크기 */
     height: 200px; /* 원하는 이미지 세로 크기 */
     overflow: hidden; /* 이미지가 지정된 크기를 초과하는 경우를 대비하여 오버플로우 처리 */
     margin-right: 10px; 
-    border: 1px solid #000; /* 테두리 스타일 및 색상 설정 */
-    padding: 5px; /* 테두리와 이미지 사이의 간격 설정 */
 }
 .image-box img {
+    border-radius: 10px; /* 이미지 모서리를 둥글게 */
     width: 100%;
     height: 100%;
-    object-fit: contain; /* 이미지가 비율을 유지하면서 박스 안에 들어가도록 합니다. */
+    object-fit: cover; /* 이미지를 확대 또는 축소하여 이미지 박스에 가득 차도록 설정 */
 }
 
 .slide {
