@@ -54,18 +54,23 @@
                             <img th:src="@{'/uploaded/'+${nResult.resultPath}}" class="img-fluid" alt="분석 결과">
                             <div class="analysis-details">
                                 <ul class="list-unstyled">
-                                    <li><strong>음식이름:</strong><span th:text="${nResult.resultLabel}"></span></li>
-                                    <li><strong>칼로리:</strong><span th:text="${nResult.kcal}"></span></li>
-                                    <li><strong>탄수화물:</strong><span th:text="${nResult.carboG}"></span></li>
-                                    <li><strong>지방:</strong><span th:text="${nResult.fatG}"></span></li>
-                                    <li><strong>단백질:</strong><span th:text="${nResult.proteinG}"></span></li>
+                                    <li><strong>음 식 명</strong><br>
+                                        <span class="indent" th:text="${nResult.resultLabel}"></span></li>
+                                    <li><strong>칼 로 리</strong><br>
+                                        <span class="indent" th:text="${#numbers.formatDecimal(nResult.kcal, 1, 1)} + ' kcal'"></span></li>
+                                    <li><strong>탄수화물</strong><br>
+                                        <span class="indent" th:text="${#numbers.formatDecimal(nResult.carboG, 1, 1)} + ' g'"></span></li>
+                                    <li><strong>지    방</strong><br>
+                                        <span class="indent" th:text="${#numbers.formatDecimal(nResult.fatG, 1, 1)} + ' g'"></span></li>
+                                    <li><strong>단 백 질</strong><br>
+                                        <span class="indent" th:text="${#numbers.formatDecimal(nResult.proteinG, 1, 1)} + ' g'"></span></li>
                                 </ul>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <button onclick="goBack()" type="button" class="btn btn-outline-warning" > 뒤로 가기 </button>
+            <button onclick="goBack()" type="button" class="btn btn-outline-warning" style="width: 100px;"> 뒤로 가기 </button>
             <script>
             function goBack() {
                 window.history.back();

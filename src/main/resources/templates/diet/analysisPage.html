@@ -1,34 +1,44 @@
 <html layout:decorate="~{layout-inner}">
     <main layout:fragment="content">
-        <section id="title">
-            <a href="/user/diet/log"><h3 th:text="${mdUser.nickname != null ? mdUser.nickname : mdUser.username} + '님의 밀땅일지'"></h3></a>
-            <h3 class="text-primary text-center pt-20 mb-10">이미지 AI 분석</h3>
-        </section>
-
-        <section id="content" class="row align-items-md-stretch">
-            <div id="uploader" class="col-md-6">
-                
-                <form id="uploadForm" enctype="multipart/form-data">
-                    <input type="file" name="imgfile" onchange="handleFileChange(event);"/>
-                </form>
-                <div id="upload-thumbnail"></div> <!-- 썸네일 이미지를 표시할 공간 -->
-
-                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-                <p th:text="${selectedDate}" id="selectedDate" style="display: none;">선택된 날짜</p>
-                <button id="analyzeButton">이미지 분석</button>
-                <!-- 로딩 화면 -->
-                <div id="loadingScreen" style="display: none;">
+        <div class="container">
+            <!-- 제목 -->
+            <div class="row mt-5">
+                <div class="col">
+                    <a href="/user/diet/log"><h3 th:text="${mdUser.nickname != null ? mdUser.nickname : mdUser.username} + '님의 밀땅일지'"></h3></a>
+                    <h3 class="text-primary text-center pt-20 mb-10">이미지 AI 분석</h3>
+                </div>
+            </div>
+        
+            <!-- 이미지 업로드 폼 -->
+            <div class="row mt-4">
+                <div class="col-md-6 offset-md-3">
+                    <form id="uploadForm" enctype="multipart/form-data">
+                        <div class="position-relative mb-3">
+                            <input onchange="handleFileChange(event);" type="file" name="imgfile" class="form-control d-none" id="file" accept="image/*">
+                            <label id="upload-thumbnail" for="file"
+                                class="p-0 btn w-100 h-100 bg-white border border-primary rounded-lg d-flex justify-content-center align-items-center cursor-pointer"
+                                style="min-height: 300px;">
+                                <i class="bi bi-plus fs-1"></i>
+                                <p class="text-sm text-gray-6 ms-2">식단 사진을 업로드 해주세요.</p>
+                            </label>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- 전송 버튼 -->
+            <div class="row mt-4">
+                <div class="col-md-6 offset-md-3">
+                    <p th:text="${selectedDate}" id="selectedDate" style="display: none;">선택된 날짜</p>
+                    <button id="analyzeButton" class="btn btn-primary w-100" type="submit">분석 시작</button>
+                </div>
+            </div>
+            <div id="loadingScreen" style="display: none;">
                 <div class="mask" style="display: none;">
                     <img class="loadingImg" src='/icons/Bean Eater-1s-124px (1).gif'>
-                <!-- </div>
-                <p>분석 중입니다. 잠시만 기다려주세요...</p> -->
+                </div>
             </div>
-            <!-- 결과 페이지 또는 섹션 -->
-            <div id="resultSection" style="display: none;">
-                <!-- 결과가 여기에 표시됩니다 -->
-            </div>
-
-        </section>
+        </div>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script>
             function handleFileChange(event) {
                 
