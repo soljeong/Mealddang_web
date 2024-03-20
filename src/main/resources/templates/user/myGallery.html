@@ -1,34 +1,20 @@
 <html layout:decorate="~{layout-inner}">
-  <main layout:fragment="content">
-    <div class="container page-top">
+    <main layout:fragment="content">
+        <div class="container page-top">
+            <!-- 마이갤러리가 없을 경우 -->
+            <div class="row" th:if="${mygallery == null || mygallery.isEmpty()}">
+                <p> 아직 이미지 AI 분석 히스토리가 없습니다. </p>
+                <p> 이미지 AI 분석을 해보시겠어요? </p>
+            </div>
 
-      <!-- 마이갤러리가 없을 경우 -->
-      <div class="row" th:if="${mygallery == null || mygallery.isEmpty()}">
-        <p> 아직 이미지 AI 분석 히스토리가 없습니다. </p>
-        <p> 이미지 AI 분석을 해보시겠어요? </p>
-      </div>
-
-      <!-- 마이갤러리가 있을 경우 -->
-      <div class="row" th:unless="${mygallery == null || mygallery.isEmpty()}">
-        <div class="col-lg-3 col-md-4 col-xs-6 thumb" th:each="myphoto : ${mygallery}">
-            <a th:href="@{'http://localhost:8080/uploaded/' + ${myphoto}}" class="fancybox" rel="ligthbox">
-                <img th:src="@{'/uploaded/'+${myphoto}}" class="zoom img-fluid" alt="Origin-Img-Analyzed">
-            </a>
+            <!-- 마이갤러리가 있을 경우 -->
+            <div class="row" th:unless="${mygallery == null || mygallery.isEmpty()}">
+                <div class="col-lg-3 col-md-4 col-xs-6 thumb" th:each="myphoto : ${mygallery}">
+                    <a th:href="|http://localhost:8080/user/diet/airesult?originPath=${myphoto}|">
+                        <img th:src="@{'/uploaded/'+${myphoto}}" class="zoom img-fluid" alt="Origin-Img-Analyzed">
+                    </a>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  </main>
-  <script>
-    $(document).ready(function(){
-        $(".fancybox").fancybox({
-            openEffect: "none",
-            closeEffect: "none"
-        });
-        $(".zoom").hover(function(){
-            $(this).addClass('transition');
-        }, function(){
-            $(this).removeClass('transition');
-        });
-    });
-</script>
+    </main>
 </html>
