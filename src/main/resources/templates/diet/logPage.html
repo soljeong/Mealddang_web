@@ -1,215 +1,225 @@
 <html layout:decorate="~{layout-inner}">
-    <main layout:fragment="content">
+    <main class="container" layout:fragment="content">
+        <!-- 제목 섹션 -->
         <section id="title">
             <a href="/user/diet/log"><h3 th:text="${mdUser.nickname != null ? mdUser.nickname : mdUser.username} + '님의 밀땅일지'"></h3></a>
         </section>
 
-        <section id="logs">
-            <div class="text-primary text-center">
+        <!-- 슬라이드 섹션 -->
+        <section class="container yellow-border">
+            <div class="text-center">
                 <h3 style="color: black;">주간 섭취량</h3>
-                <a href="/user/diet/weekly" style="margin-left: auto;">
-                        button class="btn btn-outline-warning">주간 AI 리포트</button></a>
                 <div class="date-navigation">
                     <button id="prev" class="btn btn-outline-warning"> < </button>
-                    <div class="date-center">
-                        <span th:text="${#temporals.format(#temporals.createNow().with(T(java.time.temporal.TemporalAdjusters).previousOrSame(T(java.time.DayOfWeek).MONDAY)), 'yyyy.MM.dd')}">이번주 월요일</span>
-                        <span> - </span>
-                        <span th:text="${#temporals.format(#temporals.createNow().with(T(java.time.temporal.TemporalAdjusters).nextOrSame(T(java.time.DayOfWeek).SUNDAY)), 'yyyy.MM.dd')}">이번주 일요일</span>
-                    </div>
+                        <div class="date-center">
+                            <div class="text-primary text-center">
+                                <a href="/user/diet/weekly" style="margin-left: auto;">
+                                    <button class="btn btn-outline-warning">주간 AI 리포트</button></a>
+                            </div>
+                        </div>
                     <button id="next" class="btn btn-outline-warning"> > </button>
                 </div>
-<div id="slider">
-<!-- 슬라이드 내용이 들어갈 곳 -->
-<div class="slide" id="lastWeek">저번주 내용</div>
+                <div id="slider">
+                    <!-- 슬라이드 내용이 들어갈 곳 -->
+                    <div class="slide" id="lastWeek">
+                        저번주 내용
+                        <div class="date-center">
+                            <span th:text="${#temporals.format(#temporals.createNow().with(T(java.time.temporal.TemporalAdjusters).previousOrSame(T(java.time.DayOfWeek).MONDAY)), 'yyyy.MM.dd')}">이번주 월요일</span>
+                            <span> - </span>
+                            <span th:text="${#temporals.format(#temporals.createNow().with(T(java.time.temporal.TemporalAdjusters).nextOrSame(T(java.time.DayOfWeek).SUNDAY)), 'yyyy.MM.dd')}">이번주 일요일</span>
+                        </div>
+                        <table style="margin: 0 auto;">
+                            <tbody>
+                                <tr id="totalkcal">
+                                    <td colspan="2" style="text-align: left;">칼로리</td>
+                                    <td colspan="3" style="text-align: right;">
+                                        <span th:text="${totalKcal + ' / ' + (md_diet.kcal != null ? md_diet.kcal*7 : '2500*7') + ' kacl'}"> </span>
+                                    </td>
+                                </tr>
+                                <tr id="totalcarbohydrates">
+                                    <td colspan="2" style="text-align: left;">탄수화물</td>
+                                    <td colspan="3" style="text-align: right;">
+                                        <span th:text="${totalCarboG + ' / ' + (md_diet.kcal != null ? T(java.lang.String).format('%1$.1f', (md_diet.kcal)*0.14*7) : '300.0*7')+ ' g'} "> </span>
+                                    </td>
+                                </tr>
+                                <tr id="totalprotein">
+                                    <td colspan="2" style="text-align: left;">단백질</td>
+                                    <td colspan="3" style="text-align: right;">
+                                        <span th:text="${totalProteinG + ' / ' + (md_diet.protein != null ? md_diet.protein*7 : '40.0*7')+ ' g'} "> </span>
+                                    </td>
+                                </tr>
+                                <tr id="totalfat">
+                                    <td colspan="2" style="text-align: left;">지방</td>
+                                    <td colspan="3" style="text-align: right;">
+                                        <span th:text="${totalFatG + ' / ' + (md_diet.kcal != null ? T(java.lang.String).format('%1$.1f', (md_diet.kcal)*0.017*7) : '50.0*7')+ ' g'} "> </span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
 
+                    <div class="slide" id="thisWeek" style="display:none;">
+                        이번주 내용
+                        <div class="date-center">
+                            <span th:text="${#temporals.format(#temporals.createNow().with(T(java.time.temporal.TemporalAdjusters).previousOrSame(T(java.time.DayOfWeek).MONDAY)), 'yyyy.MM.dd')}">이번주 월요일</span>
+                            <span> - </span>
+                            <span th:text="${#temporals.format(#temporals.createNow().with(T(java.time.temporal.TemporalAdjusters).nextOrSame(T(java.time.DayOfWeek).SUNDAY)), 'yyyy.MM.dd')}">이번주 일요일</span>
+                        </div>
+                        <table style="margin: 0 auto;">
+                            <tbody>
+                                <tr id="totalkcal">
+                                    <td colspan="2" style="text-align: left;">칼로리</td>
+                                    <td colspan="3" style="text-align: right;">
+                                        <span th:text="${totalKcal + ' / ' + (md_diet.kcal != null ? md_diet.kcal*7 : '2500*7') + ' kacl'}"> </span>
+                                    </td>
+                                </tr>
+                                <tr id="totalcarbohydrates">
+                                    <td colspan="2" style="text-align: left;">탄수화물</td>
+                                    <td colspan="3" style="text-align: right;">
+                                        <span th:text="${totalCarboG + ' / ' + (md_diet.kcal != null ? T(java.lang.String).format('%1$.1f', (md_diet.kcal)*0.14*7) : '300.0*7')+ ' g'} "> </span>
+                                    </td>
+                                </tr>
+                                <tr id="totalprotein">
+                                    <td colspan="2" style="text-align: left;">단백질</td>
+                                    <td colspan="3" style="text-align: right;">
+                                        <span th:text="${totalProteinG + ' / ' + (md_diet.protein != null ? md_diet.protein*7 : '40.0*7')+ ' g'} "> </span>
+                                    </td>
+                                </tr>
+                                <tr id="totalfat">
+                                    <td colspan="2" style="text-align: left;">지방</td>
+                                    <td colspan="3" style="text-align: right;">
+                                        <span th:text="${totalFatG + ' / ' + (md_diet.kcal != null ? T(java.lang.String).format('%1$.1f', (md_diet.kcal)*0.017*7) : '50.0*7')+ ' g'} "> </span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
 
-<!-- 여기다가내용써야하는데~~~~~~~~~~~~~요 -->
-
-
-
-
-
-
-<div class="slide" id="thisWeek" style="display:none;">이번주 내용</div>
-
-
-
-<!-- 여기다가내용써야하는데~~~~~~~~~~~~~요 -->
-
-
-
-
-</div>
-                <div class="text-primary text-center">
-                    <table style="margin: 0 auto;">                    
+        <!-- 오늘 내용 섹션 -->
+        <section class="container yellow-border">
+            <div class="row">
+                <!-- 제목 부분 -->
+                <div class="col-md-12">
+                    <div class="code-area" style="margin-right: 20px; display: flex; justify-content: flex-end;">
+                        <p th:text="'오늘 (' + ${#dates.format(#dates.createNow(), 'yyyy-MM-dd')} + ')'">오늘 날짜</p>
+                        <a th:href="@{/user/diet/analysis(date=${today})}" style="margin-left: auto;">
+                            <button class="btn btn-outline-warning">이미지 AI 분석</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <!-- 테이블 데이터 -->
+                <div class="col-md-3">
+                    <table class="table">
                         <tbody>
-                            <tr id="totalkcal">
+                            <tr id="todaykcal">
                                 <td colspan="2" style="text-align: left;">칼로리</td>
                                 <td colspan="3" style="text-align: right;">
-                                    <span th:text="${totalKcal + ' / ' + (md_diet.kcal != null ? md_diet.kcal*7 : '2500*7') + ' kacl'}"> </span>
+                                    <span th:text="${todayKcal + ' / ' + (md_diet.kcal != null ? md_diet.kcal : '2600') + ' kacl'}"> </span>
                                 </td>
                             </tr>
-                            <tr id="totalcarbohydrates">
+                            <tr id="todaycarbohydrates">
                                 <td colspan="2" style="text-align: left;">탄수화물</td>
                                 <td colspan="3" style="text-align: right;">
-                                    <span th:text="${totalCarboG + ' / ' + (md_diet.kcal != null ? T(java.lang.String).format('%1$.1f', (md_diet.kcal)*0.14*7) : '300.0*7')+ ' g'} "> </span>
+                                    <span th:text="${todayCarboG + ' / ' + (md_diet.kcal != null ? T(java.lang.String).format('%1$.1f', (md_diet.kcal)*0.14) : '300.0')+ ' g'} "> </span>
                                 </td>
                             </tr>
-                            <tr id="totalprotein">
+                            <tr id="todayprotein">
                                 <td colspan="2" style="text-align: left;">단백질</td>
                                 <td colspan="3" style="text-align: right;">
-                                    <span th:text="${totalProteinG + ' / ' + (md_diet.protein != null ? md_diet.protein*7 : '40.0*7')+ ' g'} "> </span>
+                                    <span th:text="${todayProteinG + ' / ' + (md_diet.protein != null ? md_diet.protein : '55.0')+ ' g'} "> </span>
                                 </td>
                             </tr>
-                            <tr id="totalfat">
+                            <tr id="todayfat">
                                 <td colspan="2" style="text-align: left;">지방</td>
                                 <td colspan="3" style="text-align: right;">
-                                    <span th:text="${totalFatG + ' / ' + (md_diet.kcal != null ? T(java.lang.String).format('%1$.1f', (md_diet.kcal)*0.017*7) : '50.0*7')+ ' g'} "> </span>
+                                    <span th:text="${todayFatG + ' / ' + (md_diet.kcal != null ? T(java.lang.String).format('%1$.1f', (md_diet.kcal)*0.017) : '50.0')+ ' g'} "> </span>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
-            </div>
-        </section>
-        <section id="logs">
-        <hr>
-        <hr>
-        <!-- 코드 영역 -->
-        <div class="code-area" style="margin-right: 20px; display: flex; justify-content: flex-end;">
-            <!-- 오늘 날짜와 이미지 AI 분석 버튼 -->
-            <p th:text="'오늘 (' + ${#dates.format(#dates.createNow(), 'yyyy-MM-dd')} + ')'">오늘 날짜</p>
-            <a th:href="@{/user/diet/analysis(date=${today})}" style="margin-left: auto;">
-                <button class="btn btn-outline-warning">이미지 AI 분석</button>
-            </a>
-        </div>
-        
-        <div style="display: flex; justify-content: space-between; align-items: flex-start;">
-            <!-- 식단 정보 테이블 -->
-            <table>
-                <tbody>
-                    <tr id="todaykcal">
-                        <td colspan="2" style="text-align: left;">칼로리</td>
-                        <td colspan="3" style="text-align: right;">
-                            <span th:text="${todayKcal + ' / ' + (md_diet.kcal != null ? md_diet.kcal : '2600') + ' kacl'}"> </span>
-                        </td>
-                    </tr>
-                    <tr id="todaycarbohydrates">
-                        <td colspan="2" style="text-align: left;">탄수화물</td>
-                        <td colspan="3" style="text-align: right;">
-                            <span th:text="${todayCarboG + ' / ' + (md_diet.kcal != null ? T(java.lang.String).format('%1$.1f', (md_diet.kcal)*0.14) : '300.0')+ ' g'} "> </span>
-                        </td>
-                    </tr>
-                    <tr id="todayprotein">
-                        <td colspan="2" style="text-align: left;">단백질</td>
-                        <td colspan="3" style="text-align: right;">
-                            <span th:text="${todayProteinG + ' / ' + (md_diet.protein != null ? md_diet.protein : '55.0')+ ' g'} "> </span>
-                        </td>
-                    </tr>
-                    <tr id="todayfat">
-                        <td colspan="2" style="text-align: left;">지방</td>
-                        <td colspan="3" style="text-align: right;">
-                            <span th:text="${todayFatG + ' / ' + (md_diet.kcal != null ? T(java.lang.String).format('%1$.1f', (md_diet.kcal)*0.017) : '50.0')+ ' g'} "> </span>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            <!-- 이미지 박스 영역 -->
-            <div class="image-box-wrapper">
-                <!-- 각 이미지에 대한 반복문 -->
-                <div th:each="photoPath : ${photoPaths}">
-                    <div class="image-box">
-                        <img th:src="@{'/uploaded/'+${photoPath}}" alt="이미지 설명">
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- 구분선 -->
-        <hr>
-        <hr>
-    </section>
-        <th:block th:each="day : ${#numbers.sequence(0, 6)}">
-            <div class="code-area" style="margin-right: 20px; display: flex; justify-content: flex-end;">
-                <p th:if="${monday != null}" th:text="${monday.plusDays(day)}"></p>
-                <!-- 이미지 AI 분석 버튼 -->
-                <a th:href="@{/user/diet/analysis(date=${monday.plusDays(day)})}" style="margin-left: auto;">
-                    <button class="btn btn-outline-warning">이미지 AI 분석</button>
-                </a>
-            </div>
-            <div class="image-box-wrapper" style="flex: 1; display: flex; justify-content: space-around; align-items: flex-start; margin-bottom: 20px; overflow-x: auto;">
-                <!-- 각 날짜별 결과 테이블 -->
-                
-                <table>
-                    <tbody>
-                        <tr>
-                            <td colspan="2" style="text-align: left;">칼로리</td>
-                            <td colspan="3" style="text-align: right;">
-                                <span th:text="${__${monday.plusDays(day).getDayOfWeek().toString().toLowerCase() + 'Kcal'}__ + ' / ' + (md_diet.kcal != null ? md_diet.kcal : '2600')+ ' kacl'}"></span>
-                            </td>
-                        </tr>
-                        <tr id="carbohydrates">
-                            <td colspan="2" style="text-align: left;">탄수화물</td>
-                            <td colspan="3" style="text-align: right;">
-                                <span th:text="${__${monday.plusDays(day).getDayOfWeek().toString().toLowerCase() + 'CarboG'}__ + ' / ' + (md_diet.kcal != null ? T(java.lang.String).format('%1$.1f', (md_diet.kcal)*0.14) : '300.0')+ ' g'} "> </span>
-                            </td>
-                        </tr>
-                        <tr id="protein">
-                            <td colspan="2" style="text-align: left;">단백질</td>
-                            <td colspan="3" style="text-align: right;">
-                                <span th:text="${__${monday.plusDays(day).getDayOfWeek().toString().toLowerCase() + 'ProteinG'}__ + ' / ' + (md_diet.protein != null ? md_diet.protein : '55.0')+ ' g'} "></span>
-                            </td>
-                        </tr>
-                        <tr id="fat">
-                            <td colspan="2" style="text-align: left;">지방</td>
-                            <td colspan="3" style="text-align: right;">
-                                <span th:text="${__${monday.plusDays(day).getDayOfWeek().toString().toLowerCase() + 'FatG'}__ + ' / ' + (md_diet.kcal != null ? T(java.lang.String).format('%1$.1f', (md_diet.kcal)*0.017) : '50.0')+ ' g'} "> </span>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <!-- 이미지 박스를 추가할 위치 -->
-                <div class="image-box-wrapper">
-                    <div th:each="eachPhotoPath : ${__${monday.plusDays(day).getDayOfWeek().toString().toLowerCase() + 'eachPhotoPaths'}__}">
-                        <div class="image-box" th:if="${eachPhotoPath != null}">
-                            <img th:src="@{'/uploaded/' + ${eachPhotoPath}}" alt="이미지 설명">
+                <!-- 사진 데이터 -->
+                <div class="col-md-9">
+                    <!-- 이미지 박스 영역 -->
+                    <div class="image-box-wrapper">
+                        <!-- 각 이미지에 대한 반복문 -->
+                        <div th:each="photoPath : ${photoPaths}" class="image-box">
+                            <img th:src="@{'/uploaded/'+${photoPath}}" th:alt="${photoPath}">
                         </div>
                     </div>
                 </div>
             </div>
-            <hr>
+            <!-- 구분선 -->
+        </section>
+
+        <!-- 이번주 내용 섹션 -->
+        <th:block th:each="day : ${#numbers.sequence(0, 6)}">
+            <section class="container">
+                <div class="row">
+                    <!-- 제목 부분 -->
+                    <div class="col-md-12">
+                        <div class="code-area" style="margin-right: 20px; display: flex; justify-content: flex-end;">
+                            <p th:if="${monday != null}" th:text="${monday.plusDays(day)}"></p>
+                            <a th:href="@{/user/diet/analysis(date=${monday.plusDays(day)})}" style="margin-left: auto;">
+                                <button class="btn btn-outline-warning">이미지 AI 분석</button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <!-- 테이블 데이터 -->
+                    <div class="col-md-3">
+                        <table class="table">
+                            <tbody>
+                                <tr id="todaykcal">
+                                    <td colspan="2" style="text-align: left;">칼로리</td>
+                                    <td colspan="3" style="text-align: right;">
+                                        <span th:text="${__${monday.plusDays(day).getDayOfWeek().toString().toLowerCase() + 'Kcal'}__ + ' / ' + (md_diet.kcal != null ? md_diet.kcal : '2600')+ ' kacl'}"></span>
+                                    </td>
+                                </tr>
+                                <tr id="todaycarbohydrates">
+                                    <td colspan="2" style="text-align: left;">탄수화물</td>
+                                    <td colspan="3" style="text-align: right;">
+                                        <span th:text="${__${monday.plusDays(day).getDayOfWeek().toString().toLowerCase() + 'CarboG'}__ + ' / ' + (md_diet.kcal != null ? T(java.lang.String).format('%1$.1f', (md_diet.kcal)*0.14) : '300.0')+ ' g'} "> </span>
+                                    </td>
+                                </tr>
+                                <tr id="todayprotein">
+                                    <td colspan="2" style="text-align: left;">단백질</td>
+                                    <td colspan="3" style="text-align: right;">
+                                        <span th:text="${__${monday.plusDays(day).getDayOfWeek().toString().toLowerCase() + 'ProteinG'}__ + ' / ' + (md_diet.protein != null ? md_diet.protein : '55.0')+ ' g'} "></span>
+                                    </td>
+                                </tr>
+                                <tr id="todayfat">
+                                    <td colspan="2" style="text-align: left;">지방</td>
+                                    <td colspan="3" style="text-align: right;">
+                                        <span th:text="${__${monday.plusDays(day).getDayOfWeek().toString().toLowerCase() + 'FatG'}__ + ' / ' + (md_diet.kcal != null ? T(java.lang.String).format('%1$.1f', (md_diet.kcal)*0.017) : '50.0')+ ' g'} "> </span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- 사진 데이터 -->
+                    <div class="col-md-9">
+                        <div class="image-box-wrapper">
+                            <div th:each="eachPhotoPath : ${__${monday.plusDays(day).getDayOfWeek().toString().toLowerCase() + 'eachPhotoPaths'}__}">
+                                <div class="image-box" th:if="${eachPhotoPath != null}">
+                                    <img th:src="@{'/uploaded/' + ${eachPhotoPath}}" alt="${eachPhotoPath}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 구분선 -->
+                <hr>
+                <hr>
+            </section>
         </th:block>
-        <hr>
-
-
-        <!-- <script>
-        // 이미지 박스를 감싸는 div 요소를 선택합니다.
-        var imageBoxWrapper = document.querySelector('.image-box-wrapper');
-        
-        // 표의 각 행을 선택합니다.
-        var tableRows = document.querySelectorAll('table tbody tr td');
-        
-        // 이미지 박스의 최소 너비를 설정합니다.
-        var minImageWidth = 30; // 최소 너비 설정 (원하는 크기로 변경 가능)
-        
-        // 각 행의 텍스트 길이를 기준으로 이미지 크기를 조정합니다.
-        tableRows.forEach(function(row) {
-            // 각 행의 텍스트 길이를 구합니다.
-            var textLength = row.textContent.trim().length;
-        
-            // 이미지의 너비를 텍스트 길이에 따라 계산합니다.
-            var imageWidth = textLength * 10; // 10은 텍스트 길이에 따라 조정할 계수입니다.
-        
-            // 이미지의 최소 너비를 고려하여 너비를 설정합니다.
-            imageWidth = Math.max(imageWidth, minImageWidth);
-        
-            // 이미지 요소를 선택합니다.
-            var image = row.nextElementSibling.querySelector('img');
-        
-            // 이미지의 너비를 설정합니다.
-            image.style.width = imageWidth + 'px';
-        });
-        </script> -->
     </main>
 </html>
 
