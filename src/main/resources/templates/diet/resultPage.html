@@ -54,11 +54,16 @@
                             <img th:src="@{'/uploaded/'+${nResult.resultPath}}" class="img-fluid" alt="분석 결과">
                             <div class="analysis-details">
                                 <ul class="list-unstyled">
-                                    <li><strong>■ 음 식 명 : </strong><span th:text="${nResult.resultLabel}"></span></li>
-                                    <li><strong>■ 칼 로 리 : </strong><span th:text="${nResult.kcal} + ' kcal'"></span></li>
-                                    <li><strong>■ 탄수화물 : </strong><span th:text="${nResult.carboG} + ' g'"></span></li>
-                                    <li><strong>■ 지    방 : </strong><span th:text="${nResult.fatG} + ' g'"></span></li>
-                                    <li><strong>■ 단 백 질 : </strong><span th:text="${nResult.proteinG} + ' g'"></span></li>
+                                    <li><strong>음 식 명</strong><br>
+                                        <span class="indent" th:text="${nResult.resultLabel}"></span></li>
+                                    <li><strong>칼 로 리</strong><br>
+                                        <span class="indent" th:text="${#numbers.formatDecimal(nResult.kcal, 1, 1)} + ' kcal'"></span></li>
+                                    <li><strong>탄수화물</strong><br>
+                                        <span class="indent" th:text="${#numbers.formatDecimal(nResult.carboG, 1, 1)} + ' g'"></span></li>
+                                    <li><strong>지    방</strong><br>
+                                        <span class="indent" th:text="${#numbers.formatDecimal(nResult.fatG, 1, 1)} + ' g'"></span></li>
+                                    <li><strong>단 백 질</strong><br>
+                                        <span class="indent" th:text="${#numbers.formatDecimal(nResult.proteinG, 1, 1)} + ' g'"></span></li>
                                 </ul>
                             </div>
                         </div>
