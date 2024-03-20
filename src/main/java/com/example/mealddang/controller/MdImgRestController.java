@@ -6,19 +6,19 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.mealddang.model.entity.MdImgUpload;
 import com.example.mealddang.model.entity.MdNutResult;
-import com.example.mealddang.model.entity.MdUser;
 import com.example.mealddang.service.MdImgService;
 import java.time.LocalDate;
 
@@ -82,8 +82,16 @@ public class MdImgRestController {
     }
 
     // 이미지 삭제
-    @GetMapping("/api-delete")
-    public void deleteImgUploadByOriPath() {
-        mdImgService.deleteImgUploadByOriPath(originImgPath);
+    @PostMapping("/api-delete")
+    public ResponseEntity<?> deleteImgUploadByOriPath(@RequestBody Map<String, String> requestData) {
+        try {
+            String originPath = requestData.get("path");
+            mdImgService.deleteImgUploadByOriPath(originPath);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("[MdImgRestController][deleteImgUploadByOriPath] ERROR");
+        }
     }
+
 }
