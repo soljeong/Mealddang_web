@@ -1,80 +1,47 @@
 <html layout:decorate="~{layout-inner}">
-    <!-- <main layout:fragment="content">
-        <section id="title">
-            <a href="/user/diet/log"><h3 th:text="${mdUser.nickname != null ? mdUser.nickname : mdUser.username} + '님의 밀땅일지'"></h3></a>
-            <h3 class="text-primary text-center pt-20 mb-10">이미지 AI 분석 결과</h3>
-        </section>
-
-        <section id="content" class="row align-items-md-stretch">
-            <div class="description">
-                <div id="left">
-                    <img alt="originImg" th:src="@{'/uploaded/'+${mdNutResult.originPath.originPath}}" style="max-width: 300px; height: auto;">
+    <main layout:fragment="content">
+        <div class="container py-4">
+            <div class="row mb-4">
+                <div class="col-md-4">
+                    <img th:src="@{'/uploaded/'+${allNResults[0].originPath.originPath}}" class="card-img border-0 rounded" alt="Origin-Img-Uploaded">
                 </div>
-                <div id="right">
-                    <div>
-                        <img th:src="@{'/uploaded/'+${mdNutResult.resultPath}}">
-                        <p th:text="${mdNutResult.resultLabel}"></p>
-                        <table>
-                            <tr>
-                                <td>칼로리</td>
-                                <td th:text="${mdNutResult.kcal}"></td>
-                            </tr>
-                            <tr>
-                                <td>탄수화물</td>
-                                <td th:text="${mdNutResult.carboG}"></td>
-                            </tr>
-                            <tr>
-                                <td>단백질</td>
-                                <td th:text="${mdNutResult.proteinG}"></td>
-                            </tr>
-                            <tr>
-                                <td>지방</td>
-                                <td th:text="${mdNutResult.fatG}"></td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
-                
-            </div>
-        </section> -->
-
-    <main class="container" layout:fragment="content">
-        <h3 class="text-left pt-20 mb-10">이미지 AI 분석 결과</h3>
-    
-        <div class="row">
-            <div class="col-md-6">
-                <h6>원본 이미지</h6>
-                <img th:src="@{'/uploaded/'+${allNResults[0].originPath.originPath}}" class="img-fluid" alt="원본 이미지">
-            </div>
-            <div class="col-md-6">
-                <h6>분석 결과 이미지들</h6>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="analysis-result" th:each="nResult : ${allNResults}">
-                            <img th:src="@{'/uploaded/'+${nResult.resultPath}}" class="img-fluid" alt="분석 결과">
-                            <div class="analysis-details">
-                                <ul class="list-unstyled">
-                                    <li><strong>음 식 명</strong><br>
-                                        <span class="indent" th:text="${nResult.resultLabel}"></span></li>
-                                    <li><strong>칼 로 리</strong><br>
-                                        <span class="indent" th:text="${#numbers.formatDecimal(nResult.kcal, 1, 1)} + ' kcal'"></span></li>
-                                    <li><strong>탄수화물</strong><br>
-                                        <span class="indent" th:text="${#numbers.formatDecimal(nResult.carboG, 1, 1)} + ' g'"></span></li>
-                                    <li><strong>지    방</strong><br>
-                                        <span class="indent" th:text="${#numbers.formatDecimal(nResult.fatG, 1, 1)} + ' g'"></span></li>
-                                    <li><strong>단 백 질</strong><br>
-                                        <span class="indent" th:text="${#numbers.formatDecimal(nResult.proteinG, 1, 1)} + ' g'"></span></li>
-                                </ul>
+                <div class="col-md-3" th:each="nResult : ${allNResults}">
+                    <div class="card mb-3">
+                        <img th:src="@{'/uploaded/'+${nResult.resultPath}}" class="img-fluid rounded-start" alt="Result-Img-Focused">
+                        <div class="card-body">
+                            <h4 class="mb-3">영양소 정보</h4>
+                            <div class="border border-gray-300 rounded-lg p-3">
+                                <div class="d-flex justify-content-between mb-2">
+                                    <p class="font-weight-semibold">음식명</p>
+                                    <p th:text="${nResult.resultLabel}"></p>
+                                </div>
+                                <div class="d-flex justify-content-between mb-2">
+                                    <p class="font-weight-semibold">칼로리</p>
+                                    <p th:text="${#numbers.formatDecimal(nResult.kcal, 1, 1)} + ' kcal'"></p>
+                                </div>
+                                <div class="d-flex justify-content-between mb-2">
+                                    <p class="font-weight-semibold">탄수화물</p>
+                                    <p th:text="${#numbers.formatDecimal(nResult.carboG, 1, 1)} + ' g'"></p>
+                                </div>
+                                <div class="d-flex justify-content-between mb-2">
+                                    <p class="font-weight-semibold">단백질</p>
+                                    <p th:text="${#numbers.formatDecimal(nResult.proteinG, 1, 1)} + ' g'"></p>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <p class="font-weight-semibold">지방</p>
+                                    <p th:text="${#numbers.formatDecimal(nResult.fatG, 1, 1)} + ' g'"></p>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <button onclick="goBack()" type="button" class="btn btn-outline-warning" style="width: 100px;"> 뒤로 가기 </button>
+                <script>
+                function goBack() {
+                    window.history.back();
+                }
+                </script>
             </div>
-            <button onclick="goBack()" type="button" class="btn btn-outline-warning" style="width: 100px;"> 뒤로 가기 </button>
-            <script>
-            function goBack() {
-                window.history.back();
-            }
-            </script>
         </div>
     </main>
+</html>
