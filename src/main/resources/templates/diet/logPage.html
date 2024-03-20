@@ -150,7 +150,9 @@
                     <div class="image-box-wrapper">
                         <!-- 각 이미지에 대한 반복문 -->
                         <div th:each="photoPath : ${photoPaths}" class="image-box">
-                            <img th:src="@{'/uploaded/'+${photoPath}}" th:alt="${photoPath}">
+                            <a th:href="|http://localhost:8080/user/diet/airesult?originPath=${photoPath}|">
+                                <img th:src="@{'/uploaded/'+${photoPath}}" th:alt="${photoPath}">
+                            </a>
                         </div>
                     </div>
                 </div>
