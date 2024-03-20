@@ -10,7 +10,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -20,12 +19,17 @@ import com.example.mealddang.model.entity.MdUser;
 import com.example.mealddang.model.repository.MdNutResultRepository;
 import com.example.mealddang.service.MdDietService;
 import com.example.mealddang.service.MdUserService;
+
+import lombok.extern.slf4j.Slf4j;
+
 import com.example.mealddang.service.MdImgService;
 
 import java.time.LocalDate;
 
 // [인증 후] 식단관리(밀땅일지) 컨트롤러
-@Controller @RequestMapping("/user/diet")
+@Controller
+@RequestMapping("/user/diet")
+@Slf4j
 public class MdDietController {
     @Autowired
     private MdUserService mdUserService;
@@ -249,23 +253,10 @@ public class MdDietController {
         // origin_path로 분석결과 리스트 가져오기
         List<MdNutResult> allNResults = mdImgService.findAllNResultByOriPath(username, originPath);
         model.addAttribute("allNResults", allNResults);
+        log.info("allNResults: "+ allNResults.toString());
 
         return "diet/resultPage";
     }
-
-    // 이미지분석 실패 결과  user/diet/noresult
-    @GetMapping("/noresult")
-    public String getFailResult(String originPath, Model model, Authentication authentication) {
-        String username = authentication.getName();
-        MdUser mdUser = mdUserService.findByUsername(username);
-        model.addAttribute("mdUser", mdUser);
-
-        // 실패시 업로드사진 삭제
-        mdImgService.deleteImgUploadByOriPath(originPath);
-        
-        return "diet/failPage";
-    }
-
 
     @GetMapping("/user/diet/nutrition")
     public List<Object[]> getNutritionData(@RequestParam("username") String username, @RequestParam("dayofweek") int dayofweek) {

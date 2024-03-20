@@ -8,6 +8,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.example.mealddang.model.entity.MdImgUpload;
 import com.example.mealddang.model.entity.MdNutResult;
+import com.example.mealddang.model.entity.MdUser;
 import com.example.mealddang.service.MdImgService;
 import java.time.LocalDate;
 
@@ -79,7 +81,7 @@ public class MdImgRestController {
         return ResponseEntity.ok().body(response);
     }
 
-    // 이미지 삭제 (MdImgUpload, MdNutResult, MdYoloResult 모두?) : 보류
+    // 이미지 삭제
     @GetMapping("/api-delete")
     public void deleteImgUploadByOriPath() {
         mdImgService.deleteImgUploadByOriPath(originImgPath);

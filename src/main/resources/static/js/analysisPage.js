@@ -9,14 +9,16 @@ function fetchYoloResult(selectedDate) {
     return fetch('/api-yolo?selectedDate=' + encodeURIComponent(selectedDate))
     .then(response => {
         if (!response.ok) {
-            throw new Error('Network response was not ok');
+            return response.json().then(data => {
+                alert('죄송하지만, 이 이미지는 분석하기 어렵네요... \n- 욜삼 -');
+                return failController(data);
+            });
         }
-        return response.json(); // 서버로부터 받은 데이터가 JSON 형태라고 가정
+        return response.json();
     })
     .then(data => {
-        console.log(data); // 서버로부터 받은 데이터 처리
-        // 여기에서 받은 데이터를 바탕으로 웹 페이지에 결과를 표시할 수 있음
-        console.log(data.mdNutResults[0].originPath.originPath); // 서버로부터 받은 데이터 처리
+        console.log(data);
+        console.log(data.mdNutResults[0].originPath.originPath);
         // 서버로부터 받은 데이터를 js 글로벌 변수에 담기
         window.yoloResult = data;
 
@@ -32,10 +34,8 @@ function fetchYoloResult(selectedDate) {
         // document.getElementById('resultSection').innerHTML = '<p>분석 결과입니다!</p>';
     })
     .catch(error => {
-        console.error('There has been a problem with your fetch operation:', error);
-        // 오류 발생 시 로딩 화면 숨기기
-        document.getElementById('loadingScreen').style.display = 'none';
-        // 오류 메시지를 사용자에게 보여줄 수 있음
+        console.error('[analysisPage.js][func fetchYoloResult]', error);
+        document.getElementById('loadingScreen').style.display = 'none';    // 오류 발생 시 로딩 화면 숨기기
     });
 }
 
@@ -46,3 +46,22 @@ function analyzeData(selectedDate) {
     // 데이터 분석 비동기 작업 호출
     fetchYoloResult(selectedDate);
 }
+
+// 이미지 분석 실패시 업로드 이미지도 삭제한다.
+function failController(data) {
+    return fetch('/api-delete', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Alternative network response was not ok');
+        }
+        return response.json();
+    })
+    .catch(error => console.error('Alternative fetch error:', error));
+}
+
