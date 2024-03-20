@@ -20,21 +20,21 @@
 
 <body>
     <main layout:fragment="content" class="login-container">
-            <h2>밀땅 로그인</h2>
-            <form action="/loginprocess" method="post" class="login-form">
-                <input type="text" name="username" class="form-control" placeholder="아이디" required/> <br>
-                <input type="password" name="password" class="form-control" placeholder="비밀번호" required/> <br>
-                <hr class="my-4">
-                <button class="w-100 btn btn-outline-warning btn-lg" type="submit">로그인</button>
-                <hr class="my-4">
-                <div class="text-center">
-                    <a href="/oauth2/authorization/google" class="btn btn-success active" role="button">구글 로그인</a>
-                    <a href="/oauth2/authorization/naver" class="btn btn-secondary active" role="button">네이버 로그인</a>
-                    <a href="/oauth2/authorization/kakao" class="btn btn-success active" role="button">카카오 로그인</a>
-                </div>
-                <hr class="my-4">
-                <a href="/joinform" class="w-100 btn btn-secondary btn-lg">회원가입</a>
-            </form>
+        <h2>밀땅 로그인</h2>
+        <form action="/loginprocess" method="post" class="login-form">
+            <input type="text" name="username" class="form-control" placeholder="아이디" required/> <br>
+            <input type="password" name="password" class="form-control" placeholder="비밀번호" required/> <br>
+            <hr class="my-4">
+            <button class="w-100 btn btn-outline-warning btn-lg" type="submit">로그인</button>
+            <hr class="my-4">
+            <div class="text-center">
+                <a href="/oauth2/authorization/google" class="btn btn-success active" role="button">구글 로그인</a>
+                <a href="/oauth2/authorization/naver" class="btn btn-secondary active" role="button">네이버 로그인</a>
+                <a href="/oauth2/authorization/kakao" class="btn btn-success active" role="button">카카오 로그인</a>
+            </div>
+            <hr class="my-4">
+            <a href="/joinform" class="w-100 btn btn-secondary btn-lg">회원가입</a>
+        </form>
     </main>
 </body>
 </html>
