@@ -46,7 +46,7 @@
                 <h2 class="category-title">밀땅 카테고리를 선택해보세요.</h2>
 
                 <div class="category-list">
-                    <button class="activebtn btn btn-outline-warning" id="atmosphereButton">분위기</button>
+                    <button class="activebtn btn btn-outline-warning" id="atmosphereButton" data-value="분위기">분위기</button>
                     <script>
                         document.getElementById("atmosphereButton").addEventListener("click", function() {
                             var keyword = encodeURIComponent("분위기"); // URL에 사용될 수 있도록 키워드를 인코딩합니다.
@@ -71,7 +71,7 @@
                           }
                       });
                   </script> -->
-                    <button class="activebtn btn btn-outline-warning" id="tasteButton">맛있는</button>
+                    <button class="activebtn btn btn-outline-warning" id="tasteButton" data-value="맛">맛있는</button>
                     <script>
                         document.getElementById("tasteButton").addEventListener("click", function() {
                             var keyword = encodeURIComponent("맛"); // URL에 사용될 수 있도록 키워드를 인코딩합니다.
@@ -96,7 +96,7 @@
                           }
                       });
                   </script> -->
-                    <button class="activebtn btn btn-outline-warning" id="cleanButton">깔끔한</button>
+                    <button class="activebtn btn btn-outline-warning" id="cleanButton" data-value="깨끗">깔끔한</button>
                     <script>
                         document.getElementById("cleanButton").addEventListener("click", function() {
                             var keyword = encodeURIComponent("깨끗"); // URL에 사용될 수 있도록 키워드를 인코딩합니다.
@@ -104,7 +104,7 @@
                         });
                     </script>
 
-                    <button class="activebtn btn btn-outline-warning" id="cleanlinessButton">청결</button>
+                    <button class="activebtn btn btn-outline-warning" id="cleanlinessButton" data-value="청결">청결</button>
                     <script>
                         document.getElementById("cleanlinessButton").addEventListener("click", function() {
                             var keyword = encodeURIComponent("청결"); // URL에 사용될 수 있도록 키워드를 인코딩합니다.
@@ -112,7 +112,7 @@
                         });
                     </script>
 
-                    <button class="activebtn btn btn-outline-warning" id="bookButton">예약가능</button>
+                    <button class="activebtn btn btn-outline-warning" id="bookButton"data-value="예약">예약가능</button>
                     <script>
                         document.getElementById("bookButton").addEventListener("click", function() {
                             var keyword = encodeURIComponent("예약"); // URL에 사용될 수 있도록 키워드를 인코딩합니다.
@@ -120,7 +120,7 @@
                         });
                     </script>
 
-                    <button class="activebtn btn btn-outline-warning" id="bigButton">대형매장</button>
+                    <button class="activebtn btn btn-outline-warning" id="bigButton"data-value="대형">대형매장</button>
                     <script>
                         document.getElementById("bigButton").addEventListener("click", function() {
                             var keyword = encodeURIComponent("대형"); // URL에 사용될 수 있도록 키워드를 인코딩합니다.
@@ -128,7 +128,7 @@
                         });
                     </script>
 
-                    <button class="activebtn btn btn-outline-warning" id="diningButton">회식</button>
+                    <button class="activebtn btn btn-outline-warning" id="diningButton" data-value="회식">회식</button>
                     <script>
                         document.getElementById("diningButton").addEventListener("click", function() {
                             var keyword = encodeURIComponent("회식"); // URL에 사용될 수 있도록 키워드를 인코딩합니다.
@@ -136,7 +136,7 @@
                         });
                     </script>
                     
-                    <button class="activebtn btn btn-outline-warning" id="notaloneButton">혼밥</button>
+                    <button class="activebtn btn btn-outline-warning" id="notaloneButton" data-value="혼밥">혼밥</button>
                     <script>
                         document.getElementById("notaloneButton").addEventListener("click", function() {
                             var keyword = encodeURIComponent("혼밥"); // URL에 사용될 수 있도록 키워드를 인코딩합니다.
@@ -144,7 +144,7 @@
                         });
                     </script>
 
-                    <button class="activebtn btn btn-outline-warning" id="dateButton">데이트</button>
+                    <button class="activebtn btn btn-outline-warning" id="dateButton" data-value="데이트">데이트</button>
                     <script>
                         document.getElementById("dateButton").addEventListener("click", function() {
                             var keyword = encodeURIComponent("데이트"); // URL에 사용될 수 있도록 키워드를 인코딩합니다.
@@ -152,7 +152,7 @@
                         });
                     </script>
 
-                    <button class="activebtn btn btn-outline-warning" id="familyButton">가족모임</button>
+                    <button class="activebtn btn btn-outline-warning" id="familyButton" data-value="가족">가족모임</button>
                     <script>
                         document.getElementById("familyButton").addEventListener("click", function() {
                             var keyword = encodeURIComponent("가족"); // URL에 사용될 수 있도록 키워드를 인코딩합니다.
@@ -160,7 +160,7 @@
                         });
                     </script>
 
-                    <button class="activebtn btn btn-outline-warning" id="groupButton">단체석</button>
+                    <button class="activebtn btn btn-outline-warning" id="groupButton" data-value="단체">단체석</button>
                     <script>
                         document.getElementById("groupButton").addEventListener("click", function() {
                             var keyword = encodeURIComponent("단체"); // URL에 사용될 수 있도록 키워드를 인코딩합니다.
@@ -168,7 +168,7 @@
                         });
                     </script>
 
-                    <button class="activebtn btn btn-outline-warning" id="roomButton">룸</button>
+                    <button class="activebtn btn btn-outline-warning" id="roomButton" data-value="룸">룸</button>
                     <script>
                         document.getElementById("roomButton").addEventListener("click", function() {
                             var keyword = encodeURIComponent("룸"); // URL에 사용될 수 있도록 키워드를 인코딩합니다.
@@ -176,7 +176,7 @@
                         });
                     </script>
 
-                    <button class="activebtn btn btn-outline-warning" id="privateButton">프라이빗</button>
+                    <button class="activebtn btn btn-outline-warning" id="privateButton" data-value="프라이빗">프라이빗</button>
                     <script>
                         document.getElementById("privateButton").addEventListener("click", function() {
                             var keyword = encodeURIComponent("프라이빗"); // URL에 사용될 수 있도록 키워드를 인코딩합니다.
@@ -184,7 +184,7 @@
                         });
                     </script>
 
-                    <button class="activebtn btn btn-outline-warning" id="parkButton">주차</button>
+                    <button class="activebtn btn btn-outline-warning" id="parkButton" data-value="주차장">주차</button>
                     <script>
                         document.getElementById("parkButton").addEventListener("click", function() {
                             var keyword = encodeURIComponent("주차장"); // URL에 사용될 수 있도록 키워드를 인코딩합니다.
@@ -192,7 +192,7 @@
                         });
                     </script>
 
-                    <button class="activebtn btn btn-outline-warning" id="coolButton">콜키지프리</button>
+                    <button class="activebtn btn btn-outline-warning" id="coolButton" data-value="콜키지프리">콜키지프리</button>
                     <script>
                         document.getElementById("coolButton").addEventListener("click", function() {
                             var keyword = encodeURIComponent("콜키지프리"); // URL에 사용될 수 있도록 키워드를 인코딩합니다.
@@ -200,7 +200,7 @@
                         });
                     </script>
 
-                    <button class="activebtn btn btn-outline-warning" id="traditionButton">전통</button>
+                    <button class="activebtn btn btn-outline-warning" id="traditionButton" data-value="전통">전통</button>
                     <script>
                         document.getElementById("traditionButton").addEventListener("click", function() {
                             var keyword = encodeURIComponent("전통"); // URL에 사용될 수 있도록 키워드를 인코딩합니다.
@@ -208,7 +208,7 @@
                         });
                     </script>
 
-                    <button class="activebtn btn btn-outline-warning" id="deliveryButton">배달</button>
+                    <button class="activebtn btn btn-outline-warning" id="deliveryButton" data-value="배달">배달</button>
                     <script>
                         document.getElementById("deliveryButton").addEventListener("click", function() {
                             var keyword = encodeURIComponent("배달"); // URL에 사용될 수 있도록 키워드를 인코딩합니다.
@@ -216,7 +216,7 @@
                         });
                     </script>
 
-                    <button class="activebtn btn btn-outline-warning" id="packagingButton">포장</button>
+                    <button class="activebtn btn btn-outline-warning" id="packagingButton" data-value="포장">포장</button>
                     <script>
                         document.getElementById("packagingButton").addEventListener("click", function() {
                             var keyword = encodeURIComponent("포장"); // URL에 사용될 수 있도록 키워드를 인코딩합니다.
@@ -224,7 +224,7 @@
                         });
                     </script>
 
-                    <button class="activebtn btn btn-outline-warning" id="dawnButton">새벽</button>
+                    <button class="activebtn btn btn-outline-warning" id="dawnButton" data-value="새벽">새벽</button>
                     <script>
                         document.getElementById("dawnButton").addEventListener("click", function() {
                             var keyword = encodeURIComponent("새벽"); // URL에 사용될 수 있도록 키워드를 인코딩합니다.
@@ -232,7 +232,7 @@
                         });
                     </script>
 
-                    <button class="activebtn btn btn-outline-warning" id="noholidayButton">연중무휴</button>
+                    <button class="activebtn btn btn-outline-warning" id="noholidayButton" data-value="연중무휴">연중무휴</button>
                     <script>
                         document.getElementById("noholidayButton").addEventListener("click", function() {
                             var keyword = encodeURIComponent("연중무휴"); // URL에 사용될 수 있도록 키워드를 인코딩합니다.
@@ -240,7 +240,7 @@
                         });
                     </script>
 
-                    <button class="activebtn btn btn-outline-warning" id="petButton">반려동물</button>
+                    <button class="activebtn btn btn-outline-warning" id="petButton" data-value="반려동물">반려동물</button>
                     <script>
                         document.getElementById("petButton").addEventListener("click", function() {
                             var keyword = encodeURIComponent("반려동물"); // URL에 사용될 수 있도록 키워드를 인코딩합니다.
@@ -248,7 +248,7 @@
                         });
                     </script>
 
-                    <button class="activebtn btn btn-outline-warning" id="newButton">새로오픈</button>
+                    <button class="activebtn btn btn-outline-warning" id="newButton" data-value="새로">새로오픈</button>
                     <script>
                         document.getElementById("newButton").addEventListener("click", function() {
                             var keyword = encodeURIComponent("새로"); // URL에 사용될 수 있도록 키워드를 인코딩합니다.

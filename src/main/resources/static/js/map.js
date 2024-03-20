@@ -1,8 +1,10 @@
+// const globalKeyword  = ["맛","깨끗", "청결", "예약"];
+
 document.addEventListener("DOMContentLoaded", function() {
     var buttons = document.querySelectorAll(".activebtn");
 
     buttons.forEach(function(button) {
-        var keyword = encodeURIComponent(button.innerText);
+        var keyword = encodeURIComponent(button.getAttribute('data-value'));
 
         button.addEventListener("click", function() {
             window.location.href = '/user/rsrt/filter/atmosphere?keyword=' + keyword;
@@ -12,7 +14,7 @@ document.addEventListener("DOMContentLoaded", function() {
         var urlParams = new URLSearchParams(window.location.search);
         var currentKeyword = decodeURIComponent(urlParams.get("keyword"));
 
-        if (currentKeyword === button.innerText) {
+        if (currentKeyword === button.getAttribute('data-value')) {
             button.classList.add("active");
         }
     });
