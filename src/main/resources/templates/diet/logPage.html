@@ -7,6 +7,8 @@
         <section id="logs">
             <div class="text-primary text-center">
                 <h3 style="color: black;">주간 섭취량</h3>
+                <a href="/user/diet/weekly" style="margin-left: auto;">
+                        button class="btn btn-outline-warning">주간 AI 리포트</button></a>
                 <div class="date-navigation">
                     <button id="prev" class="btn btn-outline-warning"> < </button>
                     <div class="date-center">
@@ -67,11 +69,10 @@
                             </tr>
                         </tbody>
                     </table>
-                    <a href="/user/diet/weekly" style="margin-left: auto;">
-                        <button class="btn btn-outline-warning">주간 AI 리포트</button></a>
                 </div>
             </div>
         </section>
+        <section id="logs">
         <hr>
         <hr>
         <!-- 코드 영역 -->
@@ -127,6 +128,7 @@
         <!-- 구분선 -->
         <hr>
         <hr>
+    </section>
         <th:block th:each="day : ${#numbers.sequence(0, 6)}">
             <div class="code-area" style="margin-right: 20px; display: flex; justify-content: flex-end;">
                 <p th:if="${monday != null}" th:text="${monday.plusDays(day)}"></p>
