@@ -1,5 +1,6 @@
 package com.example.mealddang.controller;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
@@ -103,6 +104,8 @@ public class MdUserController {
     public String getMain(Model model, Authentication authentication) {
         String username = authentication.getName();
         MdUser mdUser = mdUserService.findByUsername(username);
+        LocalDate startDate = LocalDate.now();
+        model.addAttribute("startDate", startDate);
         model.addAttribute("mdUser", mdUser);
         return "user/mainPage";
     }
