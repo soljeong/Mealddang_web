@@ -64,3 +64,42 @@ function analyzeData(selectedDate) {
 //     .catch(error => console.error('[analysisPage.js][func failController]', error));
 // }
 
+function handleFileChange(event) {
+            
+    setThumbnail(event); // 썸네일 설정
+
+    // var formData = new FormData($('#uploadForm')[0]);
+    var formData = new FormData();  // 업로더 초기화
+    var selectedDate = $('#selectedDate').text();
+    console.log("selectedDate:", selectedDate); 
+    formData.append('date', selectedDate);
+    formData.append('imgfile', event.target.files[0]); // 파일 추가
+    $.ajax({
+        url: '/api-upload',
+        type: 'POST',
+        data: formData,
+        processData: false, // FormData 사용 시 필수
+        contentType: false, // FormData 사용 시 필수
+        success: function(response) {
+            alert('이미지 업로드 성공');
+        },
+        error: function(xhr, status, error) {
+            console.error("이미지 업로드 실패:", error);
+        }
+    });
+}
+
+function setThumbnail(event) {
+    var uploadThumbnail = document.querySelector("#upload-thumbnail");
+    uploadThumbnail.innerHTML = ''; // 이전에 생성된 썸네일이 있다면 삭제
+
+    var reader = new FileReader();
+    reader.onload = function(event) {
+        var img = document.createElement("img");
+        img.setAttribute("src", event.target.result);
+        img.setAttribute("style", "max-width: 100%; max-height:100%; object-fit: cover;");
+        document.querySelector("#upload-thumbnail").appendChild(img);
+    };
+    
+    reader.readAsDataURL(event.target.files[0]);
+}
