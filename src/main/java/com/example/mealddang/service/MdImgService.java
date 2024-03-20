@@ -130,8 +130,7 @@ public class MdImgService {
         String scrDirectory = "/src/main/resources/uploaded/";
         String fullPath = currentDirectory + scrDirectory;
         System.out.println("fullPath: " + fullPath);
-        // String uploadUrl = "http://3.38.213.167:8000/predict"; // FastAPI 업로드 엔드포인트 URL
-        String uploadUrl = "http://127.0.0.1:8000/predict"; // FastAPI 업로드 엔드포인트 URL
+        String uploadUrl = "http://3.38.213.167:8000/predict"; // FastAPI 업로드 엔드포인트 URL
         try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
             HttpPost httpPost = new HttpPost(uploadUrl);
             File imageFile = new File(fullPath, p_originPath); // 현재 디렉토리와 상대 경로를 조합하여 파일 경로 생성
@@ -183,8 +182,7 @@ public class MdImgService {
         String fullPath = currentDirectory + scrDirectory;
         System.out.println("fullPath =====> " + fullPath);
         for (String imgPath : imgPathList) {
-            // String imageUrl = "http://3.38.213.167:8000/download/" + imgPath; // FastAPI 서버에서 이미지를 다운로드할 URL
-            String imageUrl = "http://127.0.0.1:8000/download/" + imgPath; // FastAPI 서버에서 이미지를 다운로드할 URL
+            String imageUrl = "http://3.38.213.167:8000/download/" + imgPath; // FastAPI 서버에서 이미지를 다운로드할 URL
             // String[] imgArr = imgPath.split(".");
             String savePath = fullPath + imgPath; // 이미지를 저장할 경로
             System.out.println(savePath);
