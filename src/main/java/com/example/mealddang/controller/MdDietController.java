@@ -258,20 +258,6 @@ public class MdDietController {
         return "diet/resultPage";
     }
 
-    // 이미지분석 실패 결과  user/diet/noresult
-    @GetMapping("/noresult")
-    public String getFailResult(String originPath, Model model, Authentication authentication) {
-        String username = authentication.getName();
-        MdUser mdUser = mdUserService.findByUsername(username);
-        model.addAttribute("mdUser", mdUser);
-
-        // 실패시 업로드사진 삭제
-        mdImgService.deleteImgUploadByOriPath(originPath);
-        
-        return "diet/failPage";
-    }
-
-
     @GetMapping("/user/diet/nutrition")
     public List<Object[]> getNutritionData(@RequestParam("username") String username, @RequestParam("dayofweek") int dayofweek) {
         return mdNutResultRepository.sumNutDaily(username, dayofweek);
