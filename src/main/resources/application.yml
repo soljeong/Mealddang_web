@@ -48,27 +48,13 @@ spring:
                         scope:
                             - name
                             - email
-                    kakao:
-                        client-id: 777da15003dce3abf5512f6059c5f7b1
-                        client-secret: XVIkuFQtQBXS2ap1VUNbECpPp5p4Fl9t
-                        client-name: Kakao
-                        client-authentication-method: POST
-                        redirect-uri: "http://localhost:8080/login/oauth2/code/kakao"
-                        authorization-grant-type: authorization_code
-                        scope:
-                            - profile_nickname
-                            #- account_email
                 provider:
                     naver:
                         authorization-uri: https://nid.naver.com/oauth2.0/authorize
                         token-uri: https://nid.naver.com/oauth2.0/token
                         user-info-uri: https://openapi.naver.com/vi/nid/me
                         user-name-attribute: response
-                    kakao:
-                        authorizationUri: https://kauth.kakao.com/oauth/authorize
-                        tokenUri: https://kauth.kakao.naver.com/oauth/token
-                        userInfoUri: https://kapi.kakao.com/v2/user/me
-                        userNameAttribute: id
+
     
     # 데이터베이스 (MySQL mealddang.db)
     datasource:
