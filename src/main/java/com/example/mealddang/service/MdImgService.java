@@ -98,6 +98,7 @@ public class MdImgService {
             mdNutResult.setCreatedDate(selectedDate);
             mdNutResultRepository.save(mdNutResult);
             mdNutResults.add(mdNutResult);
+            mdNutResult = new MdNutResult();
         }
 
 
@@ -116,6 +117,7 @@ public class MdImgService {
             mdYoloResult.setOriginPath(p_originPath);
             mdYoloResult.setResultPath(resultPath);
             mdYoloResultRepository.save(mdYoloResult);
+            mdYoloResult = new MdYoloResult();
         }
         return mdYoloResult;
     }
