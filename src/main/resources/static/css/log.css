@@ -73,6 +73,10 @@ table td {
     overflow-y: hidden;
     white-space: nowrap; /* 이미지를 가로로 나열하기 위해 필요한 CSS 속성 */
 }
+.image-box-wrapper:not(:has(img)) {
+    height: 244px; /* 원하는 이미지 세로 크기 */
+
+}
 .image-box {
     width: 200px; /* 원하는 이미지 가로 크기 */
     height: 200px; /* 원하는 이미지 세로 크기 */
