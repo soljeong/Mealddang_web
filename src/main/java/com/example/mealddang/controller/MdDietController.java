@@ -63,6 +63,8 @@ public class MdDietController {
         // 오늘 날짜 (변하지 않는거)
         model.addAttribute("today", today);
         
+
+
         // 월요일 가져옴
         LocalDate monday = startDate.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
         model.addAttribute("monday", monday);
@@ -183,4 +185,8 @@ public class MdDietController {
         return "diet/resultPage";
     }
 
+    @GetMapping("/user/diet/nutrition")
+    public List<Object[]> getNutritionData(@RequestParam("username") String username, @RequestParam("dayofweek") int dayofweek) {
+        return mdNutResultRepository.sumNutDaily(username, dayofweek);
+    }
 }
