@@ -97,3 +97,12 @@ border-radius: 5px;
 .indent {
     padding-left: 15px;
 }
+
+.btn-fixed-size {
+    position: relative;
+    left: 85%; 
+    bottom: 20px; 
+    width: 100px;  
+    height: 40px; 
+    } 
+
