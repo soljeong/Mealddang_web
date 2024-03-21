@@ -4,8 +4,10 @@ import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.mealddang.model.entity.MdNutResult;
 import com.example.mealddang.model.entity.MdUser;
@@ -51,5 +53,15 @@ public interface MdNutResultRepository extends JpaRepository<MdNutResult, Long> 
     // origin_path로 분석결과 리스트 가져오기
     @Query(value = "SELECT * FROM md_nut_result WHERE user_id = :username AND origin_path = :origin_path", nativeQuery = true)
     public List<MdNutResult> findAllNResultByOriPath(@Param(value = "username") String username, @Param(value = "origin_path") String origin_path);
+
+    // 해당 유저의 모든 Nut Result 삭제하기
+    @Modifying @Transactional
+    @Query(value = "DELETE FROM md_nut_result WHERE user_id = :username", nativeQuery = true)
+    public void deleteByUsername(@Param(value = "username") String username);
+
+    // 해당 유저의 하루치 Nut Result 삭제하기
+    @Modifying @Transactional
+    @Query(value = "DELETE FROM md_nut_result WHERE user_id = :username AND created_date = :select_date", nativeQuery = true)
+    public void deleteByDate(@Param(value = "username") String username, @Param(value = "select_date") LocalDate selectedDate);
 }
 

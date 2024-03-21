@@ -100,8 +100,6 @@ public class MdImgService {
             mdNutResults.add(mdNutResult);
             mdNutResult = new MdNutResult();
         }
-
-
         return mdNutResults;
     }
 
@@ -242,5 +240,15 @@ public class MdImgService {
     // originPath로 이미지 삭제하기
     public void deleteImgUploadByOriPath(String originPath) {
         mdImgUploadRepository.deleteById(originPath);
+    }
+
+    // 해당 유저의 모든 Nut Result 삭제하기
+    public void deleteByUsername(String username) {
+        mdNutResultRepository.deleteByUsername(username);
+    }
+
+    // 해당 유저의 하루치 Nut Result 삭제하기
+    public void deleteByDate(String username, LocalDate selectedDate) {
+        mdNutResultRepository.deleteByDate(username, selectedDate);
     }
 }
