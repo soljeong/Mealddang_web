@@ -7,11 +7,13 @@
                 <p class="col-md-8 fs-4">원하는 서비스를 선택해보세요.</p>
             </div>
         </div>
-
         <div class="row align-items-md-stretch">
             <div class="col-md-6">
                 <div class="h-100 p-5 text-bg-dark rounded-3">
-                    <a href="/user/diet/log"><h2>밀땅 일지</h2><p>건강한 식단관리를 향해서</p></a>
+                    <a th:href="@{/user/diet/log(startDate=${startDate})}">
+                        <h2>밀땅 일지</h2>
+                        <p>건강한 식단관리를 향해서</p>
+                    </a>
                 </div>
             </div>
             <div class="col-md-6">

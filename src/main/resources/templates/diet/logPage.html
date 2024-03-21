@@ -4,69 +4,37 @@
         <section id="title">
             <a href="/user/diet/log"><h3 th:text="${mdUser.nickname != null ? mdUser.nickname : mdUser.username} + '님의 밀땅일지'"></h3></a>
         </section>
+        <p th:text="${startDate}" style="display: none;">시작 날짜</p>
+        <p id="monday" th:text="${monday}" style="display: none;">월요일 날짜</p>
+        <p th:text="${mondate}" style="display: none;">월요일 날짜</p>
+        <p th:text="${today}" style="display: none;">오늘 날짜</p>
+        <p th:text="${sunday}" style="display: none;">일요일 날짜</p>
 
         <!-- 슬라이드 섹션 -->
         <section class="container yellow-border">
             <div class="text-center">
                 <h3 style="color: black;">주간 섭취량</h3>
                 <div class="date-navigation">
-                    <button id="prev" class="btn btn-outline-warning"> < </button>
-                        <div class="date-center">
-                            <div class="text-primary text-center">
-                                <a href="/user/diet/weekly" style="margin-left: auto;">
-                                    <button class="btn btn-outline-warning">주간 AI 리포트</button></a>
-                            </div>
-                            <div>
-                                <button class="btn btn-outline-danger" onclick="location.href='/deleteAllResults'">모든 일지 삭제</button>
-                            </div>
+                    <button id="prevWeekBtn" class="btn btn-outline-warning"> &lt; </button>
+                    <div class="date-center">
+                        <div class="text-primary text-center">
+                            <a href="/user/diet/weekly" style="margin-left: auto;">
+                                <button class="btn btn-outline-warning">주간 AI 리포트</button>
+                            </a>
                         </div>
-                    <button id="next" class="btn btn-outline-warning"> > </button>
-                </div>
-                <div id="slider">
-                    <!-- 슬라이드 내용이 들어갈 곳 -->
-                    <div class="slide" id="lastWeek">
-                        저번주 내용
-                        <div class="date-center">
-                            <span th:text="${#temporals.format(#temporals.createNow().with(T(java.time.temporal.TemporalAdjusters).previousOrSame(T(java.time.DayOfWeek).MONDAY)), 'yyyy.MM.dd')}">이번주 월요일</span>
-                            <span> - </span>
-                            <span th:text="${#temporals.format(#temporals.createNow().with(T(java.time.temporal.TemporalAdjusters).nextOrSame(T(java.time.DayOfWeek).SUNDAY)), 'yyyy.MM.dd')}">이번주 일요일</span>
+                        <div>
+                            <button class="btn btn-outline-danger" onclick="location.href='/deleteAllResults'">모든 일지 삭제</button>
                         </div>
-                        <table style="margin: 0 auto;">
-                            <tbody>
-                                <tr id="totalkcal">
-                                    <td colspan="2" style="text-align: left;">칼로리</td>
-                                    <td colspan="3" style="text-align: right;">
-                                        <span th:text="${totalKcal + ' / ' + (md_diet.kcal != null ? md_diet.kcal*7 : '2500*7') + ' kacl'}"> </span>
-                                    </td>
-                                </tr>
-                                <tr id="totalcarbohydrates">
-                                    <td colspan="2" style="text-align: left;">탄수화물</td>
-                                    <td colspan="3" style="text-align: right;">
-                                        <span th:text="${totalCarboG + ' / ' + (md_diet.kcal != null ? T(java.lang.String).format('%1$.1f', (md_diet.kcal)*0.14*7) : '300.0*7')+ ' g'} "> </span>
-                                    </td>
-                                </tr>
-                                <tr id="totalprotein">
-                                    <td colspan="2" style="text-align: left;">단백질</td>
-                                    <td colspan="3" style="text-align: right;">
-                                        <span th:text="${totalProteinG + ' / ' + (md_diet.protein != null ? md_diet.protein*7 : '40.0*7')+ ' g'} "> </span>
-                                    </td>
-                                </tr>
-                                <tr id="totalfat">
-                                    <td colspan="2" style="text-align: left;">지방</td>
-                                    <td colspan="3" style="text-align: right;">
-                                        <span th:text="${totalFatG + ' / ' + (md_diet.kcal != null ? T(java.lang.String).format('%1$.1f', (md_diet.kcal)*0.017*7) : '50.0*7')+ ' g'} "> </span>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
                     </div>
-
-                    <div class="slide" id="thisWeek" style="display:none;">
-                        이번주 내용
+                    <button id="nextWeekBtn" class="btn btn-outline-warning"> &gt; </button>
+                </div>
+                <div>
+                    <div>
+                        <span id="weekDescription" th:text="${weekDescription}">이번주 내용</span>
                         <div class="date-center">
-                            <span th:text="${#temporals.format(#temporals.createNow().with(T(java.time.temporal.TemporalAdjusters).previousOrSame(T(java.time.DayOfWeek).MONDAY)), 'yyyy.MM.dd')}">이번주 월요일</span>
+                            <span th:text="${#temporals.format(monday, 'yyyy.MM.dd')}">이번주 월요일</span>
                             <span> - </span>
-                            <span th:text="${#temporals.format(#temporals.createNow().with(T(java.time.temporal.TemporalAdjusters).nextOrSame(T(java.time.DayOfWeek).SUNDAY)), 'yyyy.MM.dd')}">이번주 일요일</span>
+                            <span th:text="${#temporals.format(monday.plusDays(6), 'yyyy.MM.dd')}">이번주 일요일</span>
                         </div>
                         <table style="margin: 0 auto;">
                             <tbody>
@@ -101,9 +69,8 @@
             </div>
         </section>
         
-
         <!-- 오늘 내용 섹션 -->
-        <section class="container yellow-border">
+        <section class="container yellow-border" id="todaySection" style="display: block;">
             <div class="row">
                 <!-- 제목 부분 -->
                 <div class="col-md-12">
@@ -118,7 +85,7 @@
                             <a th:href="@{/deleteResults(date=${today})}">
                                 <button class="btn btn-outline-danger" th:text="${today} + ' 일지 삭제'"></button>
                             </a>
-                        </div>                        
+                        </div> 
                     </div>
                 </div>
             </div>
@@ -131,25 +98,25 @@
                             <tr id="todaykcal">
                                 <td colspan="2" style="text-align: left;">칼로리</td>
                                 <td colspan="3" style="text-align: right;">
-                                    <span th:text="${todayKcal + ' / ' + (md_diet.kcal != null ? md_diet.kcal : '2600') + ' kacl'}"> </span>
+                                    <span th:text="${__${today.getDayOfWeek().toString().toLowerCase() + 'Kcal'}__ + ' / ' + (md_diet.kcal != null ? md_diet.kcal : '2600')+ ' kacl'}"></span>
                                 </td>
                             </tr>
                             <tr id="todaycarbohydrates">
                                 <td colspan="2" style="text-align: left;">탄수화물</td>
                                 <td colspan="3" style="text-align: right;">
-                                    <span th:text="${todayCarboG + ' / ' + (md_diet.kcal != null ? T(java.lang.String).format('%1$.1f', (md_diet.kcal)*0.14) : '300.0')+ ' g'} "> </span>
+                                    <span th:text="${__${today.getDayOfWeek().toString().toLowerCase() + 'CarboG'}__ + ' / ' + (md_diet.kcal != null ? T(java.lang.String).format('%1$.1f', (md_diet.kcal)*0.14) : '300.0')+ ' g'} "> </span>
                                 </td>
                             </tr>
                             <tr id="todayprotein">
                                 <td colspan="2" style="text-align: left;">단백질</td>
                                 <td colspan="3" style="text-align: right;">
-                                    <span th:text="${todayProteinG + ' / ' + (md_diet.protein != null ? md_diet.protein : '55.0')+ ' g'} "> </span>
+                                    <span th:text="${__${today.getDayOfWeek().toString().toLowerCase() + 'ProteinG'}__  + ' / ' + (md_diet.protein != null ? md_diet.protein : '55.0')+ ' g'} "> </span>
                                 </td>
                             </tr>
                             <tr id="todayfat">
                                 <td colspan="2" style="text-align: left;">지방</td>
                                 <td colspan="3" style="text-align: right;">
-                                    <span th:text="${todayFatG + ' / ' + (md_diet.kcal != null ? T(java.lang.String).format('%1$.1f', (md_diet.kcal)*0.017) : '50.0')+ ' g'} "> </span>
+                                    <span th:text="${__${today.getDayOfWeek().toString().toLowerCase() + 'FatG'}__ + ' / ' + (md_diet.kcal != null ? T(java.lang.String).format('%1$.1f', (md_diet.kcal)*0.017) : '50.0')+ ' g'} "> </span>
                                 </td>
                             </tr>
                         </tbody>
@@ -160,10 +127,10 @@
                     <!-- 이미지 박스 영역 -->
                     <div class="image-box-wrapper">
                         <!-- 각 이미지에 대한 반복문 -->
-                        <div th:each="photoPath : ${photoPaths}" class="image-box">
-                            <a th:href="|http://localhost:8080/user/diet/airesult?originPath=${photoPath}|">
-                                <img th:src="@{'/uploaded/'+${photoPath}}" th:alt="${photoPath}">
-                            </a>
+                        <div th:each="eachPhotoPath : ${__${today.getDayOfWeek().toString().toLowerCase() + 'eachPhotoPaths'}__}">
+                            <div class="image-box" th:if="${eachPhotoPath != null}">
+                                <img th:src="@{'/uploaded/' + ${eachPhotoPath}}" alt="${eachPhotoPath}">
+                            </div>
                         </div>
                     </div>
                 </div>
