@@ -25,6 +25,11 @@
                         <div>
                             <button class="btn btn-outline-danger" onclick="location.href='/deleteAllResults'">모든 일지 삭제</button>
                         </div>
+                        <div>
+                            <a href="/user/diet/log">
+                                <button class="btn btn-outline-warning">오늘 날짜로</button>
+                            </a>
+                        </div>
                     </div>
                     <button id="nextWeekBtn" class="btn btn-outline-warning"> &gt; </button>
                 </div>
@@ -40,7 +45,7 @@
                                 <tr id="totalkcal">
                                     <td colspan="2" style="text-align: left;">칼로리</td>
                                     <td colspan="3" style="text-align: right;">
-                                        <span th:text="${totalKcal + ' / ' + (md_diet.kcal != null ? md_diet.kcal*7 : '2500*7') + ' kacl'}"> </span>
+                                        <span th:text="${totalKcal + ' / ' + (md_diet.kcal != null ? md_diet.kcal*7 : '2500*7') + ' kcal'}"> </span>
                                     </td>
                                 </tr>
                                 <tr id="totalcarbohydrates">
@@ -78,14 +83,14 @@
                         <p th:text="'오늘 (' + ${today} + ')'">오늘 날짜</p>
                         <div style="display: flex; gap: 10px; margin-left: auto;">
                             <div>
-                                    <a th:href="@{/user/diet/analysis(date=${today})}">
-                                        <button class="btn btn-outline-warning" style="align-items:right;">이미지 AI 분석</button>
-                                    </a>
-                                </div>
-                                <div>
-                                    <a th:href="@{/deleteResults(date=${today})}">
-                                        <button class="btn btn-outline-danger" th:text="${today} + ' 일지 삭제'"></button>
-                                    </a>
+                                <a th:href="@{/user/diet/analysis(date=${today})}">
+                                    <button class="btn btn-outline-warning" style="align-items:right;">이미지 AI 분석</button>
+                                </a>
+                            </div>
+                            <div>
+                                <a th:href="@{/deleteResults(date=${today})}">
+                                    <button class="btn btn-outline-danger" th:text="${today} + ' 일지 삭제'"></button>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -100,7 +105,7 @@
                             <tr id="todaykcal">
                                 <td colspan="2" style="text-align: left;">칼로리</td>
                                 <td colspan="3" style="text-align: right;">
-                                    <span th:text="${__${today.getDayOfWeek().toString().toLowerCase() + 'Kcal'}__ + ' / ' + (md_diet.kcal != null ? md_diet.kcal : '2600')+ ' kacl'}"></span>
+                                    <span th:text="${__${today.getDayOfWeek().toString().toLowerCase() + 'Kcal'}__ + ' / ' + (md_diet.kcal != null ? md_diet.kcal : '2600')+ ' kcal'}"></span>
                                 </td>
                             </tr>
                             <tr id="todaycarbohydrates">
@@ -173,7 +178,7 @@
                                 <tr id="todaykcal">
                                     <td colspan="2" style="text-align: left;">칼로리</td>
                                     <td colspan="3" style="text-align: right;">
-                                        <span th:text="${__${monday.plusDays(day).getDayOfWeek().toString().toLowerCase() + 'Kcal'}__ + ' / ' + (md_diet.kcal != null ? md_diet.kcal : '2600')+ ' kacl'}"></span>
+                                        <span th:text="${__${monday.plusDays(day).getDayOfWeek().toString().toLowerCase() + 'Kcal'}__ + ' / ' + (md_diet.kcal != null ? md_diet.kcal : '2600')+ ' kcal'}"></span>
                                     </td>
                                 </tr>
                                 <tr id="todaycarbohydrates">
