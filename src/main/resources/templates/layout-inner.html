@@ -140,7 +140,7 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <button type="button" class="btn btn-outline-warning no-wrap ms-auto nav-link" ><a href="/user/diet/log">밀땅일지</a></button>
+                            <button type="button" id="dietLogButton" class="btn btn-outline-warning no-wrap ms-auto nav-link">밀땅일지</button>
                         </li>
                         <li class="nav-item">
                             <button type="button" class="btn btn-outline-warning no-wrap ms-auto nav-link" ><a href="/user/rsrt/map">밀땅검색</a></button>
@@ -177,5 +177,22 @@
             <p>  Seo DaSeul  |  Lee JunHyuk  |  Jeong Sol  |  Jung SeHong  |  Byun YoungEun  |  Nam DaYeah  </p>
         </footer>
     </div>
+    <script>
+        var currentDate = new Date();
+        
+        // 날짜를 원하는 형식으로 조합
+        var year = currentDate.getFullYear();
+        var month = ("0" + (currentDate.getMonth() + 1)).slice(-2); // 두 자리로 만들기
+        var day = ("0" + currentDate.getDate()).slice(-2); // 두 자리로 만들기
+        var formattedDate = year + "-" + month + "-" + day;
+        
+        // Thymeleaf 표현식을 사용하여 URL에 날짜 추가
+        var url = "/user/diet/log?startDate=" + formattedDate;
+        
+        // 버튼 클릭 시 URL로 이동
+        document.getElementById("dietLogButton").onclick = function() {
+            window.location.href = url;
+        };
+    </script>
 </body>
 </html>

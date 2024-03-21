@@ -15,7 +15,7 @@ import lombok.RequiredArgsConstructor;
 public class EmailAuthController {
     @Autowired
     EmailAuthService emailAuthService;
-
+    
     @ResponseBody
     @PostMapping("/emailauth/request")
     public String emailAuthRequest(String emailAddr) {
