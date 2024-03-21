@@ -61,7 +61,6 @@ public class MdDietController {
         today = startDate;
 
         model.addAttribute("startDate", startDate);
-        // 오늘 날짜 (변하지 않는거)
         model.addAttribute("today", today);
         
 

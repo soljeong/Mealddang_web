@@ -7,7 +7,7 @@
         <p th:text="${startDate}" style="display: none;">시작 날짜</p>
         <p id="monday" th:text="${monday}" style="display: none;">월요일 날짜</p>
         <p th:text="${mondate}" style="display: none;">월요일 날짜</p>
-        <p th:text="${today}" style="display: none;">오늘 날짜</p>
+        <p id="chToday" th:text="${today}" style="display: none;">오늘 날짜</p>
         <p th:text="${sunday}" style="display: none;">일요일 날짜</p>
 
         <!-- 슬라이드 섹션 -->
@@ -74,18 +74,21 @@
             <div class="row">
                 <!-- 제목 부분 -->
                 <div class="col-md-12">
-                    <div class="code-area" style="margin-right: 20px; display: flex; justify-content: flex-end;">
-                        <p th:text="'오늘 (' + ${#dates.format(#dates.createNow(), 'yyyy-MM-dd')} + ')'">오늘 날짜</p>
-                        <div>
-                            <a th:href="@{/user/diet/analysis(date=${today})}" style="margin-left: auto;">
-                                <button class="btn btn-outline-warning">이미지 AI 분석</button>
-                            </a>
+                    <!--<div class="code-area" style="margin-right: 20px; display: flex; justify-content: flex-end;">-->
+                    <div class="code-area" style="display: flex; justify-content: space-between; align-items: center;">
+                        <p th:text="'오늘 (' + ${today} + ')'">오늘 날짜</p>
+                        <div style="display: flex; margin-left: auto;">
+                            <div>
+                                <a th:href="@{/user/diet/analysis(date=${today})}">
+                                    <button class="btn btn-outline-warning" style="align-items:right;">이미지 AI 분석</button>
+                                </a>
+                            </div>
+                            <div>
+                                <a th:href="@{/deleteResults(date=${today})}">
+                                    <button class="btn btn-outline-danger" th:text="${today} + ' 일지 삭제'"></button>
+                                </a>
+                            </div>
                         </div>
-                        <div>
-                            <a th:href="@{/deleteResults(date=${today})}">
-                                <button class="btn btn-outline-danger" th:text="${today} + ' 일지 삭제'"></button>
-                            </a>
-                        </div> 
                     </div>
                 </div>
             </div>
@@ -146,21 +149,18 @@
                     <div class="col-md-12">
                         <div class="code-area" style="margin-right: 20px; display: flex; justify-content: flex-end;">
                             <p th:if="${monday != null}" th:text="${monday.plusDays(day)}"></p>
-                            <div>
-                                <a th:href="@{/user/diet/analysis(date=${monday.plusDays(day)})}" style="margin-left: auto;">
-                                    <button class="btn btn-outline-warning">이미지 AI 분석</button>
-                                </a>
+                            <div style="display: flex; margin-left: auto;">
+                                <div>
+                                    <a th:href="@{/user/diet/analysis(date=${monday.plusDays(day)})}" style="margin-left: auto;">
+                                        <button class="btn btn-outline-warning">이미지 AI 분석</button>
+                                    </a>
+                                </div>
+                                <div>
+                                    <a th:href="@{/deleteResults(date=${monday.plusDays(day)})}">
+                                        <button class="btn btn-outline-danger" th:text="${monday.plusDays(day)} + ' 일지 삭제'"></button>
+                                    </a>
+                                </div>
                             </div>
-                            <!-- <div>
-                                <a href="@{/deleteResults(date=${today})}">
-                                    <button class="btn btn-outline-danger" th:text="${monday.plusDays(day)} + ' 일지 삭제'"></button>
-                                </a>
-                            </div> -->
-                            <div>
-                                <a th:href="@{/deleteResults(date=${monday.plusDays(day)})}">
-                                    <button class="btn btn-outline-danger" th:text="${monday.plusDays(day)} + ' 일지 삭제'"></button>
-                                </a>
-                            </div>    
                         </div>
                     </div>
                 </div>
