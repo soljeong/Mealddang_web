@@ -129,7 +129,9 @@
                         <!-- 각 이미지에 대한 반복문 -->
                         <div th:each="eachPhotoPath : ${__${today.getDayOfWeek().toString().toLowerCase() + 'eachPhotoPaths'}__}">
                             <div class="image-box" th:if="${eachPhotoPath != null}">
-                                <img th:src="@{'/uploaded/' + ${eachPhotoPath}}" alt="${eachPhotoPath}">
+                                <a th:href="|http://localhost:8080/user/diet/airesult?originPath=${eachPhotoPath}|">
+                                    <img th:src="@{'/uploaded/' + ${eachPhotoPath}}" th:alt="${eachPhotoPath}">
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -201,7 +203,9 @@
                         <div class="image-box-wrapper">
                             <div th:each="eachPhotoPath : ${__${monday.plusDays(day).getDayOfWeek().toString().toLowerCase() + 'eachPhotoPaths'}__}">
                                 <div class="image-box" th:if="${eachPhotoPath != null}">
-                                    <img th:src="@{'/uploaded/' + ${eachPhotoPath}}" alt="${eachPhotoPath}">
+                                    <a th:href="|http://localhost:8080/user/diet/airesult?originPath=${eachPhotoPath}|">
+                                        <img th:src="@{'/uploaded/' + ${eachPhotoPath}}" th:alt="${eachPhotoPath}">
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -214,4 +218,3 @@
         </th:block>
     </main>
 </html>
-
