@@ -18,32 +18,32 @@
                     <div class="box-row">
                         <!-- 칼로리 박스 -->
                         <div class="box-title text-center">칼로리
-                            <div class="box" th:style="${user_diet[0] <= md_diet.kcal ? 'background-color:#3ba272' : 'background-color:#ee6666'}">
-                                <span th:text="${user_diet[0] <= md_diet.kcal ? '적정' : '과다'}"></span>
+                            <div class="box" th:style="${user_diet[0] <= md_diet.kcal*7 ? 'background-color:#3ba272' : 'background-color:#ee6666'}">
+                                <span th:text="${user_diet[0] <= md_diet.kcal*7 ? '적정' : '과다'}"></span>
                                 <br>
                                 <span th:text="${totalKcal + ' / ' + (md_diet.kcal != null ? md_diet.kcal*7 : '2500*7') + ' kcal'}"></span>
                             </div>
                         </div>
                         <!-- 탄수화물 박스 -->
                         <div class="box-title text-center">탄수화물
-                            <div class="box" th:style="${user_diet[1]*4 <= md_diet.kcal*0.5 ? 'background-color:#3ba272' : 'background-color:#ee6666'}">
-                                <span th:text="${user_diet[1]*4 <= md_diet.kcal*0.5 ? '적정' : '과다'}"></span>
+                            <div class="box" th:style="${user_diet[1]*4 <= md_diet.kcal*7*0.5 ? 'background-color:#3ba272' : 'background-color:#ee6666'}">
+                                <span th:text="${user_diet[1]*4 <= md_diet.kcal*7*0.5 ? '적정' : '과다'}"></span>
                                 <br>
                                 <span th:text="${totalCarboG + ' / ' + (md_diet.kcal != null ? T(java.lang.String).format('%1$.1f', (md_diet.kcal)*0.14*7) : '300.0*7')+ ' g'} "></span>
                             </div>                            
                         </div>
                         <!-- 단백질 박스 -->
                         <div class="box-title text-center">단백질
-                            <div class="box" th:style="${user_diet[2] <= md_diet.protein ? 'background-color:#3ba272' : 'background-color:#ee6666'}">
-                                <span th:text="${user_diet[2] <= md_diet.protein ? '적정' : '과다'}"></span>
+                            <div class="box" th:style="${user_diet[2] <= md_diet.protein*7 ? 'background-color:#3ba272' : 'background-color:#ee6666'}">
+                                <span th:text="${user_diet[2] <= md_diet.protein*7 ? '적정' : '과다'}"></span>
                                 <br>
                                 <span th:text="${totalProteinG + ' / ' + (md_diet.protein != null ? md_diet.protein*7 : '40.0*7')+ ' g'} "></span>
                             </div>
                         </div>
                         <!-- 지방 박스 -->
                         <div class="box-title text-center">지방
-                            <div class="box" th:style="${user_diet[2] <= md_diet.protein ? 'background-color:#3ba272' : 'background-color:#ee6666'}">
-                                <span th:text="${user_diet[3]*9 <= md_diet.kcal*0.35 ? '적정' : '과다'}"></span>
+                            <div class="box" th:style="${user_diet[3]*9 <= md_diet.kcal*7*0.35 ? 'background-color:#3ba272' : 'background-color:#ee6666'}">
+                                <span th:text="${user_diet[3]*9 <= md_diet.kcal*7*0.35 ? '적정' : '과다'}"></span>
                                 <br>
                                 <span th:text="${totalFatG + ' / ' + (md_diet.kcal != null ? T(java.lang.String).format('%1$.1f', (md_diet.kcal)*0.017*7) : '50.0*7')+ ' g'} "> </span>
                             </div>
