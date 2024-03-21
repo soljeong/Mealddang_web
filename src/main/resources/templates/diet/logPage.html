@@ -2,7 +2,9 @@
     <main class="container" layout:fragment="content">
         <!-- 제목 섹션 -->
         <section id="title">
+            <div class="nemonemo">
             <a href="/user/diet/log"><h3 th:text="${mdUser.nickname != null ? mdUser.nickname : mdUser.username} + '님의 밀땅일지'"></h3></a>
+            </div>
         </section>
         <p th:text="${startDate}" style="display: none;">시작 날짜</p>
         <p id="monday" th:text="${monday}" style="display: none;">월요일 날짜</p>
