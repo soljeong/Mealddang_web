@@ -1,12 +1,14 @@
 <html layout:decorate="~{layout-inner}">
     
     <main  layout:fragment="content">
+    <!-- <div class="nemonemo"> -->
+        <div class="nemonemo">
         <div class="text-center">
         <h1  th:text="${mdUser.nickname != null ? mdUser.nickname : mdUser.username} + '님의 개인정보'"></h1>
         </div>
         <!-- <hr class="my-4"> -->
         <div class="row">
-            <div class="main-container">
+            <div class="main-container ">
             <div class="col-12 my-4">
                 <form action="#" id="nickForm"  th:action="@{/user/mypage/update_nickname}" method="post" class="alertForm text-md-start">
                     <label for="nickname">별명(Nickname)</label><br>
@@ -53,7 +55,7 @@
                     <button type="submit" onclick="checkInput()" class="btn btn-outline-warning">수정</button>
                 </form>
             </div>
-            
+
                 <!-- <label>관심지역</label>
                 <label><input type="checkbox" th:field="*{userArea}" class="form-control" value="gangnam" />강남구</label>
                 <label><input type="checkbox" th:field="*{userArea}" class="form-control" value="seocho" />서초구</label>
@@ -105,5 +107,6 @@
     </main>
 
     </div>
+</div>
     
 </html>
