@@ -30,8 +30,7 @@
                 </div>
                 <div>
                     <div>
-                        <span id="weekDescription" th:text="${weekDescription}">이번주 내용</span>
-                        <div class="date-center">
+                        <div class="date-center" style = "gap: 10px; margin-bottom: 10px;">
                             <span th:text="${#temporals.format(monday, 'yyyy.MM.dd')}">이번주 월요일</span>
                             <span> - </span>
                             <span th:text="${#temporals.format(monday.plusDays(6), 'yyyy.MM.dd')}">이번주 일요일</span>
