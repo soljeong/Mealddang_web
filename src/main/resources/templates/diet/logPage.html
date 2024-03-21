@@ -4,10 +4,11 @@
         <section id="title">
             <a href="/user/diet/log"><h3 th:text="${mdUser.nickname != null ? mdUser.nickname : mdUser.username} + '님의 밀땅일지'"></h3></a>
         </section>
-        <p th:text="${startDate}">시작 날짜</p>
-        <p th:text="${monday}">월요일 날짜</p>
-        <p th:text="${today}">오늘 날짜</p>
-        <p th:text="${sunday}">일요일 날짜</p>
+        <p th:text="${startDate}" style="display: none;">시작 날짜</p>
+        <p id="monday" th:text="${monday}" style="display: none;">월요일 날짜</p>
+        <p th:text="${mondate}" style="display: none;">월요일 날짜</p>
+        <p th:text="${today}" style="display: none;">오늘 날짜</p>
+        <p th:text="${sunday}" style="display: none;">일요일 날짜</p>
 
         <!-- 슬라이드 섹션 -->
         <section class="container yellow-border">
@@ -26,7 +27,7 @@
                 </div>
                 <div>
                     <div>
-                        이번주 내용
+                        <span id="weekDescription" th:text="${weekDescription}">이번주 내용</span>
                         <div class="date-center">
                             <span th:text="${#temporals.format(monday, 'yyyy.MM.dd')}">이번주 월요일</span>
                             <span> - </span>
@@ -66,7 +67,7 @@
         </section>
         
         <!-- 오늘 내용 섹션 -->
-        <section class="container yellow-border">
+        <section class="container yellow-border" id="todaySection" style="display: block;">
             <div class="row">
                 <!-- 제목 부분 -->
                 <div class="col-md-12">
@@ -86,7 +87,7 @@
                             <tr id="todaykcal">
                                 <td colspan="2" style="text-align: left;">칼로리</td>
                                 <td colspan="3" style="text-align: right;">
-                                    <span th:text="${__${today.plusDays(day).getDayOfWeek().toString().toLowerCase() + 'Kcal'}__ + ' / ' + (md_diet.kcal != null ? md_diet.kcal : '2600')+ ' kacl'}"></span>
+                                    <span th:text="${__${today.getDayOfWeek().toString().toLowerCase() + 'Kcal'}__ + ' / ' + (md_diet.kcal != null ? md_diet.kcal : '2600')+ ' kacl'}"></span>
                                 </td>
                             </tr>
                             <tr id="todaycarbohydrates">

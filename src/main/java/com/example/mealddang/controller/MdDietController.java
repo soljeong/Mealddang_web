@@ -45,7 +45,7 @@ public class MdDietController {
 
     // 메인
     @GetMapping("/log")
-    public String getLog(Model model, Authentication authentication, @RequestParam("startDate") LocalDate startDate) {
+    public String getLog(Model model, Authentication authentication, @RequestParam(value = "startDate", required = false) LocalDate startDate) {
         String username = authentication.getName();
         MdUser mdUser = mdUserService.findByUsername(username);
         model.addAttribute("mdUser", mdUser);
@@ -54,15 +54,24 @@ public class MdDietController {
         MdDiet md_diet = mdDietService.getDiet(mdUser);
         model.addAttribute("md_diet", md_diet);
 
+        LocalDate today = LocalDate.now();
+        if (startDate == null) {
+            startDate = LocalDate.now(); // startDate가 null이면 오늘 날짜로 설정
+        }
+        today = startDate;
+
         model.addAttribute("startDate", startDate);
+        // 오늘 날짜 (변하지 않는거)
+        model.addAttribute("today", today);
+        
+
+
         // 월요일 가져옴
         LocalDate monday = startDate.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
         model.addAttribute("monday", monday);
-
-        // 오늘 날짜
-        LocalDate today = startDate;
-        model.addAttribute("today", today);
-
+        String mondate = monday.toString();
+        model.addAttribute("mondate", mondate);
+        
         LocalDate sunday = monday.plusDays(6);
         model.addAttribute("sunday", sunday);
 
