@@ -84,14 +84,14 @@
                         <p th:text="'오늘 (' + ${today} + ')'">오늘 날짜</p>
                         <div style="display: flex; gap: 10px; margin-left: auto;">
                             <div>
-                                <a th:href="@{/user/diet/analysis(date=${today})}">
-                                    <button class="btn btn-outline-warning" style="align-items:right;">이미지 AI 분석</button>
-                                </a>
-                            </div>
-                            <div>
-                                <a th:href="@{/deleteResults(date=${today})}">
-                                    <button class="btn btn-outline-danger" th:text="${today} + ' 일지 삭제'"></button>
-                                </a>
+                                    <a th:href="@{/user/diet/analysis(date=${today})}">
+                                        <button class="btn btn-outline-warning" style="align-items:right;">이미지 AI 분석</button>
+                                    </a>
+                                </div>
+                                <div>
+                                    <a th:href="@{/deleteResults(date=${today})}">
+                                        <button class="btn btn-outline-danger">삭제</button>
+                                    </a>
                             </div>
                         </div>
                     </div>
@@ -164,7 +164,7 @@
                                 </div>
                                 <div>
                                     <a th:href="@{/deleteResults(date=${monday.plusDays(day)})}">
-                                        <button class="btn btn-outline-danger" th:text="${monday.plusDays(day)} + ' 일지 삭제'"></button>
+                                        <button class="btn btn-outline-danger">삭제</button>
                                     </a>
                                 </div>
                             </div>

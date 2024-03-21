@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -123,6 +124,9 @@ public class MdDietController {
                     eachPhotoPaths.add(eachResult.getOriginPath().getOriginPath());
                 }
             }
+            // 원본이미지 중복 제거 로직
+            eachPhotoPaths = List.copyOf(Set.copyOf(eachPhotoPaths));
+            
             // 각 날짜별로 계산된 합계를 모델에 추가
             model.addAttribute(date.getDayOfWeek().toString().toLowerCase() + "Kcal", eachKcal);
             model.addAttribute(date.getDayOfWeek().toString().toLowerCase() + "CarboG", eachCarboG);

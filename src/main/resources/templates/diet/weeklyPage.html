@@ -1,47 +1,56 @@
 <html layout:decorate="~{layout-inner}">
     <main layout:fragment="content">
-        <section id="title">
-            <a href="/user/diet/log"><h3 th:text="${mdUser.nickname != null ? mdUser.nickname : mdUser.username} + '님의 밀땅일지'"></h3></a>
-            <h1 classe="text-primary text-center pt-20 mb-10">주간 AI 리포트를 한 눈에 확인하세요.</h1>
-        </section>
-        <section class="row align-items-md-stretch">
-            <div class="col-12">
-                <h3>주간 섭취량</h3>
-                <span th:text="${#temporals.format(#temporals.createNow().with(T(java.time.temporal.TemporalAdjusters).previousOrSame(T(java.time.DayOfWeek).MONDAY)), 'yyyy.MM.dd')}">이번주 일요일</span>
+        <section class="mb-5 text-center">
+            <a href="/user/diet/log"><h1 th:text="${mdUser.nickname != null ? mdUser.nickname : mdUser.username} + '님을 위한 주간 AI 리포트'"></h1></a>
+            <div>
+                <br>
+                <span th:text="${#temporals.format(#temporals.createNow().with(T(java.time.temporal.TemporalAdjusters).previousOrSame(T(java.time.DayOfWeek).MONDAY)), 'yyyy.MM.dd')}"></span>
                 <span> - </span>
-                <span th:text="${#temporals.format(#temporals.createNow().with(T(java.time.temporal.TemporalAdjusters).nextOrSame(T(java.time.DayOfWeek).SUNDAY)), 'yyyy.MM.dd')}">이번주 토요일</span>
-                    
-                <div>
-                    <h3>영양 신호등</h3>
+                <span th:text="${#temporals.format(#temporals.createNow().with(T(java.time.temporal.TemporalAdjusters).nextOrSame(T(java.time.DayOfWeek).SUNDAY)), 'yyyy.MM.dd')}"></span>    
+                <span> | 주간 영양 분석</span>
+            </div>
+        </section>
+        
+        <section class="row align-items-md-stretch">
+            <div class="col-12 text-center mb-5">
+                <div class="mb-5">
+                    <h3> 🚥영양 신호등🚥 </h3>
                     <div class="box-row">
                         <!-- 칼로리 박스 -->
-                        <div class="box-title">칼로리
-                            <div class="box"
-                            th:text="${user_diet[0] <= md_diet.kcal ? '적정' : '과다'}"
-                            th:style="${user_diet[0] <= md_diet.kcal ? 'background-color:#3ba272' : 'background-color:#ee6666'}"></div>
+                        <div class="box-title text-center">칼로리
+                            <div class="box" th:style="${user_diet[0] <= md_diet.kcal ? 'background-color:#3ba272' : 'background-color:#ee6666'}">
+                                <span th:text="${user_diet[0] <= md_diet.kcal ? '적정' : '과다'}"></span>
+                                <br>
+                                <span th:text="${totalKcal + ' / ' + (md_diet.kcal != null ? md_diet.kcal*7 : '2500*7') + ' kcal'}"></span>
+                            </div>
                         </div>
                         <!-- 탄수화물 박스 -->
-                        <div class="box-title">탄수화물
-                            <div class="box"
-                            th:text="${user_diet[1]*4 <= md_diet.kcal*0.5 ? '적정' : '과다'}"
-                            th:style="${user_diet[1]*4 <= md_diet.kcal*0.5 ? 'background-color:#3ba272' : 'background-color:#ee6666'}"></div>
+                        <div class="box-title text-center">탄수화물
+                            <div class="box" th:style="${user_diet[1]*4 <= md_diet.kcal*0.5 ? 'background-color:#3ba272' : 'background-color:#ee6666'}">
+                                <span th:text="${user_diet[1]*4 <= md_diet.kcal*0.5 ? '적정' : '과다'}"></span>
+                                <br>
+                                <span th:text="${totalCarboG + ' / ' + (md_diet.kcal != null ? T(java.lang.String).format('%1$.1f', (md_diet.kcal)*0.14*7) : '300.0*7')+ ' g'} "></span>
+                            </div>                            
                         </div>
                         <!-- 단백질 박스 -->
-                        <div class="box-title">단백질
-                            <div class="box"
-                            th:text="${user_diet[2] <= md_diet.protein ? '적정' : '과다'}"
-                            th:style="${user_diet[2] <= md_diet.protein ? 'background-color:#3ba272' : 'background-color:#ee6666'}"></div>
+                        <div class="box-title text-center">단백질
+                            <div class="box" th:style="${user_diet[2] <= md_diet.protein ? 'background-color:#3ba272' : 'background-color:#ee6666'}">
+                                <span th:text="${user_diet[2] <= md_diet.protein ? '적정' : '과다'}"></span>
+                                <br>
+                                <span th:text="${totalProteinG + ' / ' + (md_diet.protein != null ? md_diet.protein*7 : '40.0*7')+ ' g'} "></span>
+                            </div>
                         </div>
                         <!-- 지방 박스 -->
-                        <div class="box-title">지방
-                            <div class="box"
-                            th:text="${user_diet[3]*9 <= md_diet.kcal*0.35 ? '적정' : '과다'}"
-                            th:style="${user_diet[3]*9 <= md_diet.kcal*0.35 ? 'background-color:#3ba272' : 'background-color:#ee6666'}"></div>
+                        <div class="box-title text-center">지방
+                            <div class="box" th:style="${user_diet[2] <= md_diet.protein ? 'background-color:#3ba272' : 'background-color:#ee6666'}">
+                                <span th:text="${user_diet[3]*9 <= md_diet.kcal*0.35 ? '적정' : '과다'}"></span>
+                                <br>
+                                <span th:text="${totalFatG + ' / ' + (md_diet.kcal != null ? T(java.lang.String).format('%1$.1f', (md_diet.kcal)*0.017*7) : '50.0*7')+ ' g'} "> </span>
+                            </div>
                         </div>
                     </div>
                 </div>
-
-                <table id="weekly-table">
+                <!-- <table id="weekly-table">
                     <tbody>
                         <tr id="kcal">
                             <td colspan="2" style="text-align: left;">칼로리</td>
@@ -68,18 +77,17 @@
                             </td>
                         </tr>
                     </tbody>
-                </table>
+                </table> -->
 
-                <div>
-                    <h3>일일 영양 비율</h3>
+                <div class="mb-5 mt-5">
+                    <h3> 📊일일 영양 비율📊 </h3>
                     <div id="main" style="width: 1300px;height:600px;"></div>
                 </div>
 
-                <div>
-                    <h3>일주일치 영양 비율</h3>
+                <div class="mb-5 mt-5">
+                    <h3> 🎯일주일치 영양 비율🎯 </h3>
                     <div id="main2" style="width: 1300px;height:600px;"></div>
                 </div>
-                
 
                 <!-- 추후 개발...
                 <div>
