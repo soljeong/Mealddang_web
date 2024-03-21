@@ -19,21 +19,21 @@ fetch('/api-weekly')
 
 
     // 주간 영양섭취표
-    const kcalRow = document.getElementById('kcal');
-    const kcalValueTd = kcalRow.getElementsByTagName('td')[1];
-    kcalValueTd.textContent = rawData2[0];
+    // const kcalRow = document.getElementById('kcal');
+    // const kcalValueTd = kcalRow.getElementsByTagName('td')[1];
+    // kcalValueTd.textContent = rawData2[0];
 
-    const carbohydratesRow = document.getElementById('carbohydrates');
-    const carbohydratesValueTd = carbohydratesRow.getElementsByTagName('td')[1];
-    carbohydratesValueTd.textContent = rawData2[1];
+    // const carbohydratesRow = document.getElementById('carbohydrates');
+    // const carbohydratesValueTd = carbohydratesRow.getElementsByTagName('td')[1];
+    // carbohydratesValueTd.textContent = rawData2[1];
     
-    const proteinRow = document.getElementById('protein');
-    const proteinValueTd = proteinRow.getElementsByTagName('td')[1];
-    proteinValueTd.textContent = rawData2[2];
+    // const proteinRow = document.getElementById('protein');
+    // const proteinValueTd = proteinRow.getElementsByTagName('td')[1];
+    // proteinValueTd.textContent = rawData2[2];
 
-    const fatRow = document.getElementById('fat');
-    const fatValueTd = fatRow.getElementsByTagName('td')[1];
-    fatValueTd.textContent = rawData2[3];
+    // const fatRow = document.getElementById('fat');
+    // const fatValueTd = fatRow.getElementsByTagName('td')[1];
+    // fatValueTd.textContent = rawData2[3];
 
 
     // 막대그래프

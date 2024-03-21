@@ -60,7 +60,6 @@ public class MdDietController {
         today = startDate;
 
         model.addAttribute("startDate", startDate);
-        // 오늘 날짜 (변하지 않는거)
         model.addAttribute("today", today);
         
 
@@ -159,6 +158,35 @@ public class MdDietController {
         List<Float> user_diet = mdDietService.weekTotal(username);
         model.addAttribute("user_diet", user_diet);
 
+
+
+        // 주간 표
+        LocalDate today = LocalDate.now();
+        model.addAttribute("today", today);
+        LocalDate monday = today.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
+        model.addAttribute("monday", monday);
+
+
+        // 일주일 영양 정보 총합
+        List<MdNutResult> weeklyResults = mdNutResultRepository.findByMdUserAndDate(username, monday);
+        long totalKcal = 0;
+        long totalCarboG = 0;
+        long totalProteinG = 0;
+        long totalFatG = 0;
+        for (MdNutResult weeklyResult : weeklyResults){
+            if(weeklyResult.getCreatedDate()!=null && !weeklyResult.getCreatedDate().isBefore(monday) && !weeklyResult.getCreatedDate().isAfter(monday.plusDays(6))) {
+                Float kcal = weeklyResult.getKcal() != null ? weeklyResult.getKcal() : 0.0f;
+                totalKcal += kcal;
+                totalCarboG += weeklyResult.getCarboG() != null ? weeklyResult.getCarboG() : 0.0f;
+                totalProteinG += weeklyResult.getProteinG() != null ? weeklyResult.getProteinG() : 0.0f;
+                totalFatG += weeklyResult.getFatG() != null ? weeklyResult.getFatG() : 0.0f;
+            }
+        }
+        model.addAttribute("totalKcal", totalKcal);
+        model.addAttribute("totalCarboG", totalCarboG);
+        model.addAttribute("totalProteinG", totalProteinG);
+        model.addAttribute("totalFatG", totalFatG);
+
         return "diet/weeklyPage";
     }
 
@@ -185,8 +213,4 @@ public class MdDietController {
         return "diet/resultPage";
     }
 
-    @GetMapping("/user/diet/nutrition")
-    public List<Object[]> getNutritionData(@RequestParam("username") String username, @RequestParam("dayofweek") int dayofweek) {
-        return mdNutResultRepository.sumNutDaily(username, dayofweek);
-    }
 }

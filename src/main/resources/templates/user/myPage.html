@@ -1,8 +1,12 @@
 <html layout:decorate="~{layout-inner}">
-    <main layout:fragment="content">
-        <h3 th:text="${mdUser.nickname != null ? mdUser.nickname : mdUser.username} + '님의 개인정보'"></h3>
-        <hr class="my-4">
+    
+    <main  layout:fragment="content">
+        <div class="text-center">
+        <h1  th:text="${mdUser.nickname != null ? mdUser.nickname : mdUser.username} + '님의 개인정보'"></h1>
+        </div>
+        <!-- <hr class="my-4"> -->
         <div class="row">
+            <div class="main-container">
             <div class="col-12 my-4">
                 <form action="#" id="nickForm"  th:action="@{/user/mypage/update_nickname}" method="post" class="alertForm text-md-start">
                     <label for="nickname">별명(Nickname)</label><br>
@@ -99,4 +103,7 @@
     });
     </script>
     </main>
+
+    </div>
+    
 </html>
