@@ -99,10 +99,12 @@ border-radius: 5px;
 }
 
 .btn-fixed-size {
-    position: relative;
-    left: 85%; 
-    bottom: 20px; 
-    width: 100px;  
-    height: 40px; 
-    } 
+    max-width: 100%; /* div 영역을 넘어가지 않도록 최대 너비 제한 */
+    height: auto;
+}
 
+div.back-btn {
+    display: flex;
+    justify-content: right; /* 버튼을 div 중앙으로 정렬 */
+    align-items: center; /* 버튼을 수직 중앙으로 정렬 */
+}

@@ -1,6 +1,6 @@
 <html layout:decorate="~{layout-inner}">
     <main layout:fragment="content">
-        <div class="container">
+        <div class="container mb-4">
             <!-- 제목 -->
             <div class="row mt-5">
                 <div class="col">
@@ -32,16 +32,16 @@
                     <button id="analyzeButton" class="btn btn-primary w-100" type="submit">분석 시작</button>
                 </div>
             </div>
-            <!-- 뒤로가기 버튼 -->
-            <div>
-                <button onclick="goBack()" class="btn btn-outline-warning btn-fixed-size">뒤로 가기</button>
-            </div>
             <!-- 로딩 화면 -->
             <div id="loadingScreen" style="display: none;">
                 <div class="mask" style="display: none;">
                     <img class="loadingImg" src='/icons/Bean Eater-1s-124px (1).gif'>
                 </div>
             </div>
+        </div>
+        <!-- 뒤로가기 버튼 -->
+        <div class="back-btn">
+            <button onclick="goBack()" class="btn btn-outline-warning btn-fixed-size">뒤로 가기</button>
         </div>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script>
