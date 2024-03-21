@@ -9,6 +9,7 @@
         <p th:text="${mondate}" style="display: none;">월요일 날짜</p>
         <p id="chToday" th:text="${today}" style="display: none;">오늘 날짜</p>
         <p th:text="${sunday}" style="display: none;">일요일 날짜</p>
+        <p th:text="${today}" style="display: none;">오늘 날짜</p>
 
         <!-- 슬라이드 섹션 -->
         <section class="container nemonemo ">
@@ -17,6 +18,11 @@
                 <div class="date-navigation">
                     <button id="prevWeekBtn" class="btn btn-outline-warning"> &lt; </button>
                     <div class="date-center" style = "gap: 10px;">
+                        <div>
+                            <a th:href="@{/user/diet/log(startDate=${sysToday})}">
+                                <button class="btn btn-outline-warning">오늘 날짜로</button>
+                            </a>
+                        </div>
                         <div class="text-primary text-center">
                             <a href="/user/diet/weekly" style="margin-left: auto;">
                                 <button class="btn btn-outline-warning">주간 AI 리포트</button>
@@ -24,11 +30,6 @@
                         </div>
                         <div>
                             <button class="btn btn-outline-danger" onclick="location.href='/deleteAllResults'">모든 일지 삭제</button>
-                        </div>
-                        <div>
-                            <a href="/user/diet/log">
-                                <button class="btn btn-outline-warning">오늘 날짜로</button>
-                            </a>
                         </div>
                     </div>
                     <button id="nextWeekBtn" class="btn btn-outline-warning"> &gt; </button>

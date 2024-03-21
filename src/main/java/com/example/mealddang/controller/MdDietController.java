@@ -49,6 +49,10 @@ public class MdDietController {
         MdUser mdUser = mdUserService.findByUsername(username);
         model.addAttribute("mdUser", mdUser);
 
+        // 고정 system today
+        LocalDate sysToday = LocalDate.now();
+        model.addAttribute("sysToday", sysToday);
+
         // 유저 나이와 성별에 맞는 섭취기준(MdDiet엔티티) 불러오기
         MdDiet md_diet = mdDietService.getDiet(mdUser);
         model.addAttribute("md_diet", md_diet);
