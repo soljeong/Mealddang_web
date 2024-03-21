@@ -84,7 +84,7 @@
                                 </div>
                                 <div>
                                     <a th:href="@{/deleteResults(date=${today})}">
-                                        <button class="btn btn-outline-danger" th:text="${today} + ' 일지 삭제'"></button>
+                                        <button class="btn btn-outline-danger">삭제</button>
                                     </a>
                             </div>
                         </div>
@@ -158,7 +158,7 @@
                                 </div>
                                 <div>
                                     <a th:href="@{/deleteResults(date=${monday.plusDays(day)})}">
-                                        <button class="btn btn-outline-danger" th:text="${monday.plusDays(day)} + ' 일지 삭제'"></button>
+                                        <button class="btn btn-outline-danger">삭제</button>
                                     </a>
                                 </div>
                             </div>
