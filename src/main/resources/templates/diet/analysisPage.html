@@ -32,6 +32,11 @@
                     <button id="analyzeButton" class="btn btn-primary w-100" type="submit">분석 시작</button>
                 </div>
             </div>
+            <!-- 뒤로가기 버튼 -->
+            <div>
+                <button onclick="goBack()" class="btn btn-outline-warning btn-fixed-size">뒤로 가기</button>
+            </div>
+            <!-- 로딩 화면 -->
             <div id="loadingScreen" style="display: none;">
                 <div class="mask" style="display: none;">
                     <img class="loadingImg" src='/icons/Bean Eater-1s-124px (1).gif'>
@@ -78,6 +83,10 @@
                 };
                 
                 reader.readAsDataURL(event.target.files[0]);
+            }
+
+            function goBack() {
+                window.history.back();
             }
         </script>
     </main>
