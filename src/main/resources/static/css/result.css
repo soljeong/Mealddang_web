@@ -108,3 +108,9 @@ div.back-btn {
     justify-content: right; /* 버튼을 div 중앙으로 정렬 */
     align-items: center; /* 버튼을 수직 중앙으로 정렬 */
 }
+
+.card-img-top {
+    width: 100%; /* 이미지를 부모 요소의 너비에 맞추기 */
+    height: 150px; /* 가로 세로 비율 유지 */
+    object-fit: cover; /* 이미지가 부모 요소에 꽉 차도록 확대/축소 */
+}

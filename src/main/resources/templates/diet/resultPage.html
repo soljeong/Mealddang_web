@@ -1,15 +1,17 @@
 <html layout:decorate="~{layout-inner}">
     <main layout:fragment="content">
         <div class="container py-4">
-            <div class="row mb-4">
-                <div class="col-md-4">
-                    <img th:src="@{'/uploaded/'+${allNResults[0].originPath.originPath}}" class="card-img border-0 rounded" alt="Origin-Img-Uploaded">
+            <div class="row justify-content-center mb-4">
+                <div class="col-6">
+                    <img th:src="@{'/uploaded/'+${allNResults[0].originPath.originPath}}" class="border-0 rounded w-100" style="height: 500px;" alt="Origin-Img-Uploaded">
                 </div>
-                <div class="col-md-3" th:each="nResult : ${allNResults}">
+            </div>
+            <div class="row">
+                <div class="col-md-3"  th:each="nResult : ${allNResults}">
                     <div class="card mb-3">
-                        <img th:src="@{'/uploaded/'+${nResult.resultPath}}" class="img-fluid rounded-start" alt="Result-Img-Focused">
+                        <img th:src="@{'/uploaded/'+${nResult.resultPath}}" class="card-img-top" alt="Result-Img-Focused">
+
                         <div class="card-body">
-                            <h4 class="mb-3">영양소 정보</h4>
                             <div class="border border-gray-300 rounded-lg p-3">
                                 <div class="d-flex justify-content-between mb-2">
                                     <p class="font-weight-semibold">음식명</p>
@@ -35,14 +37,6 @@
                         </div>
                     </div>
                 </div>
-                <script>
-                function goBack() {
-                    window.history.back();
-                }
-                </script>
-            </div>
-            <div class="back-btn">
-                <button onclick="goBack()" class="btn btn-outline-warning btn-fixed-size">뒤로 가기</button>
             </div>
         </div>
     </main>
