@@ -213,8 +213,4 @@ public class MdDietController {
         return "diet/resultPage";
     }
 
-    @GetMapping("/user/diet/nutrition")
-    public List<Object[]> getNutritionData(@RequestParam("username") String username, @RequestParam("dayofweek") int dayofweek) {
-        return mdNutResultRepository.sumNutDaily(username, dayofweek);
-    }
 }

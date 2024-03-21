@@ -2,7 +2,17 @@
 .btn:hover, .btn.active {
   background-color: yellow; /* 예시 색상, 원하는 색상으로 변경 가능 */
   color: black; /* 텍스트 색상, 원하는 색상으로 변경 가능 */
+  padding: 0 14px;
+  min-width: 48px;
+  height: 32px;
+  font-size: 13px;
+  font-weight: 600;
+  border-radius: 6px;
+  margin: 8px; /* 상단 마진 */
+  
 }
+
+
 
 /* .btn-outline-warning {
   background-color: transparent;
