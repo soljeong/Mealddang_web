@@ -44,32 +44,28 @@
                 <table id="weekly-table">
                     <tbody>
                         <tr id="kcal">
-                            <td>칼로리</td>
-                            <td>value from js</td>
-                            <td>/</td>
-                            <td th:text="${md_diet.kcal != null ? md_diet.kcal*7 : '2500*7'}"></td>
-                            <td>kcal</td>
+                            <td colspan="2" style="text-align: left;">칼로리</td>
+                            <td colspan="3" style="text-align: right;">
+                                <span th:text="${totalKcal + ' / ' + (md_diet.kcal != null ? md_diet.kcal*7 : '2500*7') + ' kacl'}"> </span>
+                            </td>
                         </tr>
                         <tr id="carbohydrates">
-                            <td>탄수화물</td>
-                            <td>value from js</td>
-                            <td>/</td>
-                            <td th:text="${md_diet.kcal != null ? T(java.lang.String).format('%1$.1f', (md_diet.kcal)*0.14*7) : '300.0*7'}"></td>
-                            <td>g</td>
+                            <td colspan="2" style="text-align: left;">탄수화물</td>
+                            <td colspan="3" style="text-align: right;">
+                                <span th:text="${totalCarboG + ' / ' + (md_diet.kcal != null ? T(java.lang.String).format('%1$.1f', (md_diet.kcal)*0.14*7) : '300.0*7')+ ' g'} "> </span>
+                            </td>
                         </tr>
                         <tr id="protein">
-                            <td>단백질</td>
-                            <td>value from js</td>
-                            <td>/</td>
-                            <td th:text="${md_diet.protein != null ? md_diet.protein*7 : '40.0*7'}"></td>
-                            <td>g</td>
+                            <td colspan="2" style="text-align: left;">단백질</td>
+                            <td colspan="3" style="text-align: right;">
+                                <span th:text="${totalProteinG + ' / ' + (md_diet.protein != null ? md_diet.protein*7 : '40.0*7')+ ' g'} "> </span>
+                            </td>
                         </tr>
                         <tr id="fat">
-                            <td>지방</td>
-                            <td>value from js</td>
-                            <td>/</td>
-                            <td th:text="${md_diet.kcal != null ? T(java.lang.String).format('%1$.1f', (md_diet.kcal)*0.017*7) : '50.0*7'}"></td>
-                            <td>g</td>
+                            <td colspan="2" style="text-align: left;">지방</td>
+                            <td colspan="3" style="text-align: right;">
+                                <span th:text="${totalFatG + ' / ' + (md_diet.kcal != null ? T(java.lang.String).format('%1$.1f', (md_diet.kcal)*0.017*7) : '50.0*7')+ ' g'} "> </span>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
