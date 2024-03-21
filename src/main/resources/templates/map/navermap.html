@@ -3,13 +3,15 @@
 
         <!-- 검색창 section -->
         <section id="search-box">
-            <h2 class="title">식당 검색</h2>
+            <div class="nemonemo">
+            <h2 class="title">🍽️ 식당 검색 🍽️</h2>
             <form action="/user/rsrt/search/name" method="GET">
                 <input onkeyup="enterkey()" type="search" name="searchkey" placeholder="식당 이름 검색"/>
                 <button type="submit" class="btn btn-outline-warning">
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </button>
             </form>
+        </div>
         </section>
 
         <!-- 검색 및 필터 결과 section -->
@@ -42,28 +44,29 @@
 
         <!-- 키워드 카테고리 필터 section -->
         <section id="category-filter">
+            <div class="nemonemo">
             <div class="category-container" style="margin-bottom: 20px;">
-                <h2 class="category-title" style="margin:20px 0;">밀땅 카테고리를 선택해보세요.</h2>
+                <h2 class="category-title" style="margin:20px 0;">💛 밀땅 카테고리를 선택해보세요 💛</h2>
 
                 <div class="category-list button-con">
                     <button class="activebtn btn btn-outline-warning"style="margin-bottom: 10px;" id="atmosphereButton" data-value="분위기">분위기</button>
                     <script>
                         document.getElementById("atmosphereButton").addEventListener("click", function() {
-                            var keyword = encodeURIComponent("분위기"); // URL에 사용될 수 있도록 키워드를 인코딩합니다.
+                            var keyword = encodeURIComponent("🌟분위기"); // URL에 사용될 수 있도록 키워드를 인코딩합니다.
                             window.location.href = '/user/rsrt/filter/atmosphere?keyword=' + keyword;
                         });
                     </script>
                     <button class="activebtn btn btn-outline-warning" style="margin-bottom: 10px;" id="tasteButton" data-value="맛">맛있는</button>
                     <script>
                         document.getElementById("tasteButton").addEventListener("click", function() {
-                            var keyword = encodeURIComponent("맛"); // URL에 사용될 수 있도록 키워드를 인코딩합니다.
+                            var keyword = encodeURIComponent("👅맛"); // URL에 사용될 수 있도록 키워드를 인코딩합니다.
                             window.location.href = '/user/rsrt/filter/atmosphere?keyword=' + keyword;
                         });
                     </script>
                     <button class="activebtn btn btn-outline-warning" style="margin-bottom: 10px;" id="cleanButton" data-value="깨끗">깔끔한</button>
                     <script>
                         document.getElementById("cleanButton").addEventListener("click", function() {
-                            var keyword = encodeURIComponent("깨끗"); // URL에 사용될 수 있도록 키워드를 인코딩합니다.
+                            var keyword = encodeURIComponent("✨깨끗"); // URL에 사용될 수 있도록 키워드를 인코딩합니다.
                             window.location.href = '/user/rsrt/filter/atmosphere?keyword=' + keyword;
                         });
                     </script>
@@ -71,7 +74,7 @@
                     <button class="activebtn btn btn-outline-warning" style="margin-bottom: 10px;" id="cleanlinessButton" data-value="청결">청결</button>
                     <script>
                         document.getElementById("cleanlinessButton").addEventListener("click", function() {
-                            var keyword = encodeURIComponent("청결"); // URL에 사용될 수 있도록 키워드를 인코딩합니다.
+                            var keyword = encodeURIComponent("🍴청결"); // URL에 사용될 수 있도록 키워드를 인코딩합니다.
                             window.location.href = '/user/rsrt/filter/atmosphere?keyword=' + keyword;
                         });
                     </script>
@@ -79,7 +82,7 @@
                     <button class="activebtn btn btn-outline-warning" style="margin-bottom: 10px;" id="bookButton"data-value="예약">예약가능</button>
                     <script>
                         document.getElementById("bookButton").addEventListener("click", function() {
-                            var keyword = encodeURIComponent("예약"); // URL에 사용될 수 있도록 키워드를 인코딩합니다.
+                            var keyword = encodeURIComponent("📓예약"); // URL에 사용될 수 있도록 키워드를 인코딩합니다.
                             window.location.href = '/user/rsrt/filter/atmosphere?keyword=' + keyword;
                         });
                     </script>
@@ -87,7 +90,7 @@
                     <button class="activebtn btn btn-outline-warning" style="margin-bottom: 10px;" id="bigButton"data-value="대형">대형매장</button>
                     <script>
                         document.getElementById("bigButton").addEventListener("click", function() {
-                            var keyword = encodeURIComponent("대형"); // URL에 사용될 수 있도록 키워드를 인코딩합니다.
+                            var keyword = encodeURIComponent("🕍대형"); // URL에 사용될 수 있도록 키워드를 인코딩합니다.
                             window.location.href = '/user/rsrt/filter/atmosphere?keyword=' + keyword;
                         });
                     </script>
@@ -262,6 +265,7 @@
                 </script> -->
             </div>
         </section>
+        </div>
 
         <script th:inline="javascript">
             var infowindow = new naver.maps.InfoWindow();
@@ -420,4 +424,5 @@
                 });
             }, 2000);
         </script>
+
     </main>
