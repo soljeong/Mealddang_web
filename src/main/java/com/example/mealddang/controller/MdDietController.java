@@ -10,7 +10,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -61,7 +60,6 @@ public class MdDietController {
         today = startDate;
 
         model.addAttribute("startDate", startDate);
-        // 오늘 날짜 (변하지 않는거)
         model.addAttribute("today", today);
         
 
@@ -159,6 +157,35 @@ public class MdDietController {
         // 유저의 일주일치 섭취량 불러오기
         List<Float> user_diet = mdDietService.weekTotal(username);
         model.addAttribute("user_diet", user_diet);
+
+
+
+        // 주간 표
+        LocalDate today = LocalDate.now();
+        model.addAttribute("today", today);
+        LocalDate monday = today.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
+        model.addAttribute("monday", monday);
+
+
+        // 일주일 영양 정보 총합
+        List<MdNutResult> weeklyResults = mdNutResultRepository.findByMdUserAndDate(username, monday);
+        long totalKcal = 0;
+        long totalCarboG = 0;
+        long totalProteinG = 0;
+        long totalFatG = 0;
+        for (MdNutResult weeklyResult : weeklyResults){
+            if(weeklyResult.getCreatedDate()!=null && !weeklyResult.getCreatedDate().isBefore(monday) && !weeklyResult.getCreatedDate().isAfter(monday.plusDays(6))) {
+                Float kcal = weeklyResult.getKcal() != null ? weeklyResult.getKcal() : 0.0f;
+                totalKcal += kcal;
+                totalCarboG += weeklyResult.getCarboG() != null ? weeklyResult.getCarboG() : 0.0f;
+                totalProteinG += weeklyResult.getProteinG() != null ? weeklyResult.getProteinG() : 0.0f;
+                totalFatG += weeklyResult.getFatG() != null ? weeklyResult.getFatG() : 0.0f;
+            }
+        }
+        model.addAttribute("totalKcal", totalKcal);
+        model.addAttribute("totalCarboG", totalCarboG);
+        model.addAttribute("totalProteinG", totalProteinG);
+        model.addAttribute("totalFatG", totalFatG);
 
         return "diet/weeklyPage";
     }

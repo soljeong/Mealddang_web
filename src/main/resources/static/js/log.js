@@ -51,10 +51,13 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
+
 // 주간 이동 함수
 function moveWeek(weekOffset) {
+    var startDateFromURL = getQueryParam("startDate");
+    var startDate = new Date(startDateFromURL);
     // 현재 날짜 가져오기
-    var currentDate = new Date();
+    var currentDate = startDate;
 
     // 주간 오프셋 만큼 날짜 이동
     currentDate.setDate(currentDate.getDate() + (weekOffset * 7));
@@ -71,14 +74,20 @@ function moveWeek(weekOffset) {
 
     // 주간 이동에 따라 "저번주 내용" 또는 "다음주 내용"으로 변경
     var weekDescription = "";
-    if (weekOffset === -1) {
+    if (weekOffset < 0) {
+        // 이전 주일 경우
         weekDescription = "저번주 내용";
-    } else if (weekOffset === 1) {
+    } else if (weekOffset > 0) {
+        // 다음 주일 경우
         weekDescription = "다음주 내용";
     } else {
+        // 현재 주일 경우
         weekDescription = "이번주 내용";
     }
 }
+
+
+
 
 // URL에서 쿼리 매개변수를 추출하는 함수
 function getQueryParam(name) {
