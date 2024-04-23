@@ -58,10 +58,15 @@ spring:
     
     # 데이터베이스 (MySQL mealddang.db)
     datasource:
-        url: jdbc:mysql://3.38.213.167/mealddang
-        username: mealddang
-        password: alfEkd!!!
-        driver-class-name: com.mysql.cj.jdbc.Driver
+        url: jdbc:h2:~/mealddang
+        driver-class-name: org.h2.Driver
+        username: sa
+        password:
+    h2:
+        console:
+            enabled: true
+            path: /h2-console
+
     # DB connection 객체 만드는 애
     jpa:
         hibernate:
@@ -70,6 +75,7 @@ spring:
             hibernate:
                 '[show_sql]': true
                 '[format_sql]': true
+                dialect: org.hibernate.dialect.H2Dialect
     
     # View: Thymeleaf (1. 루트폴더 변경 2. 타임리프 캐시 설정 변경)
     thymeleaf:
